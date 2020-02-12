@@ -17,3 +17,41 @@
 
 // result is [code, framer, frame]
 
+function funWithAnagrams(text) {
+    let words = [];
+    for (let i = 0; i < text.length; ++i) {
+        if (neverAnagram(words, text[i])) {
+            // console.log("pushing", text[i]);
+            words.push(text[i]);
+        }
+    }
+
+    return words.sort();
+}
+
+function neverAnagram(array, word) {
+    for (let i = 0; i < array.length; ++i) {
+        if (isANagram(array[i], word)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+function isAnagram(original, word) {
+    if (original.length !== word.length) return false;
+    let hash = {};
+    original.split("").forEach(letter => {
+        if(hash[letter]) ++hash[letter];
+        else hash[letter] = 1;
+    });
+
+    const wordArray = word.split("");
+    for (let i = 0; i < wordArray.length; ++i) {
+        const letter = wordArray[i];
+        if (hash[letter] && hash[letter] > 0) --hash[letter];
+        else return false;
+    }
+
+    return Object.values(hash).filter(value => value > 0).length === 0;
+}
