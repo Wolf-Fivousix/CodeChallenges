@@ -25,12 +25,11 @@ function orderWeight(str) {
       power.push([computePower(weights[i]), i])
     }
     
+    // If the power is the same, use their String Index as the deciding sorting factor.
     power.sort((a, b) => a[0] === b[0] ? a[1] - b[1] : a[0] - b[0]);
 
     let result = [];
-    power.forEach(el => {
-      result.push(weights[el[1]]);
-    });
+    power.forEach(el => result.push(weights[el[1]]));
     
     return result.join(" ");
 }
@@ -39,3 +38,16 @@ function computePower(weightStr) {
   let values = weightStr.split("").map(el => Number(el));
   return values.reduce((acc, w) => acc + w);
 }
+
+
+// Top ranked solution.
+
+function orderWeight(strng) {
+    const sum = (str)=>str.split('').reduce((sum,el)=>(sum+(+el)),0);
+     function comp(a,b){
+       let sumA = sum(a);
+       let sumB = sum(b);
+       return sumA === sumB ? a.localeCompare(b) : sumA - sumB;
+      };
+    return strng.split(' ').sort(comp).join(' ');
+   }
