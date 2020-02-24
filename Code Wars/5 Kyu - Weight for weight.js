@@ -19,24 +19,18 @@ function orderWeight(str) {
     if (str.length === 0) return "";
     
     let weights = str.split(" ").sort();
-        
-    let power = [];
-    for (let i = 0; i < weights.length; ++i) {
-      power.push([computePower(weights[i]), i])
-    }
-    
+    let power = weights.map((el, i) => [computePower(weights[i]), i]); 
     // If the power is the same, use their String Index as the deciding sorting factor.
     power.sort((a, b) => a[0] === b[0] ? a[1] - b[1] : a[0] - b[0]);
 
-    let result = [];
-    power.forEach(el => result.push(weights[el[1]]));
-    
-    return result.join(" ");
+    return power.map(el => weights[el[1]]).join(" ");
 }
 
 function computePower(weightStr) {
-  let values = weightStr.split("").map(el => Number(el));
-  return values.reduce((acc, w) => acc + w);
+    return weightStr
+                .split("")
+                .map(el => Number(el))
+                .reduce((acc, w) => acc + w);
 }
 
 
