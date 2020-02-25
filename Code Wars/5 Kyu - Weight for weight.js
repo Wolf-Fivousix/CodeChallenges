@@ -19,7 +19,7 @@ function orderWeight(str) {
     if (str.length === 0) return "";
     
     let weights = str.split(" ").sort();
-    let power = weights.map((el, i) => [computePower(weights[i]), i]); 
+    let power = weights.map((el, i) => [computePower(el), i]); 
     // If the power is the same, use their String Index as the deciding sorting factor.
     power.sort((a, b) => a[0] === b[0] ? a[1] - b[1] : a[0] - b[0]);
 
