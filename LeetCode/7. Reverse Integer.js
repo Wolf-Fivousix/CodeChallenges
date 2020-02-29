@@ -39,3 +39,18 @@ let reverse = function(x) {
         
     return negative ? -flipped : flipped;
 };
+
+// String manipulation way of doing it. 
+// This solution assumes the system CAN hold numbers over the overflow limit, which might not be always the case.
+/**
+ * @param {number} x
+ * @return {number}
+ */
+var reverse = function(x) {
+    const max = Math.pow(2, 31) - 1
+    const min = Math.pow(-2, 31)
+    const sign = Math.sign(x)
+    const num = (x * sign).toString().split('').reverse().join('')
+    const result = Number(num) * sign
+    return result > min && result < max ? result : 0
+};
