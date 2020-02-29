@@ -25,9 +25,8 @@
  * @param {number[]} nums
  * @return {TreeNode}
  */
-var sortedArrayToBST = function(nums) {
+let sortedArrayToBST = function(nums) {
     if (nums.length === 0) return null;
-    console.log(nums);
     
     const middle = Math.floor(nums.length / 2);
     let root = new TreeNode(nums[middle]);
@@ -37,3 +36,6 @@ var sortedArrayToBST = function(nums) {
         
     return root;
 };
+
+// The solution is fine and intuitive, but it grows slower as N due to the slicing and recursing.
+// Possibly leading to a stack overflow with enough elements.
