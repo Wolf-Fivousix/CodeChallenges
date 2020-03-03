@@ -23,3 +23,13 @@ function cakes(recipe, available) {
     
     return cakes;
 }
+
+// There are some optimizations that can be done here, like assigning the recipe array once outside the loop itself, instead of using a counter,
+// using the ratio between ingredient needed and available.
+
+// This is the upmost voted solution. Pretty clever.
+function cakes(recipe, available) {
+    return Object.keys(recipe).reduce(function(val, ingredient) {
+      return Math.min(Math.floor(available[ingredient] / recipe[ingredient] || 0), val)
+    }, Infinity)  
+}
