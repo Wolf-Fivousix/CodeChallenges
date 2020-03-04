@@ -1,4 +1,58 @@
+// You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.
 
+// You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+
+// Example:
+
+// Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
+// Output: 7 -> 0 -> 8
+// Explanation: 342 + 465 = 807.
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
+ */
+let addTwoNumbers = function(l1, l2) {
+    let head = null;
+    let tail = head;
+    let flip = 0;
+    
+    while (l1 || l2 || flip) {
+        let sum = 0;
+        if (l1 && l2) sum = l1.val + l2.val + flip;
+        else if (l1) sum = l1.val + flip;
+        else if (l2) sum = l2.val + flip;
+        else sum = flip;
+        
+        if (l1) l1 = l1.next;
+        if (l2) l2 = l2.next;
+        
+        flip = 0;
+        if (sum >= 10) {
+            sum = sum % 10;
+            flip = 1;
+        }
+        
+        if (head) {
+            tail.next = new ListNode(sum);  
+            tail = tail.next;
+        } 
+        else {
+            head = new ListNode(sum);
+            tail = head;
+        }
+    }
+    
+    return head;
+};
 
 // This solution works until we explode the integer limits in JavaScript.
 let addTwoNumbers = function(l1, l2) {
