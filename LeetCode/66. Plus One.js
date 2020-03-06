@@ -20,11 +20,11 @@
  * @return {number[]}
  */
 function plusOne(digits) {
-    let flip = 0;
+    let flip = 1;
+
     for (let i = digits.length - 1; i > -1; --i) {
-        i === digits.length - 1 ? digits[i] += flip + 1 : digits[i] += flip;
-        
-        flip = Math.floor(digits[i] / 10);
+        digits[i] += flip;
+        flip = 0;
         
         if (digits[i] < 10) break;
         
