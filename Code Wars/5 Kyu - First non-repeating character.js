@@ -10,8 +10,7 @@ function firstNonRepeatingLetter(s) {
     let letters = {};
     for (let i = 0; i < s.length; ++i) {
       const char = s[i].toLowerCase();
-      if (letters[char]) letters[char].push(i);
-      else letters[char] = [i];
+      letters[char] ? letters[char].push(i) : letters[char] = [i];
     }
     
     let lowestIndex = Number.POSITIVE_INFINITY;
@@ -22,4 +21,13 @@ function firstNonRepeatingLetter(s) {
     });
     
     return lowestIndex < Number.POSITIVE_INFINITY ? s[lowestIndex] : "";
+}
+
+// Less efficient (O(N^2) compared to O(N)), but simpler solution from the community:
+function firstNonRepeatingLetter(s) {
+    var t=s.toLowerCase();
+    for (var x=0;x<t.length;x++)
+      if(t.indexOf(t[x]) === t.lastIndexOf(t[x]))
+        return s[x];
+    return "";
 }
