@@ -41,3 +41,23 @@ let lengthOfLongestSubstring = function(s) {
     
     return Math.max(maxSub, counter);
 };
+
+// A very efficient (time wise) solution from the community:
+// The key here is the nested for loop. It checks for repeated characters and when it finds it, moves the loop starting point forward. That`s "K".
+// This way, the second nested loop only runs for the most recent unique string. It is pretty much what my solution does.
+let lengthOfLongestSubstring = function(s) {
+    var k = 0;
+    var maxLength = 0;
+    for(i = 0; i < s.length; i++) {
+        for (j = k; j < i; j++) {
+            if (s[i] === s[j]) {
+                k = j + 1;
+                break;
+            }
+        }
+        if (i - k + 1 > maxLength) {
+            maxLength = i - k + 1;
+        }
+    }
+    return maxLength;
+}
