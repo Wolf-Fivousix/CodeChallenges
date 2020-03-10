@@ -28,12 +28,9 @@ let lengthOfLongestSubstring = function(s) {
     s.split("").forEach( l => {
         if (letters.includes(l)) {
             if (maxSub < counter) maxSub = counter;
-            while (letters[0] !== l) {
-                letters.shift();
-                --counter;
-            }
+            while (letters[0] !== l) letters.shift();
             letters.shift();
-            --counter;
+            counter = letters.length;
         }
         letters.push(l);
         ++counter;
