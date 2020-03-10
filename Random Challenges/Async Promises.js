@@ -7,3 +7,14 @@ function runAllPromises(inputList) {
             .fail(() => false);
     }
 }
+
+// Ok, let's start considering that we do not care about them being fired concurrently. Let's fire them in order, as each promise resolves.
+function runAllPromises(inputList) {
+    return new Promise((resolve, reject) => {
+        if (!inputList.length) return resolve(true);
+        else {
+            let promise = inputList.pop();
+            return promise();
+        }
+    });
+}
