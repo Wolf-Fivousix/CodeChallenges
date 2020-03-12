@@ -105,3 +105,72 @@ let intToRoman = function(num) {
     
     return roman;
 };
+
+// Similar approach from community, different better reading than my long switch statement:
+let intToRoman = (num, ans = []) => {
+    while (num >= 1000) ans.push('M'),     num -= 1000;
+    while (num >=  900) ans.push(...'CM'), num -= 900;
+    while (num >=  500) ans.push('D'),     num -= 500;
+    while (num >=  400) ans.push(...'CD'), num -= 400;
+    while (num >=  100) ans.push('C'),     num -= 100;
+    while (num >=   90) ans.push(...'XC'), num -= 90;
+    while (num >=   50) ans.push('L'),     num -= 50;
+    while (num >=   40) ans.push(...'XL'), num -= 40;
+    while (num >=   10) ans.push('X'),     num -= 10;
+    while (num >=    9) ans.push(...'IX'), num -= 9;
+    while (num >=    5) ans.push('V'),     num -= 5;
+    while (num >=    4) ans.push(...'IV'), num -= 4;
+    while (num >=    1) ans.push('I'),     num -= 1
+    return ans.join('');
+};
+
+// This one is a little bit more interesting and sclable:
+const mapping = [
+    [1000, 'M'], [900, 'CM'], [500, 'D'], [400, 'CD'], [100, 'C'], [90, 'XC'], [50, 'L'], [40, 'XL'], [10, 'X'], [9, 'IX'], [5, 'V'], [4, 'IV'], [1, 'I']
+];
+
+var intToRoman = function(num) {
+    let str = '';
+
+    for (let i = 0; i < mapping.length; i++) {
+        const [val, char] = mapping[i];
+
+        if (num >= val) {
+            while (num >= val) {
+                num -= val;
+                str += char;
+            }
+        }
+    }
+
+    return str;
+};
+
+// Another way of writing the same solution:
+var intToRoman = function(num) {
+    let map = new Map([
+        ['M',1000],
+        ['CM',900],
+        ['D',500],
+        ['CD',400],
+        ['C',100],
+        ['XC',90],
+        ['L',50],
+        ['XL',40],
+        ['X',10],
+        ['IX',9],
+        ['V',5],
+        ['IV',4],
+        ['I',1],
+    ]);
+    
+    let roman = [];
+    
+    for(let [k, v] of map) {
+        for (i=0; i < Math.floor(num / v); i++) roman.push(k);
+        num %= v;
+    }
+    
+    return roman.join('');
+};
+
