@@ -1,5 +1,6 @@
 // Given an array of promises, return a solved promise if and only if all the promises are successful.
 // All promises must be fired at the same time and all of them need to be executed before the function returns.
+// This problem is basically a variation of implementing Promise.allSettled() method.
 
 function runAllPromises(inputList) {
     return new Promise( ()=> {
@@ -35,3 +36,4 @@ runAllPromises([promise1, promise2, promise3])
     console.log(values);
   });
 // expected output: 2x Array [3, 42, "foo"]
+
