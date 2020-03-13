@@ -38,15 +38,20 @@ function minTime(boxes) {
     const topFloor = boxes.length;
     let minutes = 0;
     let max = boxes.reduce((a, b) => Math.max(a, b));
-
     while (max > 0) {
         const targetFloor = boxes.indexOf(max);
-        minutes += topFloor - targetFloor;
-        for (let i = topFloor - 1; i >= targetFloor; --i) {
-            if (boxes[i]) minutes += 1, --boxes[i];
+        if (!targetFloor) {
+            minutes += (topFloor - targetFloor) * max;
+            minutes += boxes.reduce((sum, el) => sum += el, 0);
+            break;
+        }
+        else {
+            minutes += topFloor - targetFloor;
+            for (let i = topFloor - 1; i >= targetFloor; --i) {
+                if (boxes[i]) minutes += 1, --boxes[i];
+            }
         }
         max = boxes.reduce((a, b) => Math.max(a, b));
     }
-    
     return minutes;
 }
