@@ -41,15 +41,26 @@
  *  2. INTEGER_ARRAY lower
  *  3. INTEGER_ARRAY upper
  */
+
+// Solution passes 8 of 13 test cases. Then times out.
+// Needs further improvement.
+
 function howManyPalindromes(s, lower, upper) {
     let palindromes = allPalindromes(s);
+    let sizes = {};
+    palindromes.forEach( pali => {
+        let size = pali.length;
+        if (sizes[size]) ++sizes[size];
+        else sizes[size] = 1;
+    });
     // console.log(palindromes);
     let results = [];
     for (let i = 0; i < lower.length; ++i) {
         let targetLength = lower[i];
         let total = 0;
         while (targetLength <= upper[i]) {
-            total += palindromes.filter( el => el.length === targetLength).length;
+            // total += palindromes.filter( el => el.length === targetLength).length;
+            if (sizes[targetLength]) total += sizes[targetLength];
             ++targetLength;
         }
         results.push(total);
