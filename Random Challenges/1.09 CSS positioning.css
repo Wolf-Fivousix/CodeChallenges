@@ -1,0 +1,50 @@
+/* FrontEnd Challange
+========================================
+Write CSS that positions the following content in the following layout :
+https://gist.github.com/jam-odoo/0c0b9c8746bc5c3a8eabfeb0f6c17b73
+The ASCII edges represent the edges of the document (not the viewport!). They are purely informational, there should be no visible borders in your CSS.
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+  <div class="header">
+        header at top
+  </div>
+  <div class="content-wrapper">
+  <div class="content-right">
+        right content on right sode
+  </div>
+  <div class="content-left">
+        left content on left side
+  </div>
+  </div>
+  <div class="footer">
+        footer in the bottom
+  </div>
+</body>
+</html> */
+
+/* The best approach here is to wrapp the content to arranged and style based on that. As that makes further changes much easier. */
+/* The wrapper div "content-wrapper" was added by me in order to make Flexbox work. */
+.header,
+.footer {
+text-align: center;
+}
+.content-wrapper {
+display: flex;
+justify-content: space-between;
+}
+.footer {
+margin-top: 200px;
+}
+
+/* - Using flex with order property to swap the left and right content blocks. */
+.content-wrapper {
+    flex-direction: row-reverse;
+}
+
+/* - Setting the content divs to inline-block so that they stack beside each other instead of starting at a new line */
+.content-wrapper {
+    flex-flow: column;
+}
