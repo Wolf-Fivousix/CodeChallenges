@@ -1,0 +1,67 @@
+-- A restaurant is visited by various
+-- customers during a day. At the same
+-- time, the restaurant is advertising to
+-- increase customer revenue. Write an
+-- SQL query to compute the moving
+-- average of how much customers
+-- spent over a window of 7 days
+-- (current day and 6 days before) to
+-- analyze their business growth. The
+-- output should contain three columns
+-- {visited_on, amount, avg_amount(avg
+-- over 7 days)}
+-- Schema
+-- Sample Data Tables
+-- CUSTOMER
+-- id name phone
+-- 1 Julia 1234567890
+-- 2 Samantha 1234567890
+-- 3 Julia-Samantha 1234567890
+-- Sample Output
+-- 2015-05-01 100 100
+-- 2015-05-02 200 150
+-- 2015-05-03 300 200
+-- Explanation
+-- Row 1 : On May 1, Julia visited and
+-- spent 100. avg_amount = 100/1
+-- Row 2 : On May 2, Samantha
+-- visited and spent 200. avg_amount
+-- = (100+200)/2 = 150
+-- Row 3 : On May 3, they both
+-- visited and spent 300. avg_amount
+-- = (100+200+300)/3 = 200
+
+SELECT visited_on, amount, SUM(amount) OVER (PARTITION BY visited_on ORDER BY visited_on) AS week
+FROM customers
+
+-- Expected Output:
+-- 2019-05-01 100 100.0000
+-- 2019-05-02 500 300.0000
+-- 2019-05-03 100 233.3333
+-- 2019-05-04 200 225.0000
+-- 2019-05-05 100 200.0000
+-- 2019-05-06 200 200.0000
+-- 2019-05-07 300 214.2857
+-- 2019-05-08 100 214.2857
+-- 2019-05-09 200 171.4286
+-- 2019-05-10 100 171.4286
+-- 2019-05-11 100 157.1429
+-- 2019-05-12 100 157.1429
+-- 2019-05-13 700 228.5714
+-- 2019-05-14 100 200.0000
+-- 2019-05-15 100 200.0000
+-- 2019-05-16 100 185.7143
+-- 2019-05-17 100 185.7143
+-- 2019-05-18 100 185.7143
+-- 2019-05-19 100 185.7143
+-- 2019-05-20 100 100.0000
+-- 2019-05-21 200 114.2857
+-- 2019-05-22 100 114.2857
+-- 2019-05-23 100 114.2857
+-- 2019-05-24 100 114.2857
+-- 2019-05-25 200 128.5714
+-- 2019-05-26 100 128.5714
+-- 2019-05-27 100 128.5714
+-- 2019-05-28 200 128.5714
+-- 2019-05-29 100 128.5714
+-- 2019-05-30 300 157.1429
