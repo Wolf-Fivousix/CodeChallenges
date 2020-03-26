@@ -4,9 +4,11 @@
 // domainName("http://www.zombie-bites.com") == "zombie-bites"
 // domainName("https://www.cnet.com") == "cnet"
 
-function domainName(url){
-    return url.match(/\/\/(www.)?.+?\./);
-}
+// First match is looking for the "//" of the address, with "www." being optional. It works for most cases, except if
+//the address does not have it, in which case match returns null. I leverage that for a second match this time, without bars.
+//The "www." still optional, as it could be either www.xxxx.com or xxxxx.com .
 
-// This is currently grabbing the information desired, plus some extras, like the // and the following .
-// Now I need to find a way to keep them in the search, but remove them from the return value.
+function domainName(url){
+    const slash = url.match(/\/\/(www.)?(.+?)\./);
+    return slash ? slash[2] : url.match(/(www.)?(.+?)\./)[2];
+}
