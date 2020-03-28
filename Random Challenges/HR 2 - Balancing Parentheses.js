@@ -23,6 +23,7 @@
 // 1 ≤ length of s ≤ 10 5
 
 // FIRST TEST
+// This solutions fails for a simple reason: ")(" would be considered balanced with 0 changes, but in fact we need to add 2 paraentheses to make it work.
 function getMin(s) {
     let [open, close] = [0, 0];
     s.split("").forEach(char => {
@@ -30,4 +31,16 @@ function getMin(s) {
     });
     console.log(open, close);
     return open > close ? open - close : close - open;
+}
+
+function getMin(s) {
+    let opener = 0;
+    let closer = 0;
+
+    s.split("").forEach(char => {
+        if (char === "(") ++opener;
+        else opener > 0 ? --opener : ++closer;
+    });
+    
+    return closer + opener;
 }
