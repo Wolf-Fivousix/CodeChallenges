@@ -30,3 +30,30 @@ function maxArea(heights) {
 function calculateArea(heights, i, j) {
     return (j - i) * Math.min(heights[i], heights[j]);
 }
+
+// This first approach is a pure bruteforce. It gets the job done, but we are doing a lot of computation.
+// The nested loop also forces us into a Polynomial Time Complexity. Not good, not good at all! Let's do better.
+
+/**
+ * @param {number[]} height
+ * @return {number}
+ */
+function maxArea(heights) {
+    let maximum = 0;
+    let currentArea = 0;
+    let leftPilar = 0;
+    let rightPilar = heights.length - 1;
+    
+    while (leftPilar < rightPilar) {
+        currentArea = (rightPilar - leftPilar) * Math.min(heights[leftPilar], heights[rightPilar]);
+        if (maximum < currentArea) maximum = currentArea;
+        
+        heights[leftPilar] < heights[rightPilar] ? ++leftPilar : --rightPilar;
+    }
+    
+    return maximum;
+};
+
+// Now we have a proper Linear Time Complexity.
+// Here is how this works: We start at the boundaries of the array, our largest width and calculate the area.
+// Then we pick the smalest pilar and move it inward. We do so that there is a chance for finding a taller pilar that will make up for the lost width;
