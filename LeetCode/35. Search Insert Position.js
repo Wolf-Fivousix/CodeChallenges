@@ -41,3 +41,27 @@ var searchInsert = function(nums, target) {
 
 // This is basically a binary insert, except that when the target is not found, we need to return a valid index, instead of -1.
 // That is achieved by simply returning 0 when the element is not found. Which would be the index desired.
+
+// This community solution by "RT42" does not use recursion and array slicing:
+var searchInsert = function(nums, target) {
+    if(nums === null) {
+        return -1;
+    }
+    
+    left = 0;
+    right = nums.length-1;
+    while(left <= right) {
+        mid = Math.floor((left+right)/2);
+        if(nums[mid] === target) {
+            return mid;
+        }
+        else if(target < nums[mid]) {
+            right = mid - 1;
+        }
+        else{
+            left = mid + 1;
+        }
+    }
+    
+    return left;
+};
