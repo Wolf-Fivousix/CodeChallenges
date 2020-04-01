@@ -65,13 +65,47 @@ Your solution goes after this
     // For each key, if it greater than maxKey, save this greater key. (as long as ammount left)
 // Push the key and value/size to the array.
 
- 'Scale-Up! The Business Game': 35.0,
-   'Scale-Up! The Business Game': {
-       '16 x 16 x 16': 7.0,
-       '10 x 8 x 6': 3.0,
-       '23 x 17 x 12': 14.0,
+//  'Scale-Up! The Business Game': 35.0,
+//    'Scale-Up! The Business Game': {
+//        '16 x 16 x 16': 7.0,
+//        '10 x 8 x 6': 3.0,
+//        '23 x 17 x 12': 14.0,
        
-[23, 23, 16]
-35 - 14 = 21
-21 - 14 = 7
-7 - 7 = 0
+// [23, 23, 16]
+// 35 - 14 = 21
+// 21 - 14 = 7
+// 7 - 7 = 0
+
+function packageOrder(products, orders) {
+    let packageOrders = {};
+    const orderObject = Object.keys(orders);
+    orderObject.forEach(order => {
+        let resultOrders = {};
+        const productOrders = Object.key(order);
+        productOrders.forEach( product => 
+             resultOrders[product] = packagingFunction(product, orders[order][product]);
+        );
+        packageOrders[order] = resultOrders;
+    });
+    return packageOrders;
+}
+
+function packagingFunction(key, N) {
+    let maxKey = "";
+    let maxValue = 0;
+    let boxesArray = [];
+    while (N > 0) {
+        cost boxes = Object.keys(key);
+        boxes.forEach(box => {
+            if (key[box] > maxValue && key[box] <= N) {
+                maxKey = key;
+                maxValue = key[box];
+                }
+            });
+            boxesArray.push(`(${key}, ${key[maxKey]})`);
+        }
+    return boxesArray;
+}
+
+// Ran out of time. There are some issues here. The keying into each hash is probably wrong.
+// The output is not formated correctly. I did it super quickly on the very end. Not everything should be a string.
