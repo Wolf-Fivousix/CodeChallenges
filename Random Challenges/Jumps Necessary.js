@@ -56,5 +56,42 @@ function minJumps (arr){
 }
 
 ////////////////////////////////////////////////////////////////
-//// Kevin proposed solution:
+//// My solution:
 ////////////////////////////////////////////////////////////////
+// I'll consider that there are no negative nor 0's in the array.
+
+// We start at the first element and move towards the last element.
+// Start with 0 jumps.
+// Start index at 0.
+// Iterate through the array until the index is arr.length - 1 (last element).
+    // Best move is unknown.
+    // Iterate through the "window" provided by the value in the current index.
+        // Find the best move option. (value + it's own index)
+        // If the current best move hits the target (or pass it) we can return early with jumps + 1
+    // Update the index with the best move.
+    // Update Jumps +1.
+// Return jumps.
+
+function minJumpsMe(array) {
+    let jumps = 0;
+    let index = 0;
+    while (index < array.length - 1) {
+        let bestMove = index + 1; // Only because we know it is non-zero and non-negative.
+        for (let i = index + 1; i <= index + array[index] && i < array.length; ++i) {
+            if (array[i] + i > bestMove) bestMove = i;
+            if (bestMove >= array.length - 1) return jumps + 1;
+        }
+        index = bestMove;
+        ++jumps;
+    }
+
+    return jumps;
+}
+
+// [1,2,3,1,1] => 1>2, 2>3, 3>1     3 jumps.
+// [3, 4, 2, 1, 2, 3, 7, 1, 1, 1, 3]    4 jumps.
+
+console.log(minJumpsMe([1,2,3,1,1]) === 3);
+console.log(minJumpsMe([3, 4, 2, 1, 2, 3, 7, 1, 1, 1, 3]) === 4);
+console.log(minJumpsMe([15]) === 0);
+console.log(minJumpsMe([15, 3]) === 1);
