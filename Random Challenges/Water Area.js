@@ -22,11 +22,12 @@
 // h = 1  
 // area = 0
 
+
 // two pointers.
 // one at 0, one at length - 1.
 // Iterate through array, check each element, update pointers and add water to area.
-
-function waterArea(array) {
+// This solution does NOT work. it only works if the pilars increase as we move inwards. See array1 example.
+function waterArea1(array) {
   let leftWall = 0;
   let rightWall = array.length - 1;
 
@@ -59,24 +60,20 @@ function waterArea(array) {
   return water;
 }
 
-// This solution does not work. it only works if the pilars increase as we move inwards. See array1 example.
+
 const array1 = [0, 8, 0, 0, 5, 0, 0, 10, 0,  0,   1,  1,  0,  3];
 const array2 = [0, 0, 0, 0, 3, 0, 0, 0];
 const array3 = [1, 0, 3, 0, 5, 0, 0];
 const array4 = [2, 0, 2];
 
-console.log(waterArea([]) === 0);
-console.log(waterArea(array1) === 48);
-console.log(waterArea(array2) === 0);
-console.log(waterArea(array3) === 4);
-console.log(waterArea(array4) === 2);
+// console.log(waterArea1([]) === 0);
+// console.log(waterArea1(array1) === 48);
+// console.log(waterArea1(array2) === 0);
+// console.log(waterArea1(array3) === 4);
+// console.log(waterArea1(array4) === 2);
 
 
-
-
-
-
-
+// Ben's directed solution.
 // area at current index = Math.min(tallest left wall, tallest right wall) - value at current index
 // create 2 arrays to store tallest left wall and tallest right wall
   // initialize an array of same length as input array, filled with 0 (call it leftMax)
@@ -97,3 +94,39 @@ console.log(waterArea(array4) === 2);
   // calculate water area
     // current water area = Math.min(leftMax[i], rightMax[i]) - input[i]
 // return sum of area array
+
+// My own words translation:
+// Build two arrays: One has the maximum value for the left most element. The other the right most element.
+// Iterate through the original array a 3rd time and grab the minimum between both arrays, minus the height of the current element.
+// Add that water area.
+
+function waterArea2(array) {
+  const leftWalls = [];
+  let bigWall = 0;
+  for (let i = 0; i < array.length; ++i) {
+    if (array[i] > bigWall) bigWall = array[i];
+    leftWalls.push(bigWall);
+  }
+
+  const rightWalls = [];
+  bigWall = 0;
+  for (let i = array.length - 1; i >= 0; --i) {
+    if (array[i] > bigWall) bigWall = array[i];
+    rightWalls.unshift(bigWall);
+  }
+  // console.log(leftWalls);
+  // console.log(rightWalls);
+  
+  let water = 0;
+  array.forEach((wall, index) => {
+    water += Math.min(leftWalls[index], rightWalls[index]) - wall;
+  });
+
+  return water;
+}
+
+console.log(waterArea2([]) === 0);
+console.log(waterArea2(array1) === 48);
+console.log(waterArea2(array2) === 0);
+console.log(waterArea2(array3) === 4);
+console.log(waterArea2(array4) === 2);
