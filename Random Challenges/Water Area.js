@@ -100,6 +100,7 @@ const array4 = [2, 0, 2];
 // Iterate through the original array a 3rd time and grab the minimum between both arrays, minus the height of the current element.
 // Add that water area.
 
+// This solution is not bad, still linear time, but expensive with space 2x N. 
 function waterArea2(array) {
   const leftWalls = [];
   let bigWall = 0;
@@ -125,8 +126,40 @@ function waterArea2(array) {
   return water;
 }
 
-console.log(waterArea2([]) === 0);
-console.log(waterArea2(array1) === 48);
-console.log(waterArea2(array2) === 0);
-console.log(waterArea2(array3) === 4);
-console.log(waterArea2(array4) === 2);
+// console.log(waterArea2([]) === 0);
+// console.log(waterArea2(array1) === 48);
+// console.log(waterArea2(array2) === 0);
+// console.log(waterArea2(array3) === 4);
+// console.log(waterArea2(array4) === 2);
+
+// Let's make it better by using only one array.
+// We make the left heighest wall like before, and then come back and update it with the right heighest wall.
+// That also saves us multiple calls to Math.min.
+// Final is linear time (with 3xN) with linear space.
+function waterArea3(array) {
+  const maxHeight = [];
+  let bigWall = 0;
+  for (let i = 0; i < array.length; ++i) {
+    if (array[i] > bigWall) bigWall = array[i];
+    maxHeight.push(bigWall);
+  }
+
+  bigWall = array[array.length - 1];
+  for (let i = maxHeight.length - 1; i >= 0; --i) {
+    if (bigWall < array[i]) bigWall = array[i];
+    if (bigWall < maxHeight[i]) maxHeight[i] = bigWall;
+  }
+  
+  let water = 0;
+  array.forEach((wall, index) => {
+    water += maxHeight[index] - wall;
+  });
+
+  return water;
+}
+
+console.log(waterArea3([]) === 0);
+console.log(waterArea3(array1) === 48);
+console.log(waterArea3(array2) === 0);
+console.log(waterArea3(array3) === 4);
+console.log(waterArea3(array4) === 2);
