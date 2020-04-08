@@ -1,0 +1,10 @@
+Problem #1
+
+function modifyDirection
+line 240 Is some kind of string manipulation or even a check to see if the Order is correctly formated.
+
+Problem #2
+
+DotDict is a class that holds dictionary words.
+__getattr__ is responsible for validating entries in the class. If the attribute in the class is valid, it return a object of the DotDict class.
+Otherwise, it returns the plain value.
