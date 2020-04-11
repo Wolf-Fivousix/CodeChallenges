@@ -63,3 +63,22 @@ function isPossible(a, b, c, d) {
 // Yes
 
 // I'm still missing the key case here. Which is considering all variations of combinations.
+
+function isPossible2(a, b, c, d) {
+    if (c < a || d < b) return "No";
+    if (a === c && b === d) return "Yes";
+
+    if (possibilityTree(a, b, c, d)) return "Yes";
+    return "No";
+}
+
+function possibilityTree(a, b, c, d) {
+    if (a > c || b > d) return false;
+    if (a === c && b === d) return true;
+
+    if (possibilityTree(a + b, b, c, d) || possibilityTree(a, b + a, c, d)) return true;
+
+    return false
+}
+
+console.log(isPossible2(1, 4, 62, 45));
