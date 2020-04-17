@@ -80,3 +80,28 @@ function deleteDuplicates(head) {
 // Making it a Linear Time Complexity. O(n).
 // I think we can still do better. What if we can just delete the elements from the original list?
 
+// Important Detail: The list is SORTED. That means we can do much better.
+function deleteDuplicates(head) {
+    if (!head) return null;
+    
+    let previous = head;
+    let current = head.next;
+    
+    while (current) {
+        if (previous.val === current.val) {
+            previous.next = current.next;
+            current = current.next;
+        }
+        else {
+            previous = current;
+            current = current.next;
+        }
+    }
+    
+    return head;
+};
+
+// Now, this is more like a final solution.
+// We only traverse the list once. Leverage the "sorted" characteristic of the list and just keep track of
+// the most recent value. Because we are modifiying the original list, we don't even need to use extra space.
+// Linear Time Complexity with Constant Space Complexity.
