@@ -44,3 +44,6 @@ function minDepth(root) {
         queue = children;
     }
 };
+
+// Something here makes no sense. Supposedly the Depth is the number of nodes between the root and the closest leaf node.
+// For some reason, though, the test cases are not passing.
