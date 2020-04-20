@@ -106,3 +106,17 @@ function twoSum(numbers, target) {
         else --right;
     }
 };
+
+// Community solution:
+// This is another way of solving this problem at O(n), but using more memory.
+// This would be a good approach if the array was NOT sorted.
+var twoSum = function(nums, target) {
+    var map = {};
+    for(var i = 0; i<nums.length; i++){
+        var reminder = target - nums[i];
+        if(reminder in map){
+            return [map[reminder]+1, i+1]
+        }
+        map[nums[i]] = i;
+    }
+};
