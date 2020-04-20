@@ -25,3 +25,7 @@ function twoSum(numbers, target) {
     }
     return null;
 };
+
+// This is a brute force approach, nothing fantastic, but gets the job done. Albeit poorly, Polynomial Time Complexity O(N^2)
+
+// I think we can do better. How can we leverage the sorted array to our purposes?
