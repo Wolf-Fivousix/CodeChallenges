@@ -40,3 +40,51 @@ function twoSum(numbers, target) {
     }
     return null;
 };
+
+// Now, that is nice, but in the worse case scenario, when our Target is high and the return values are at the very end of the array.
+// It does not give as a performance improvement. It remains at Polynomial. Can we do better?
+// Could we leverage a Binary Search to find the element we are looking for?
+// Would that give us any improvement? Cerntainly! Even if we BS for every element, we would drop from N^2 to N Log N. A remarkable improvement!
+
+// We have 2 limitations that needs to be taken into consideration for our Binary Search algorithm:
+// The pair needs to have different indexes, like [2,3,4], 6. The answer is 2 and 4, not 3 and 3.
+// We could do this:
+function twoSum(numbers, target) {
+    for (let i = 0; i < numbers.length - 1; ++i) {
+        const second = binarySearch(numbers, target - numbers[i], i);
+        if (second === -1) continue;
+        
+        return [i + 1, second + 1];
+    }
+};
+
+function binarySearch(array, target, forbiddenIndex) {
+    if (!array.length) return -1;
+    const middle = Math.floor(array.length/2);
+    
+    if (array[middle] === target && middle !== forbiddenIndex) return middle;
+
+    if (target < array[middle]) return binarySearch(array.slice(0, middle), target);
+    else {
+        const found = binarySearch(array.slice(middle + 1), target);
+        return found === -1 ? -1 : middle + 1 + found;
+    }
+}
+
+// But, because slicing the array would be inneficient, we have do it iteractively:
+
+function binarySearch(array, target, forbiddenIndex) {
+    let start = 0;
+    let end = array.length - 1;
+
+    while (start <= end) {
+        const middle = Math.floor((start + end) / 2);
+        const currentValue = array[middle];
+        if (currentValue === target && middle !== forbiddenIndex) return middle;
+        
+        if (target < currentValue) end = middle - 1;
+        else start = middle + 1;
+    }
+    
+    return -1;
+}
