@@ -88,3 +88,21 @@ function binarySearch(array, target, forbiddenIndex) {
     
     return -1;
 }
+
+// That is all great, but I ended up over engineering it.
+// There is a much simpler and more intuitive way for us to leverage the sorted array.
+// With two pointers, one in each side, we can move them based on the total sum.
+// Now that makes for a Linear Complexity at worse, O (N).
+function twoSum(numbers, target) {
+    let left = 0;
+    let right = numbers.length - 1;
+    let sum = 0;
+    
+    while (left < right) {
+        sum = numbers[left] + numbers[right];
+        if (sum === target) return [left + 1, right + 1];
+        
+        if (sum < target) ++left;
+        else --right;
+    }
+};
