@@ -29,3 +29,14 @@ function twoSum(numbers, target) {
 // This is a brute force approach, nothing fantastic, but gets the job done. Albeit poorly, Polynomial Time Complexity O(N^2)
 
 // I think we can do better. How can we leverage the sorted array to our purposes?
+// Yes! Let's do it in a naive way. We know that if I + J is greater than our Target, EVERYTHING after J will not hit our target.
+// So we can stop our second loop earlier, achieving a much better run time.
+
+function twoSum(numbers, target) {
+    for (let i = 0; i < numbers.length - 1; ++i) {
+        for (let j = i + 1; j < numbers.length && numbers[i] + numbers[j] <= target; ++j) {
+            if(numbers[i] + numbers[j] === target) return [i + 1, j + 1];
+        }   
+    }
+    return null;
+};
