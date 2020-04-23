@@ -49,29 +49,36 @@
 
 
 
-function decomposeAndSimplify(originalString) {
-    let deco = decompose(originalString);
-    let result = "";
+/**
+ * @param {string} S
+ * @return {string}
+ */
 
+function removeOuterParentheses(S) {
+    
+    let deco = decompose(S);
+    let result = "";
+    
     for (let i = 0; i < deco.length; ++i) {
         result += simplify(deco[i]);
     }
 
     return result;
-}
+};
 
 function decompose(string) {
     let result = [];
-    let counter = 1;
-
-    for (let i = 1; i < string.length; ++i) {
+    let counter = 0;
+    let start = 0;
+    
+    for (let i = 0; i < string.length; ++i) {
         if (string[i] === "(") ++counter;
         else --counter;
-
+        
         if (!counter) {
-            result.push(string.splice(0, i + 1));      // Assume my splice call is working as intended.
-            i = 0;
-            counter = 1;
+            result.push(string.substring(start, i + 1));
+            start = i + 1;
+            counter = 0;
         }
     }
 
@@ -79,21 +86,5 @@ function decompose(string) {
 }
 
 function simplify(string) {
-    return string.slice(1, -1);       // "(xxxxxxx) => xxxxxxxx
-    // Possible change in case splice dont work on string.
-    return string.split("").splice(1, string.length - 1).join("");
+    return string.slice(1, -1);
 }
-
-// "()(())"    => ["()", "(())"]
-
-// string (input) => "(())"
-// result = ["()", "(())"]
-// counter = 0
-
-// i = 5
-// string[i] = ")"
-
-// deco = ["()", "(())"]
-// result = "()"
-// "()" => Simplify => ""
-// "(())" => simplify => "()"
