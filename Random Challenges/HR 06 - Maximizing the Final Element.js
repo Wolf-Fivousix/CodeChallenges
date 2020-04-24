@@ -68,12 +68,13 @@ function getHeight(arr) {
         // While Sorted Array length > Current INDEX (our current element) AND difference is great than 2
             // Pop the last element of array and reduce it until Answer Array, last element, +1.
     // Return Answer Array last Element value.
-    console.log("Input: ", arr);
+
+    // console.log("Input: ", arr);
     let sorted = arr.sort((a, b) => a - b);
-    console.log("Sorted: ", sorted);
+    // console.log("Sorted: ", sorted);
     let answerArray = [];
     let repeats = getRepeats(sorted);
-    console.log("Repeats ", repeats);
+    // console.log("Repeats ", repeats);
     if (sorted[0] !== 1) {
         repeats.length ? repeats.shift() : sorted.pop();
         answerArray.push(1);
@@ -83,7 +84,7 @@ function getHeight(arr) {
     }
 
     for (let i = 0; i < sorted.length; ++i) {
-        console.log(answerArray, " --- ", sorted[i], " ---- ", repeats);
+        // console.log(answerArray, " --- ", sorted[i], " ---- ", repeats);
 
         if (sorted[i] - answerArray[answerArray.length - 1] <= 1) answerArray.push(sorted[i]);
         else {
@@ -97,7 +98,7 @@ function getHeight(arr) {
             }
         }
     }
-    console.log("answerArray: ", answerArray);
+    // console.log("answerArray: ", answerArray);
     return answerArray[answerArray.length - 1];
 }
 function getRepeats(array) {
@@ -120,3 +121,4 @@ console.log(getHeight([ 3, 2, 3, 5 ]) === 4);
 console.log(getHeight([ 15, 9, 1, 5, 15, 3, 3, 4, 6, 9 ]) === 10);
 
 // This solution is clearly not concise, but is working for this simpler test cases.
+// 4 / 15 Test Cases. Meaning even though it works on the more simple inputs. It is not passing edge cases.
