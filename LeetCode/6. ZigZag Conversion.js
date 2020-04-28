@@ -79,3 +79,5 @@ function convert(s, numRows) {
 // Memory Usage: 38.8 MB, less than 77.78% of JavaScript online submissions for ZigZag Conversion.
 
 // Solution is Linear Time Complexity with Linear Space Complexity.
+
+// Another way of solving it, somewhat verbose, here: https://leetcode.com/problems/zigzag-conversion/discuss/416860/5-Line-JavaScript-Solution
