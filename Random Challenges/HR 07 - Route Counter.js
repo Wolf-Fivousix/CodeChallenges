@@ -146,3 +146,37 @@ print(getRoads(b,0,ff,[b[0]])) #2
 print(getRoads(a, 0, f, [a[0]])) #3
 print(getRoads(c, 0, fff, [c[0]]))  # 6
 */
+
+// My conversion to JS - This did not work. Probably some difference between the languages.
+// function countRoutes(array, index, fuel, visit) {
+//     let counter = 0;
+//     let n = array.length;
+
+//     let visited = visit.slice();
+
+//     if (index === n - 1 || fuel === 0) return 1;
+//     else {
+//         let pointer = index + 1;
+
+//         while (pointer < n) {
+//             let difference = array[index] - array[pointer];
+//             difference = difference < 0 ? -difference : difference;
+
+//             if (difference <= fuel && !visited.includes(array[pointer])) {
+//                 visited.push(array[pointer]);
+
+//                 let newFuel = fuel - difference;
+
+//                 counter += countRoutes(array, pointer, newFuel, visited);
+//                 visited.slice(array.indexOf(array[pointer]), 1);
+//             }
+
+//             ++pointer;
+//         }
+
+//         return counter === 0 ? 1 : counter;
+//     }
+// }
+
+// console.log(countRoutes([2, 6, 2, 3, 4, 8], 5, 0, [2]) === 3);
+// console.log(countRoutes([1, 3, 6, 4], 3, 0, [1]) === 2);
