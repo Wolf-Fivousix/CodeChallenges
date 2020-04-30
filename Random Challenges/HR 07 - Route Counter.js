@@ -104,3 +104,45 @@ console.log(countRoutes(3, [1, 3, 6, 4]) === 2);
 console.log(countRoutes(4, [10, 14, 18, 19, 12, 12 ,17 ,20 ,5, 15]) === 3);
 console.log(countRoutes(7, [14, 19, 1, 10, 2, 14, 14, 13, 12, 13]) === 8);
 console.log(countRoutes(8, [16, 17, 8, 8, 6, 7, 10, 2, 1, 4, 4, 20, 6, 13, 19, 3, 15, 4, 9, 6, 8, 7, 12, 10, 2, 13, 16, 5, 9, 13, 12, 16, 10, 12, 3, 7, 10, 13, 8, 3, 8, 3, 2, 5, 7, 12, 20, 1, 15, 20, 19, 15, 6, 10, 4, 20, 14, 20, 16]) === 1685);
+
+
+// Bob's solution in Python:
+/*
+def getRoads(array, idx, fuel, visit):
+    counter = 0
+    n = len(array)
+    
+    visited = visit
+​
+    if( idx==(n-1) or fuel == 0):
+        return 1
+​
+    else:
+        pointer = idx+1
+        while(pointer<n):
+            if(abs(array[idx]-array[pointer])<=fuel and not(array[pointer] in visited) ):
+                visited.append(array[pointer])
+​
+                newFuel = fuel - (abs(array[idx]-array[pointer]))
+                counter += getRoads(array,pointer,newFuel, visited)
+​
+                visited.remove(array[pointer])
+​
+            pointer +=1
+        
+        if counter == 0:
+            return 1
+        else:
+            return counter
+​
+a = [2,6,2,3,4,8]
+f = 5
+b = [1,3,6,4]
+ff = 3
+c = [1,3,6,2,4]
+fff = 7 
+​
+print(getRoads(b,0,ff,[b[0]])) #2
+print(getRoads(a, 0, f, [a[0]])) #3
+print(getRoads(c, 0, fff, [c[0]]))  # 6
+*/
