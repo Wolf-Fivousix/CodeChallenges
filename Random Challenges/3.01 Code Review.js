@@ -1,0 +1,94 @@
+// Follow good commit standards.
+// Use imperative voice, make sure people can understand what your commit is doing.
+// Take a look at closing notes for the commit.
+/*
+* Commit message: reset password
+*/
+// This file is probably better named as userModel.js
+diff --git a/models.js b/models.js
+index ede6fcd..a49db81 100644
+--- a/models.js
++++ b/models.js
+@@ -4,7 +4,10 @@
+ class User extends Model {
+   constructor(obj) {
+     super(obj);
+    //  make sure to finish your statements with semi-colon. (;)
+    // This model variables don't look quite right.
+     this.username = models.CharField({len: 255})
+    //  make sure we dont save raw passwords.
+     this.password = models.CharField({len: 255})
+    //  We probably don't need 255 characters for an e-mail.
+     this.email = models.CharField({len: 255})
+    //  What happens if there is no white spaces in the fullName?
+-    this.fullName = models.CharField({len: 255})
++    this.fullName = models.CharField({len: 255, allowNull: true})
+    // Why are we allowing null for name? Other potions of the code rely on
+    // a existing name. If name is null, things will break.
+    // Take a look at a validation libreary, like Validator.
+   }
++     
++  getFirstName() {
++    return this.fullName.split(' ')[0];
++  }
+//  Same thing as previous file. Use better naming for your files.
+// Something like testForUser.js, something like that.
+diff --git a/tests.js b/tests.js
+index 3939186..fa6c256 100644
+--- a/tests.js
++++ b/tests.js
+@@ -8,3 +8,8 @@ const testNew = () => {
+         const user = new User({ email: 'foo@bar.com', username: 'foobar', password: 'bat', fullName: 'test user'});
+         expect(user.username).to.equal('foobar');
+         expect(user.password).to.equal('bat');
+        //  Make tests for all the other variables.
+        //  Make sure to add test cases for every edge scenario.
+        // Add tests for null entries.
+        // Add tests for too long of input.
+        // Add test cases for invalid cases. Like SQL injection.
+     }
+    // Integrate all your tests in one place.
++    const testFullName = () => {
++        const user = new User({ email: 'foo@bar.com', username: 'foobar', password: 'bat'});
++        user.fullName = 'Richard Feynman';
++        expect(user.getFirstName()).to.equal('Richard');
++    }
+// Same thing for this file. which controller is this? Does it controll everything?
+// Or is it a User Controller?
+diff --git a/controller.js b/controller.js
+index fa11d58..9342617 100644
+--- a/controller.js
++++ b/controller.js
+@@ -1,4 +1,5 @@
++ import sendEmail from 'email-lib';
+import express from 'express';
+// Don't forget your semi-colons.
+import User from './models'
++ app.get('/reset-all', (req, res) => {
+    // Better identation in your function calls.
+    // User.all()
+    //     .then((users) => 
+                // users.forEach((user) => {
++     User.all().then((users) => users.forEach((user) => {
+        // Rename newPass to newPassword.
+        // This looks like a bad password reset method.
+        // Also, this new password is very weak.
++       const newPass = Math.random().toString(36).substring(5);
++       user.password = newPass;
+        // We don't want to save raw passwords in the Data Base.
++       user.save();
++       const name = user.getFirstName();
+        // why are we sending password in an email?
++       sendEmail(user.email, `Hello, ${name}`,
++           `Your new password is ${user.password}`, 'text/html');
++     }));
+      // This response of OK, should be attached to the completion of our Password Reset promise.
+      //   That way we don't wrongly assume the reset worked, when it might have faild. Like, for example.
+      // if the password did not save in the DB.
++     res.send('OK');
++ })
+// There are multiple changes going on in multiple points of the code base.
+// This commit should be broken down into lesser and more manageable commits.
+// For example: One commit "Update User model" for changing Users variables.
+// "Create test cases for new User" for changes to the test case suit.
+// etc...
