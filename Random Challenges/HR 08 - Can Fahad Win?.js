@@ -63,23 +63,6 @@
 // 2:39
 
 
-
-
-// 2
-// ..
-// ..
-// 3
-
-// 1
-// .
-// 1
-
-// 2
-// .#
-// #.
-// 2
-
-// 8 cases
 /*
  * Complete the 'canWin' function below.
  *
@@ -89,14 +72,16 @@
  *  2. INTEGER k
  */
 function canWin(maze, k) {
-    if ((maze.length - 1) * 2 < k) return "Better luck next time";
+    if ((maze.length - 1) * 2 > k) return "Better luck next time";
 
     const escapeTime = timeToEscape(maze);
-
+    
     return escapeTime <= k ? "Fahad wins" : "Better luck next time";
 }
 
 function timeToEscape(maze) {
+    const endPosition = [maze.length - 1, maze.length - 1];
+    
     // Build the visited array.
     const visited = [];
     for (let i = 0; i < maze.length; ++i) {
@@ -105,22 +90,28 @@ function timeToEscape(maze) {
 
     // While there are unvisited spots, look for the exit.
     const unvisited = [[0,0]];
+    let time = 0;
     while (unvisited.length) {
         const currentPosition = unvisited.shift();
-        console.log("currentPosition: ", currentPosition);
+        if (currentPosition[0] === endPosition[0] && currentPosition[1] === endPosition[1]) return time;
+        // console.log("currentPosition: ", currentPosition);
         visited[currentPosition[0]][currentPosition[1]] = true;
+        // Now, this here is the problem. This is NOT giving me an accurate time to escape, but the number
+        // of total possible positions Fahad can be at the maze. But it does solve a smaller subset:
+        // Where there IS a solution, he will find it.
+        ++time;
 
         // Find the connections.
         const connectedPaths = connections(maze, currentPosition);
-        console.log("connectedPaths: ", connectedPaths);
+        // console.log("connectedPaths: ", connectedPaths);
         // Add the ones that have NOT been visited.
         connectedPaths.forEach(position => {
-            if (!visited[position[0]][position[1]]) {
-                visited[position[0]][position[1]] = true;
-                unvisited.push(position);
-            }
+            if (!visited[position[0]][position[1]]) unvisited.push(position);
         });
     }
+
+    // Fahad ran out of options and did not reach exit.
+    return Number.POSITIVE_INFINITY;
 }
 function connections(maze, position) {
     const moves = [];
@@ -129,9 +120,28 @@ function connections(maze, position) {
     // left
     if(position[1] - 1 >= 0 && maze[position[0]][position[1] - 1] === ".") moves.push([position[0], position[1] - 1]);
     // right
-    if(position[1] + 1 < maze.length && maze[position[0]][position[1] + 1] === ".") move.push([position[0], position[1] + 1]);
+    if(position[1] + 1 < maze.length && maze[position[0]][position[1] + 1] === ".") moves.push([position[0], position[1] + 1]);
     // bottom
     if(position[0] + 1 < maze.length && maze[position[0] + 1][position[1]] === ".") moves.push([position[0] + 1, position[1]]);
-    
+
     return moves;
 }
+
+const a = [
+    [".", "."],
+    [".","."]
+];
+console.log(canWin(a, 3) === "Fahad wins");
+
+const b = [
+    ["."]
+];
+console.log(canWin(b, 1) === "Fahad wins");
+
+const c = [
+    [".", "#"],
+    ["#", "."]
+];
+console.log(canWin(c, 2) === "Better luck next time");
+
+// 8 Test Cases
