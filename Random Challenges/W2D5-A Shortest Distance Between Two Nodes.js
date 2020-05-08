@@ -82,3 +82,8 @@ function shortestDistance(rootNode, origin, target) {
     return path1.length + path2.length;
 }
 
+// My brain was fixated in a List and I totally ignored the fact that we have a Binary Tree!!
+// That means that finding values is super easy and efficient.
+
+// I don`t need to go around the tree. As long as the current element is lesser or greater than both, I can traverse in a single direction to find the most common element.
+// From there, I just need to binary search for them and bum shakalaka, there`s the result!
