@@ -145,3 +145,9 @@ const c = [
 console.log(canWin(c, 2) === "Better luck next time");
 
 // 8 Test Cases
+
+// This solution is not 100% accurate due to the pathfinding algorithm.
+// That said, it DOES find a solution with some degree of time. It does NOT find the best solution.
+// It does somewhat efficiently, without moving towards the same spots, by using more memory and keeping track of visited locations.
+
+// Next step here would be to refactor the pathfinding algorithm to check for the most optimal path.
