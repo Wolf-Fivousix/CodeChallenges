@@ -5,11 +5,11 @@
 * Commit message: reset password
 */
 // This file is probably better named as userModel.js
-diff --git a/models.js b/models.js
-index ede6fcd..a49db81 100644
---- a/models.js
-+++ b/models.js
-@@ -4,7 +4,10 @@
+// diff --git a/models.js b/models.js
+// index ede6fcd..a49db81 100644
+// --- a/models.js
+// +++ b/models.js
+// @@ -4,7 +4,10 @@
  class User extends Model {
    constructor(obj) {
      super(obj);
@@ -33,11 +33,12 @@ index ede6fcd..a49db81 100644
 +  }
 //  Same thing as previous file. Use better naming for your files.
 // Something like testForUser.js, something like that.
-diff --git a/tests.js b/tests.js
-index 3939186..fa6c256 100644
---- a/tests.js
-+++ b/tests.js
-@@ -8,3 +8,8 @@ const testNew = () => {
+// diff --git a/tests.js b/tests.js
+// index 3939186..fa6c256 100644
+// --- a/tests.js
+// +++ b/tests.js
+// @@ -8,3 +8,8 @@
+ const testNew = () => {
          const user = new User({ email: 'foo@bar.com', username: 'foobar', password: 'bat', fullName: 'test user'});
          expect(user.username).to.equal('foobar');
          expect(user.password).to.equal('bat');
@@ -55,11 +56,11 @@ index 3939186..fa6c256 100644
 +    }
 // Same thing for this file. which controller is this? Does it controll everything?
 // Or is it a User Controller?
-diff --git a/controller.js b/controller.js
-index fa11d58..9342617 100644
---- a/controller.js
-+++ b/controller.js
-@@ -1,4 +1,5 @@
+// diff --git a/controller.js b/controller.js
+// index fa11d58..9342617 100644
+// --- a/controller.js
+// +++ b/controller.js
+// @@ -1,4 +1,5 @@
 + import sendEmail from 'email-lib';
 import express from 'express';
 // Don't forget your semi-colons.
