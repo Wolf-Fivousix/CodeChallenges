@@ -151,3 +151,41 @@ console.log(canWin(c, 2) === "Better luck next time");
 // It does somewhat efficiently, without moving towards the same spots, by using more memory and keeping track of visited locations.
 
 // Next step here would be to refactor the pathfinding algorithm to check for the most optimal path.
+
+// Solution by Aaron Shapiro.
+
+function canWin(maze, k) {
+  const steps = [];
+  noOfStepsToTarget(maze, 0, 0, 0, steps);
+  const min = Math.min(...steps)
+  if (steps.length == 0) {
+    console.log("Better luck next time")
+  } else {
+    if (min > k) {
+      console.log("Better luck next time")
+    } else {
+      console.log("Fahad wins")
+    }
+  }
+}
+
+function noOfStepsToTarget(maze, row, col, count = 0, steps) {
+  let rowThreshold = maze.length - 1;
+  let colThreshold = maze[0].length - 1;
+  if (row < 0 || row > rowThreshold || col < 0 || col > colThreshold) {
+    return;
+  }
+  if ( maze[row][col] != '.' ) {
+    return;
+  }
+  if ( row == rowThreshold && col == colThreshold ) {
+    steps.push(count)
+    return;
+  }
+  maze[row][col] = '#';
+  count++;
+  noOfStepsToTarget(maze, row + 1, col, count, steps)
+  noOfStepsToTarget(maze, row - 1, col, count, steps)
+  noOfStepsToTarget(maze, row , col + 1, count, steps)
+  noOfStepsToTarget(maze, row , col - 1, count, steps)
+}
