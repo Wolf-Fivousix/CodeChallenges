@@ -134,7 +134,7 @@ function minCost(cost) {
     });
 
     // console.log(materials);
-    return materials.sort((a, b) => a- b)[0];   
+    return materials.sort((a, b) => a - b)[0];   
 }
 
 // Now this is more like a working solution! Unfortunately this expands memory to such a degree (Polynomial) that the heap runs out of memory.
