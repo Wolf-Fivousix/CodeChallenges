@@ -137,6 +137,11 @@ function minCost(cost) {
     return materials.sort((a, b) => a- b)[0];   
 }
 
+// Now this is more like a working solution! Unfortunately this expands memory to such a degree (Polynomial) that the heap runs out of memory.
+// But it does find the best solution where N is not too big.
+// Currenty it runs Test cases 1 to 6. Test case 7 will run out of memory.
+// The logic here works.... Now, how can I change this to NOT use this much memory?
+
 
 const test1 = [ [ 1, 2, 2 ], [ 2, 2, 1 ], [ 2, 1, 2 ] ];
 // => 3
