@@ -96,9 +96,10 @@ function minCost(cost) {
     // });
     // return totalCost;
 }
+
 function getMaterialIndex(cost, forbiddenIndex) {
     let material = forbiddenIndex !== 0 ? 0 : 1;
-
+    
     for (let i = 0; i < cost.length; ++i) {
         if (forbiddenIndex !== i && cost[i] < cost[material]) material = i;
     }
@@ -108,6 +109,34 @@ function getMaterialIndex(cost, forbiddenIndex) {
 
 //   2/13 test cases.
 // This solution gets a result, but is failing to consider all possible cases in order to get the optimal solution.
+// Let's burn memory and do the Brute Force approach.
+
+function minCost(cost) {
+    const materials = [];
+
+    cost[0].forEach((materialCost, index) => {
+        let totalCost = materialCost;
+
+        function expandCost(houseIndex, forbiddenIndex) {
+            if (houseIndex >= cost.length) {
+                materials.push(totalCost);
+            }
+            else {
+                for (let i = 0; i < cost[houseIndex].length; ++i) {
+                    totalCost += cost[houseIndex][i];
+                    if (i !== forbiddenIndex) expandCost(houseIndex + 1, i);
+                    totalCost -= cost[houseIndex][i];
+                }
+            }
+        }
+
+        expandCost(1, index);
+    });
+
+    // console.log(materials);
+    return materials.sort((a, b) => a- b)[0];   
+}
+
 
 const test1 = [ [ 1, 2, 2 ], [ 2, 2, 1 ], [ 2, 1, 2 ] ];
 // => 3
