@@ -42,7 +42,7 @@
 // We know that if lowest value of input is higher than the SIZE of input, there is no answer.
 // We know that if highest value of inpput is lower than 0, there is no answer.
 // Until the current value is lower than 0, there is a chance to have 0 as answer.
-// Until the current value is lower than SIZE of input, there is a chacne to have the last element as answer.
+// Until the current value is lower than SIZE of input, there is a chance to have the last element as answer.
 
 function findMagicIndex(array, start, end) {
     if (end < start || start < 0 || end >= array.length)
@@ -73,3 +73,8 @@ const b = [-4, -2, 1, 6, 6, 6, 6, 10];
 
 console.log(findMagicIndex(a, 0, a.length - 1) === 0);
 console.log(findMagicIndex(b, 0, b.length - 1) === 6);
+
+// Couple notes about this solution:
+// There should be a helper function to serve as interface.
+// The variable naming is not great, can be better.
+// I don't quite get what is the purpose of the left/right Ends... Why are we picking between Index and Value?
