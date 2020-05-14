@@ -69,4 +69,7 @@ function findMagicIndex(array, start, end) {
 }
 
 const a = [0,1,3,4,5,6,6];
-console.log(findMagicIndex(a, a[0], a[a.length - 1]));
+const b = [-4, -2, 1, 6, 6, 6, 6, 10];
+
+console.log(findMagicIndex(a, 0, a.length - 1) === 0);
+console.log(findMagicIndex(b, 0, b.length - 1) === 6);
