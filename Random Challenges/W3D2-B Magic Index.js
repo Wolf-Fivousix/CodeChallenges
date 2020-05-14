@@ -49,16 +49,15 @@ function findMagicIndex(array, start, end) {
       return -1;
   
     const mid = Math.floor((start + end) / 2);
-  
-    if (mid === array[mid])
-      return mid;
-  
+ 
     const leftEnd = Math.min(mid - 1, array[mid]);
     const leftResult = findMagicIndex(array, start, leftEnd);
   
     if (leftResult !== -1)
       return leftResult;
 
+    if (mid === array[mid])
+      return mid;
 
     const rightStart = Math.max(mid + 1, array[mid]);
     const rightResult = findMagicIndex(array, rightStart, end);
