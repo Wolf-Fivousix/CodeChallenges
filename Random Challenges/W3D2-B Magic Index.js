@@ -43,3 +43,31 @@
 // We know that if highest value of inpput is lower than 0, there is no answer.
 // Until the current value is lower than 0, there is a chance to have 0 as answer.
 // Until the current value is lower than SIZE of input, there is a chacne to have the last element as answer.
+
+function findMagicIndex(array, start, end) {
+    if (end < start || start < 0 || end >= array.length)
+      return -1;
+  
+    const mid = Math.floor((start + end) / 2);
+  
+    if (mid === array[mid])
+      return mid;
+  
+    const leftEnd = Math.min(mid - 1, array[mid]);
+    const leftResult = findMagicIndex(array, start, leftEnd);
+  
+    if (leftResult !== -1)
+      return leftResult;
+
+
+    const rightStart = Math.max(mid + 1, array[mid]);
+    const rightResult = findMagicIndex(array, rightStart, end);
+  
+    if (rightResult !== -1)
+      return rightResult;
+  
+    return -1;
+}
+
+const a = [0,1,3,4,5,6,6];
+console.log(findMagicIndex(a, a[0], a[a.length - 1]));
