@@ -78,3 +78,12 @@ console.log(findMagicIndex(b, 0, b.length - 1) === 6);
 // There should be a helper function to serve as interface.
 // The variable naming is not great, can be better.
 // I don't quite get what is the purpose of the left/right Ends... Why are we picking between Index and Value?
+
+// Here's the catch: Because INDEX and VALUE need to be the same, that means that when the VALUE is inside a higher INDEX
+// we know for sure (because data is sorted) that every INDEX greater than that value is no longer valid. Ex:
+// index 12, value 6 => If the value is already at 6, that means that the closest index that could be a Magic Index is 6 itself.
+// therefore we grab the MIN between the currentIndex and the currentValue.
+// Same principle for the inverse, when the index is lower than the value.
+
+// This is the core case for picking where to cut our indexes. Given, the worse case would be where all the index/value pairing is off by 1,
+// meaning we'd have to check every single element once. Which makes me wonder if overcomplicating this solution from Linear to Logaritimic is worth it.
