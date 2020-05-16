@@ -140,6 +140,7 @@ function minCost(cost) {
 // Now this is more like a working solution! Unfortunately this expands memory to such a degree (Polynomial) that the heap runs out of memory.
 // But it does find the best solution where N is not too big.
 // Currenty it runs Test cases 1 to 6. Test case 7 will run out of memory.
+// 6/13 Test Cases.
 // The logic here works.... Now, how can I change this to NOT use this much memory?
 
 
