@@ -56,25 +56,26 @@ function lastStoneWeight(weights) {
             // naiveInsert(weights, big1);
 
             // Binary Insert.
-            insertElement(weights, big1);
+            getInsertionIndex(weights, big1);
         }
     }
     return weights.length ? weights[0] : 0;
 }
 
-function insertElement(array, value) {
+function getInsertionIndex(array, value) {
     function insert(array, value, start, end) {
-        if (start > end) return 0;
+        // console.log(array, " -- ", start, end);
+        if (start > end) return start;
 
         const middle = Math.floor((start + end) / 2);
-
+        // console.log(middle);
         if (array[middle] === value) return middle;
 
-        if (value < array[middle]) return insert(array, value, start, middle);
-        else middle + insert(array, value, middle + 1, end);
+        if (value < array[middle]) return insert(array, value, start, middle - 1);
+        return insert(array, value, middle + 1, end);
     }
 
-    insert(array, value, 0, array.length - 1);
+    return insert(array, value, 0, array.length - 1);
 }
 
 function naiveInsert(array, value) {
@@ -109,4 +110,7 @@ var lastStoneWeight = function (stones) {
     return stones;
 };
 
-
+const a = [1,2,3,4,5];
+console.log(getInsertionIndex(a, -1));
+console.log(getInsertionIndex(a, 3));
+console.log(getInsertionIndex(a, 6));
