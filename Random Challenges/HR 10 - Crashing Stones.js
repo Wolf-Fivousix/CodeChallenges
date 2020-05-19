@@ -48,12 +48,14 @@ function lastStoneWeight(weights) {
             big1 = big1 < big2 ? big2 - big1 : big1 - big2;
             
             // Bruce Force insertion.
+            // 7/11 test cases - Need to make the insertion more efficient.
             // weights.push(big1);
             // if (weights.length > 1 && weights[weights.length - 1] < weights[weights.length - 2]) {
             //     weights = weights.sort((a, b) => a - b);
             // }
 
             // Binary Insertion.
+            // ??/11 Test Cases.
             const newIndex = getInsertionIndex(weights, big1);
             // console.log(weights, newIndex);
             weights = weights.slice(0, newIndex).concat([big1], weights.slice(newIndex));
@@ -78,24 +80,6 @@ function getInsertionIndex(array, value) {
 
     return indexOf(array, value, 0, array.length - 1);
 }
-
-function naiveInsert(array, value) {
-    if (!array.length) return array.push(value);
-
-    for (let i = 0; i < array.length; ++i) {
-        if (value < array[i]) {
-            let temp = array.slice(0, i + 1);
-            temp.push(value);
-            temp.push(...array.slice(i));
-            array = temp;
-            return;
-        }
-    }
-
-    array.push(value);
-    return;
-}
-// 7/11 test cases - Need to make the sorting efficiency issue.
 
 
 // 9/11 Test Cases by Stanley Traub.
