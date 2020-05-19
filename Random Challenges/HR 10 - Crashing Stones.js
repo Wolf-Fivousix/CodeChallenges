@@ -37,36 +37,49 @@
 
 function lastStoneWeight(weights) {
     if (!weights.length) return 0;
+
     weights = weights.sort((a, b) => a - b);
+
     while(weights.length > 1) {
         let big1 = weights.pop();
         const big2 = weights.pop();
+
         if (big1 !== big2) {
             big1 = big1 < big2 ? big2 - big1 : big1 - big2;
             weights.push(big1);
+
             if (weights.length > 1 && weights[weights.length - 1] < weights[weights.length - 2]) {
                 weights = weights.sort((a, b) => a - b);
             }
+
             // Naive O(N) insert.
             // naiveInsert(weights, big1);
+
             // Binary Insert.
             insertElement(weights, big1);
         }
     }
     return weights.length ? weights[0] : 0;
 }
+
 function insertElement(array, value) {
     function insert(array, value, start, end) {
         if (start > end) return 0;
+
         const middle = Math.floor((start + end) / 2);
+
         if (array[middle] === value) return middle;
+
         if (value < array[middle]) return insert(array, value, start, middle);
         else middle + insert(array, value, middle + 1, end);
     }
+
     insert(array, value, 0, array.length - 1);
 }
+
 function naiveInsert(array, value) {
     if (!array.length) return array.push(value);
+
     for (let i = 0; i < array.length; ++i) {
         if (value < array[i]) {
             let temp = array.slice(0, i + 1);
@@ -76,6 +89,7 @@ function naiveInsert(array, value) {
             return;
         }
     }
+
     array.push(value);
     return;
 }
@@ -94,3 +108,5 @@ var lastStoneWeight = function (stones) {
     }
     return stones;
 };
+
+
