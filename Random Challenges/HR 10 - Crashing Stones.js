@@ -37,7 +37,7 @@
 
 function lastStoneWeight(weights) {
     if (!weights.length) return 0;
-    console.log(weights);
+    // console.log(weights);
     weights = weights.sort((a, b) => a - b);
 
     while(weights.length > 1) {
@@ -46,21 +46,18 @@ function lastStoneWeight(weights) {
 
         if (big1 !== big2) {
             big1 = big1 < big2 ? big2 - big1 : big1 - big2;
+            
+            // Bruce Force insertion.
             // weights.push(big1);
-
             // if (weights.length > 1 && weights[weights.length - 1] < weights[weights.length - 2]) {
             //     weights = weights.sort((a, b) => a - b);
             // }
 
-            // Naive O(N) insert.
-            // naiveInsert(weights, big1);
-
-            // Binary Insert.
+            // Binary Insertion.
             const newIndex = getInsertionIndex(weights, big1);
-
-            console.log(weights, newIndex);
+            // console.log(weights, newIndex);
             weights = weights.slice(0, newIndex).concat([big1], weights.slice(newIndex));
-            console.log(weights);
+            // console.log(weights);
         }
     }
     return weights.length ? weights[0] : 0;
