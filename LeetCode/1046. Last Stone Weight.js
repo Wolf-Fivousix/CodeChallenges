@@ -38,7 +38,7 @@ function lastStoneWeight(weights) {
         const big2 = weights.pop();
 
         if (big1 !== big2) {
-            big1 = big1 < big2 ? big2 - big1 : big1 - big2;
+            big1 = big1 - big2;
             
             const newIndex = getInsertionIndex(weights, big1);
             weights = weights.slice(0, newIndex).concat([big1], weights.slice(newIndex));
