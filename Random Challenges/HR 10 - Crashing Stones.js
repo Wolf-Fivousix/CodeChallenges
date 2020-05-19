@@ -55,7 +55,7 @@ function lastStoneWeight(weights) {
             // }
 
             // Binary Insertion.
-            // ??/11 Test Cases.
+            // 10/11 Test Cases. With 100.000 array size, this solution still not fast enough.
             const newIndex = getInsertionIndex(weights, big1);
             // console.log(weights, newIndex);
             weights = weights.slice(0, newIndex).concat([big1], weights.slice(newIndex));
