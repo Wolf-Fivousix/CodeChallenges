@@ -37,7 +37,7 @@
 
 function lastStoneWeight(weights) {
     if (!weights.length) return 0;
-
+    console.log(weights);
     weights = weights.sort((a, b) => a - b);
 
     while(weights.length > 1) {
@@ -46,24 +46,28 @@ function lastStoneWeight(weights) {
 
         if (big1 !== big2) {
             big1 = big1 < big2 ? big2 - big1 : big1 - big2;
-            weights.push(big1);
+            // weights.push(big1);
 
-            if (weights.length > 1 && weights[weights.length - 1] < weights[weights.length - 2]) {
-                weights = weights.sort((a, b) => a - b);
-            }
+            // if (weights.length > 1 && weights[weights.length - 1] < weights[weights.length - 2]) {
+            //     weights = weights.sort((a, b) => a - b);
+            // }
 
             // Naive O(N) insert.
             // naiveInsert(weights, big1);
 
             // Binary Insert.
-            getInsertionIndex(weights, big1);
+            const newIndex = getInsertionIndex(weights, big1);
+
+            console.log(weights, newIndex);
+            weights = weights.slice(0, newIndex).concat([big1], weights.slice(newIndex));
+            console.log(weights);
         }
     }
     return weights.length ? weights[0] : 0;
 }
 
 function getInsertionIndex(array, value) {
-    function insert(array, value, start, end) {
+    function indexOf(array, value, start, end) {
         // console.log(array, " -- ", start, end);
         if (start > end) return start;
 
@@ -71,11 +75,11 @@ function getInsertionIndex(array, value) {
         // console.log(middle);
         if (array[middle] === value) return middle;
 
-        if (value < array[middle]) return insert(array, value, start, middle - 1);
-        return insert(array, value, middle + 1, end);
+        if (value < array[middle]) return indexOf(array, value, start, middle - 1);
+        return indexOf(array, value, middle + 1, end);
     }
 
-    return insert(array, value, 0, array.length - 1);
+    return indexOf(array, value, 0, array.length - 1);
 }
 
 function naiveInsert(array, value) {
@@ -98,19 +102,23 @@ function naiveInsert(array, value) {
 
 
 // 9/11 Test Cases by Stanley Traub.
-var lastStoneWeight = function (stones) {
-    if (stones.length < 2) return stones;
-    while (stones.length > 1) {
-        let index1 = stones.indexOf(Math.max(...stones));
-        let stone1 = stones.splice(index1, 1);
-        let index2 = stones.indexOf(Math.max(...stones));
-        let stone2 = stones.splice(index2, 1);
-        stones.push(stone1 - stone2);
-    }
-    return stones;
-};
+// var lastStoneWeight = function (stones) {
+//     if (stones.length < 2) return stones;
+//     while (stones.length > 1) {
+//         let index1 = stones.indexOf(Math.max(...stones));
+//         let stone1 = stones.splice(index1, 1);
+//         let index2 = stones.indexOf(Math.max(...stones));
+//         let stone2 = stones.splice(index2, 1);
+//         stones.push(stone1 - stone2);
+//     }
+//     return stones;
+// };
 
 const a = [1,2,3,4,5];
-console.log(getInsertionIndex(a, -1));
-console.log(getInsertionIndex(a, 3));
-console.log(getInsertionIndex(a, 6));
+const b = [2,3,5];
+// console.log(getInsertionIndex(a, -1));
+// console.log(getInsertionIndex(a, 3));
+// console.log(getInsertionIndex(a, 6));
+
+console.log(lastStoneWeight(a) === 1);
+console.log(lastStoneWeight(b) === 0);
