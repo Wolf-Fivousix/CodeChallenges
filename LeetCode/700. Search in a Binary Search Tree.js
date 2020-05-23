@@ -43,3 +43,5 @@ var searchBST = function(root, val) {
 
 // Runtime: 92 ms, faster than 16.34% of JavaScript online submissions for Search in a Binary Search Tree.
 // Memory Usage: 42.1 MB, less than 6.25% of JavaScript online submissions for Search in a Binary Search Tree.
+
+// If we do this iteractively instead of recursively I think we can improve.
