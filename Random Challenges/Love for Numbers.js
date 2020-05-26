@@ -36,5 +36,10 @@ function love(number, lovedNumbers) {
 
 // By using the Hash for previously calculated numbers we can improve the run time by a bit.
 // Passing 9/11 Test Cases.
-
-// Even though we burn memory, we cannot execute quick enough for 5k and 10k ranges.
+// Test 6 1k
+// Test 7 2k
+// Test 8 5k
+// Test 9 10k
+// Test 10 20k
+// Test 11 100k
+// Even though we burn memory, we cannot execute quick enough for 20k and 100k ranges.
