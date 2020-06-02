@@ -53,8 +53,7 @@ function isSameTree(p, q) {
         const tree2 = queue2.shift();
         
         if (!tree1 && !tree2) continue;
-        if (!tree1 && tree2) return false;
-        if (tree1 && !tree2) return false;
+        if (!tree1 || !tree2) return false;
         
         if (tree1.val !== tree2.val) return false;
         else {
@@ -70,3 +69,13 @@ function isSameTree(p, q) {
 // Memory Usage: 33.8 MB, less than 80.00% of JavaScript online submissions for Same Tree.
 
 // We're taking a simultaneus Breath approach.
+
+// Minor optimization. (first run)
+// Runtime: 68 ms, faster than 26.63% of JavaScript online submissions for Same Tree.
+// Memory Usage: 33.9 MB, less than 60.00% of JavaScript online submissions for Same Tree.
+
+// Second run.
+// Runtime: 68 ms, faster than 26.63% of JavaScript online submissions for Same Tree.
+// Memory Usage: 33.7 MB, less than 100.00% of JavaScript online submissions for Same Tree.
+
+// Meaning the %%% estimates are not accurate and varies by execution.
