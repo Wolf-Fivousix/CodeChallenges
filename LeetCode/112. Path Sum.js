@@ -42,3 +42,16 @@ function hasPathSum(root, targetSum, currentSum = 0) {
 
 // Runtime: 80 ms, faster than 27.49% of JavaScript online submissions for Path Sum.
 // Memory Usage: 38.3 MB, less than 11.11% of JavaScript online submissions for Path Sum.
+
+// Community solution by AminiCK.
+
+var hasPathSum = function(root, sum) {
+    if (!root) return false;
+    if (!root.left && !root.right) return sum-root.val==0;
+    return hasPathSum(root.left, sum-root.val) || hasPathSum(root.right, sum-root.val);    
+};
+
+// Performance:
+// Runtime: 80 ms, faster than 27.49% of JavaScript online submissions for Path Sum.
+// Memory Usage: 38.6 MB, less than 11.11% of JavaScript online submissions for Path Sum.
+// No better than my own. But the conciseness of the code can make my own better.
