@@ -87,3 +87,37 @@ function threeSum(nums) {
 // and the current number is also positive, no number following it will make the sum reach 0.
 // It gave us a little bit of room, but not enough.
 // Can we make it better?
+
+// If the array is sorted, I could use Binary Search to find the THIRD element.... Small improvement, bringing from N^3 to N^2.
+function threeSum(nums) {
+    const results = [];
+    nums = nums.sort((a, b) => a - b);
+    
+    for (let i = 0; i < nums.length - 2; ++i) {
+        if (nums[i] > 0) return results;
+        
+        for (let j = i + 1; j < nums.length - 1; ++j) {
+            const sum = nums[i] + nums[j];
+            if (nums[j] > 0 && sum > 0) continue;
+            
+            const thirdValue = -sum;
+            if (binarySearch(nums, thirdValue, j + 1, nums.length - 1)) addUniqueArray(results, [nums[i], nums[j], thirdValue]);
+        }
+    }
+    
+    return results;
+};
+
+function binarySearch(array, target, start, end) {
+    if (start > end) return false;
+    
+    const middleIndex = Math.floor((start + end) / 2);
+    
+    if (array[middleIndex] === target) return true;
+    
+    if (target < array[middleIndex]) return binarySearch(array, target, start, middleIndex - 1);
+    
+    return binarySearch(array, target, middleIndex + 1, end);
+}
+
+// That passed some more test cases, but still not enough... We need to bring it down further from Polynomial.
