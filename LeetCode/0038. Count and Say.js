@@ -68,3 +68,35 @@ function split(string) {
 // Looking at output for 6 I realized things were the option I thought it was not.... Hence I refactored the existing code.
 // Turning into that ugly mess. Let's start over now.
 
+function countAndSay(n) {
+    let sequence = "1"
+    
+    while (n > 1) {
+        let counter = 1;
+        let lastLetter = sequence[0];
+        let result = "";
+        
+        for (let i = 1; i < sequence.length; ++i) {
+            if (lastLetter === sequence[i]) ++counter;
+            else {
+                result += String(counter) + lastLetter;
+                counter = 1;
+                lastLetter = sequence[i];
+            }
+        }
+        
+        result += String(counter) + lastLetter;
+        sequence = result;
+        --n;
+    }
+    
+    return sequence;
+}
+
+// Runtime: 72 ms, faster than 29.58% of JavaScript online submissions for Count and Say.
+// Memory Usage: 37.4 MB, less than 11.18% of JavaScript online submissions for Count and Say.
+
+// Now this looks much better.
+// The reasoning her is that as we traverse through the string, we count how many times a certain number appear.
+// Once the number change, we save the result so far and re-start the counting.
+// We do it as many times as needed in order to achieve the desired result.
