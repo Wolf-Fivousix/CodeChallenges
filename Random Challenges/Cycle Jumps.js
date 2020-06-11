@@ -68,10 +68,35 @@ visitedIndex = {
 }
 currentIndex = 0
 */
-console.log(hasSingleCycle([2, 3, 1, -4, -4, 2]));
-console.log(hasSingleCycle([1,2,3,-1,1]));
+
 
 // This solution takes Polynomial Time and Linear Space.
 // We can do better. By checking if the "end point" is the same as "start point", if we visit every point only once,
 // and end up in the same spot. Then we have a full cycle. If we end up in a different index, then, even if we visited
 // every node, we have not completed a full cycle.
+
+function hasSingleCycle(array) {
+    if (!array.length) return false;
+
+    const visitedIndex = {};
+    let hashSize = 0;
+    const startIndex = 0;
+    let currentIndex = startIndex;
+
+    while (hashSize <= array.length) {
+        if (visitedIndex[currentIndex]) return ((currentIndex === startIndex) && (hashSize === array.length));
+
+        visitedIndex[currentIndex] = true;
+        ++hashSize;
+        currentIndex = (currentIndex + array[currentIndex]) % array.length;
+        // If wraping left.
+        if (currentIndex < 0) currentIndex += array.length;
+    }
+}
+
+// This is more like it.
+// Now we have Linear Time and Space complexity.
+
+console.log(hasSingleCycle([2, 3, 1, -4, -4, 2]));
+console.log(hasSingleCycle([1,2,3,-1,1]));
+console.log(hasSingleCycle([0,1]));
