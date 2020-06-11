@@ -23,15 +23,15 @@
 function numJewelsInStones(J, S) {
     const jewels = hashMe(J);
     
-    // let counter = 0;
-    // for (let i = 0; i < S.length; ++i) {
-    //     if (jewels[S[i]]) ++counter;
-    // }
+    let counter = 0;
+    for (let i = 0; i < S.length; ++i) {
+        if (jewels[S[i]]) ++counter;
+    }
     
-    // return counter;
+    return counter;
     
-    // Condensed version.
-    return S.split("").reduce((distinct, stone) => jewels[stone] ? ++distinct : distinct, 0);
+    // See notes.
+    // return S.split("").reduce((distinct, stone) => jewels[stone] ? ++distinct : distinct, 0);
 };
 
 function hashMe(array) {
@@ -48,4 +48,11 @@ function hashMe(array) {
 // Memory Usage: 33.8 MB, less than 89.10% of JavaScript online submissions for Jewels and Stones.
 
 // We could scan the Jewels array every single time to save memory, but that would cost time.
-// This way we have Linear Time Complexity (for N = Stones) and Linear Space Complexity (for N = jewels)
+// This way we have Linear Time Complexity (for N = Stones) and Linear Space Complexity (for N = jewels).
+
+// Actually, the one line return is NOT the same as the looping. When we split the string we are, essentially,
+// making a whole array of size S, as well as iterating through S one more time. That would make the 
+// Space Complexity Linear for both J + N. For no real gain in performance!
+
+// Runtime: 60 ms, faster than 69.65% of JavaScript online submissions for Jewels and Stones.
+// Memory Usage: 34.5 MB, less than 30.53% of JavaScript online submissions for Jewels and Stones.
