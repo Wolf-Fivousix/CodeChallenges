@@ -55,3 +55,23 @@ function shiftByOne(array, index, quantity) {
 // Runtime: 72 ms, faster than 25.81% of JavaScript online submissions for Merge Sorted Array.
 // Memory Usage: 35.4 MB, less than 8.10% of JavaScript online submissions for Merge Sorted Array.
 
+// Solution by tusizi
+var merge = function (nums1, m, nums2, n) {
+    var len = m + n;
+    m--;
+    n--;
+    while (len--) {
+        if (n < 0 || nums1[m] > nums2[n]) {
+            nums1[len] = nums1[m--];
+        } else {
+            nums1[len] = nums2[n--];
+        }
+    }
+};
+
+// It avoids the shifting by working from right to left.
+// The inline decrements can get a little confusing if you are not careful, but that's easily fixable if needed.
+// This makes for Linear time complexity while using only 1 extra variable for Constant Space complexity.
+
+// Runtime: 60 ms, faster than 59.12% of JavaScript online submissions for Merge Sorted Array.
+// Memory Usage: 33.8 MB, less than 79.41% of JavaScript online submissions for Merge Sorted Array.
