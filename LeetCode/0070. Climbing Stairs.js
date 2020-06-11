@@ -34,3 +34,16 @@ function climbStairs(n) {
 // The catch to solving this problem (one of them), is figuring out that the amount of variations
 // you can take at any N depends on the variations for (N - 1) + (N - 2).
 // That is the same thing as Fibonacci. So we can build an array taking that into consideration.
+
+function climbStairs(n) {
+    const steps = [1,1];
+    
+    for (let currentStep = 1; currentStep < n; ++currentStep) {
+        steps.push(steps[currentStep] + steps[currentStep - 1]);
+    }
+    
+    return steps[n];
+};
+
+// Runtime: 60 ms, faster than 45.04% of JavaScript online submissions for Climbing Stairs.
+// Memory Usage: 32.8 MB, less than 95.53% of JavaScript online submissions for Climbing Stairs.
