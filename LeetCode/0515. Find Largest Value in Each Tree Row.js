@@ -26,7 +26,7 @@
  */
 function largestValues(root) {
     const result = [];
-    let currentRow = [];
+    let currentMax = Number.NEGATIVE_INFINITY;
     const row = true;
     const queue = [root, row];
     
@@ -38,23 +38,19 @@ function largestValues(root) {
                 continue;
                 
             case true:
-                result.push(max(currentRow));
-                currentRow = [];
+                result.push(currentMax);
+                currentMax = Number.NEGATIVE_INFINITY;
                 queue.push(row);
                 break;
                 
             default:
-                currentRow.push(currentNode.val);
+                currentMax = Math.max(currentMax, currentNode.val);
                 queue.push(currentNode.left, currentNode.right);
         }
     }
     
     return result;
 };
-
-function max(array) {
-    return array.reduce((max, current) => Math.max(max, current), Number.NEGATIVE_INFINITY);
-}
 
 // Runtime: 80 ms, faster than 50.28% of JavaScript online submissions for Find Largest Value in Each Tree Row.
 // Memory Usage: 41.2 MB, less than 6.64% of JavaScript online submissions for Find Largest Value in Each Tree Row.
