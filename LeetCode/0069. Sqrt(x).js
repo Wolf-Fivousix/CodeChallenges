@@ -34,3 +34,20 @@ function mySqrt(x) {
 // Brute force approach.
 // Runtime: 128 ms, faster than 11.47% of JavaScript online submissions for Sqrt(x).
 // Memory Usage: 37.2 MB, less than 14.29% of JavaScript online submissions for Sqrt(x).
+
+// Solution by zhangleirunning
+
+var mySqrt = function(x) {
+    let left = 0, right = x+1;
+    while (left < right) {
+        let mid = Math.floor((left+right)/2);
+        if (mid*mid <= x) {
+            left = mid+1;
+        } else {
+            right = mid;
+        }
+    }
+    return left-1;
+};
+// The idea here is to divide the original value by 2, until we find a match.
+// That drops the Time Complexity to Log Linear.
