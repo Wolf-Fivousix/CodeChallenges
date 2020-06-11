@@ -52,7 +52,7 @@ function checkCycle(array, startIndex) {
         currentIndex = currentIndex + array[currentIndex];
         currentIndex = currentIndex < 0 ? array.length + (currentIndex % array.length) : currentIndex % array.length;
     }
-    
+
     return Object.keys(visitedIndex).length === array.length;
 }
 /*
@@ -70,3 +70,8 @@ currentIndex = 0
 */
 console.log(hasSingleCycle([2, 3, 1, -4, -4, 2]));
 console.log(hasSingleCycle([1,2,3,-1,1]));
+
+// This solution takes Polynomial Time and Linear Space.
+// We can do better. By checking if the "end point" is the same as "start point", if we visit every point only once,
+// and end up in the same spot. Then we have a full cycle. If we end up in a different index, then, even if we visited
+// every node, we have not completed a full cycle.
