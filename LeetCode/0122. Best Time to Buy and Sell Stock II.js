@@ -53,3 +53,18 @@ function maxProfit(prices) {
 
 // Runtime: 64 ms, faster than 53.43% of JavaScript online submissions for Best Time to Buy and Sell Stock II.
 // Memory Usage: 37.3 MB, less than 7.44% of JavaScript online submissions for Best Time to Buy and Sell Stock II.
+
+// Proposed solution.
+// class Solution {
+//     public int maxProfit(int[] prices) {
+//         int maxprofit = 0;
+//         for (int i = 1; i < prices.length; i++) {
+//             if (prices[i] > prices[i - 1])
+//                 maxprofit += prices[i] - prices[i - 1];
+//         }
+//         return maxprofit;
+//     }
+// }
+
+// This solution is similar to mine. But in here we do a transaction whenever there is profit. And just keep talling the profits.
+// If there is no profit to be made, we don't make a transaction.
