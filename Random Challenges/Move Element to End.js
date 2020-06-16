@@ -10,14 +10,15 @@ function moveElementToEnd(array, toMove) {
     let end = array.length - 1;
     let start = 0;
 
-    while (array[end] === toMove) --end;
-
     while (start < end) {
         if (array[start] === toMove) {
-            const temp = array[start];
-            array[start] = array[end];
-            array[end] = temp;
-            --end;
+            if (array[end] === toMove) --end;
+            else {
+                const temp = array[start];
+                array[start] = array[end];
+                array[end] = temp;
+                --end;
+            }
         }
         else ++start;
     }
