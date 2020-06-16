@@ -19,10 +19,14 @@ function moveElementToEnd(array, toMove) {
             array[end] = temp;
             --end;
         }
-        ++start;
+        else ++start;
     }
 
     return array;
 }
 
-console.log(moveElementToEnd([2, 1, 2, 2, 2, 3, 4, 2], 2));
+
+const a = [2, 1, 2, 2, 2, 3, 4, 2];
+const b = [5, 1, 2, 5, 5, 3, 4, 6, 7, 5, 8, 9, 10, 11, 5, 5, 12];
+console.log(moveElementToEnd(a, 2));
+console.log(moveElementToEnd(b, 5));
