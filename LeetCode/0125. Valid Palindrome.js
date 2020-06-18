@@ -88,3 +88,8 @@ function isPalindrome(s) {
 // We do so by directly comparing both sides of the string (case insensitive) that are valid inputs.
 // If we find anything that doesn't match before the pointers cross, we know it is not a valid palindrome.
 // Making it Linear Time Complexity and Constant Space Complexity.
+
+const regex = /[a-z0-9]/i;
+// This is what I was looking for. You can generate a "hash" like object more easly like this.
+// The only thing is: I'm not sure if it tests in constant time.
+// console.log(regex.test("A"));
