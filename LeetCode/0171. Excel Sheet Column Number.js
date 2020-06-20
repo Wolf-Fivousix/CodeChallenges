@@ -48,3 +48,24 @@ function titleToNumber(s) {
 
 // Linear Time Complexity (as we need to iterate through the S input in order to calculate the answer).
 // Constant Space Complexity.
+
+// There's another ways of writing the loop:
+// var titleToNumber = function(s) {
+//     let columnNumber = 0;
+//     for(let i = 0; i < s.length; i++){
+//         let char = s[(s.length - 1) - i];
+        
+//         columnNumber += Math.pow(26, i) * (char.charCodeAt(0) - 64);
+        
+//     } 
+//     return columnNumber;
+// };
+
+// var titleToNumber = function(s) {
+//      var r = 0;
+//      var len = s.length;
+//      for (var i = 0; i < len; i++) {
+//          r += (Math.pow(26, (len - i - 1)) * (s.charCodeAt(i) - 64));
+//      }
+//      return r;
+//  };
