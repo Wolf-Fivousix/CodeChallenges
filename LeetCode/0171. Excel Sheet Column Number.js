@@ -30,21 +30,17 @@
  * @return {number}
  */
 function titleToNumber(s) {
-    let lastCharacterPointer = s.length - 1;
-    let multiplier = 1;
     let column = 0;
-    
-    while(lastCharacterPointer > -1) {
-        column += (s[lastCharacterPointer].charCodeAt() - 64) * multiplier;
-        --lastCharacterPointer;
-        multiplier *= 26;
+
+    for (let i = s.length - 1, power = 0; i > -1; --i, ++power) {
+        column += (s.charCodeAt(i) - 64) * (26 ** power);
     }
     
     return column;
 };
 
 // Runtime: 84 ms, faster than 53.71% of JavaScript online submissions for Excel Sheet Column Number.
-// Memory Usage: 36.7 MB, less than 18.04% of JavaScript online submissions for Excel Sheet Column Number.
+// Memory Usage: 36.6 MB, less than 21.99% of JavaScript online submissions for Excel Sheet Column Number.
 
 // Linear Time Complexity (as we need to iterate through the S input in order to calculate the answer).
 // Constant Space Complexity.
