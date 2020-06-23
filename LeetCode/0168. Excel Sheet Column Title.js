@@ -33,7 +33,7 @@ function convertToTitle(n) {
     let title = "";
     
     while (n > 0) {
-        const code = n % 26 ? n % 26 : 26;
+        const code = n % 26 || 26;
         const char = String.fromCharCode(code + 64);
         
         title = char + title;
@@ -55,6 +55,10 @@ function convertToTitle(n) {
 //     };
 //     return result;
 // };
+
+// Interesting thing here is the similarity with what I came up with.
+// I tried doing the "-1" method, but wasn't quite getting it right.
+// On the same note, the || "OR" operator for when the number is 0 is a good trick.
 
 // Solution by achandel
 // var convertToTitle = function(n) {
