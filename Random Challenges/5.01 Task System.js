@@ -69,6 +69,10 @@ const allTasks = {
 // 3) return the first value in the structure.
 function getTask(employee, allTasks) {
     const urgentTasks = filterTasks(employee.role, allTasks);
+    // Because we are using a fake object where Keys do not match the urgency,
+    // this deletion is not removing the correct value.
+    // Another important detail: It would also delete ALL tasks inside that KEY
+    // Which is NOT what we want if there is more than 1 task at the same key.
     delete allTasks[urgentTasks[0].urgency];
 
     return urgentTasks[0];
@@ -90,16 +94,27 @@ function filterTasks(role, allTasks) {
     let currentKeyIndex = 0;
     const validTasks = [];
 
-    while (!validTasks.length) {
-        const currentTasks = taskKeys[currentKeyIndex];
-        
+    while (!validTasks.length && currentKeyIndex < taskKeys.length) {
+        const currentTasks = allTasks[taskKeys[currentKeyIndex]];
         for (let i = 0; i < currentTasks.length; ++i) {
-        if (roleTask[role].includes(currentTasks[i].taskType)) validTasks.push(currentTasks[i]);
+            if (roleTask[role].includes(currentTasks[i].taskType)) validTasks.push(currentTasks[i]);
         }
+        ++currentKeyIndex;
     }
 
     return validTasks;
 };
 
+
 const diego = new Employee("engineer");
-console.log(filterTasks(diego, allTasks));
+const wolf = new Employee("customer service");
+const sam = new Employee("pharmacist");
+console.log("Diego Task: ", getTask(diego, allTasks)); // => bug fix.
+console.log("Wolf Task: ", getTask(wolf, allTasks)); // => message
+console.log("Sam Task: ", getTask(sam, allTasks)); // => message
+// (should be update prescription, but see notes on line 83-86.).
+
+// Now it is working! =)
+// Because the key's inside the fake "allTasks" object do not represent what the actual
+// urgency inside the tasks are, changing the urgency on lines 64-68 doesn't change the result.
+// But if you change the fake keys, like 1592865377363 to 2000000000000, then you will get a different result.
