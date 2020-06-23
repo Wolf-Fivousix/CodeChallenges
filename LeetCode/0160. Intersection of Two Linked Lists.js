@@ -72,9 +72,40 @@ function getIntersectionNode(headA, headB) {
     
     return null;
 };
+// Bruce force way.
+// Constant Memory, but Polynomial Time complexity. (which is not within requirements, but solves the problem.)
 
 // Runtime: 1344 ms, faster than 5.18% of JavaScript online submissions for Intersection of Two Linked Lists.
 // Memory Usage: 43.8 MB, less than 20.17% of JavaScript online submissions for Intersection of Two Linked Lists.
 
-// Bruce force way.
-// Constant Memory, but Polynomial Time complexity. (which is not within requirements, but solves the problem.)
+
+// Proposed Solution
+
+// Approach 3: Two Pointers
+// Maintain two pointers pApA and pBpB initialized at the head of A and B, respectively. Then let them both traverse through the lists, one node at a time.
+// When pApA reaches the end of a list, then redirect it to the head of B (yes, B, that's right.); similarly when pBpB reaches the end of a list, redirect it the head of A.
+// If at any point pApA meets pBpB, then pApA/pBpB is the intersection node.
+// To see why the above trick would work, consider the following two lists: A = {1,3,5,7,9,11} and B = {2,4,9,11}, which are intersected at node '9'. Since B.length (=4) < A.length (=6), pBpB would reach the end of the merged list first, because pBpB traverses exactly 2 nodes less than pApA does. By redirecting pBpB to head A, and pApA to head B, we now ask pBpB to travel exactly 2 more nodes than pApA would. So in the second iteration, they are guaranteed to reach the intersection node at the same time.
+// If two lists have intersection, then their last nodes must be the same one. So when pApA/pBpB reaches the end of a list, record the last element of A/B respectively. If the two last elements are not the same one, then the two lists have no intersections.
+// Complexity Analysis
+
+// Time complexity : O(m+n)O(m+n).
+
+// Space complexity : O(1)O(1).
+
+function getIntersectionNode(headA, headB) {
+    if (!headA || !headB) return null;
+    
+    let currentA = headA;
+    let currentB = headB;
+    
+    while (currentA !== currentB) {
+        currentA = currentA ? currentA.next : headB;
+        currentB = currentB ? currentB.next : headA;
+    }
+    
+    return currentA;
+};
+
+// Runtime: 100 ms, faster than 45.53% of JavaScript online submissions for Intersection of Two Linked Lists.
+// Memory Usage: 43.6 MB, less than 30.63% of JavaScript online submissions for Intersection of Two Linked Lists.
