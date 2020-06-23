@@ -31,17 +31,75 @@ Given an employee and a collection of tasks, your challenge is to write the code
   // Key as epoch
   // value array of tasks.
 
+class Employee {
+    constructor(role) {
+        this.role = role; 
+    }
+};
+
+class Task {
+    constructor(urgency, taskType) {
+        this.createdAt = Date.now();
+        this.urgency = this.createdAt + (urgency * 1000 * 60);
+        this.taskType = taskType;
+    }
+}
+
+const roleTask = {
+    "engineer": ["bug fix", "account issue"],
+    "pharmacist": ["message", "update prescription"],
+    "customer service": ["message"]
+};
+
+const task1 = new Task(30, "bug fix");
+const task2 = new Task(15, "message");
+const task3 = new Task(300, "message");
+const task4 = new Task(5, "update prescription");
+const task5 = new Task(100, "account issue");
+    
+const allTasks = {
+1592865377363: [task1, task2],
+1592785377363: [task3],
+1692865377363: [task4, task5]
+};
+
 // GET TASK METHOD
 // 1) Filter tasks based on current employee role. (filter by role)
 // 2) remove the task from the object (DB).
 // 3) return the first value in the structure.
+function getTask(employee, allTasks) {
+    const urgentTasks = filterTasks(employee.role, allTasks);
+    delete allTasks[urgentTasks[0].urgency];
+
+    return urgentTasks[0];
+};
 
 // FILTER TASKS METHOD
-  // Input: role and task object.
-  // Output: valid tasks for that role.
-  // Sort tasks based on keys.
-  // declare valid task object.
-  // iterate through each key until a valid task is found.
-    // iterate through all values.
-      // if task matches role, add to our valid tasks.
-  // return filtered tasks.
+// Input: role and task object.
+// Output: valid tasks for that role.
+// Sort tasks based on keys.
+// declare valid task object.
+// iterate through each key until a valid task is found.
+// iterate through all values.
+    // if task matches role, add to our valid tasks.
+// return filtered tasks.
+function filterTasks(role, allTasks) {
+    let taskKeys = Object.keys(allTasks);
+    taskKeys = taskKeys.sort((a, b) => a - b);
+
+    let currentKeyIndex = 0;
+    const validTasks = [];
+
+    while (!validTasks.length) {
+        const currentTasks = taskKeys[currentKeyIndex];
+        
+        for (let i = 0; i < currentTasks.length; ++i) {
+        if (roleTask[role].includes(currentTasks[i].taskType)) validTasks.push(currentTasks[i]);
+        }
+    }
+
+    return validTasks;
+};
+
+const diego = new Employee("engineer");
+console.log(filterTasks(diego, allTasks));
