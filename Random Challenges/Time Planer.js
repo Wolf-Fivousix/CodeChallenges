@@ -85,3 +85,30 @@ function meetingPlanner(slotsA, slotsB, dur) {
 
     return [];
 }
+
+// Justin's Solution
+// function meetingPlanner(slotsA, slotsB, dur) {
+
+//     IndexA = 0
+//     IndexB = 1
+//     A = [10, 50]
+//     B = [60, 70]
+//     latestStart = 10
+//     endingTime = 10 + 8 = 18
+    
+//     let ai = 0, bi = 0;
+//       while (ai < slotsA.length && bi < slotsB.length){
+//         let start = Math.max(slotsA[ai][0], slotsB[bi][0]);
+//         let end = Math.min(slotsA[ai][1], slotsB[bi][1]);
+//         if (end - start >= dur){
+//           return [start, start+dur];
+//         }
+//         if (slotsA[ai][1] < slotsB[bi][1]){
+//           ai++;
+//         } else {
+//           bi++;
+//         }
+//       }
+//       return [];
+// }
+    
