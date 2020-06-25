@@ -65,3 +65,23 @@
 // end time = 400
 // output: [350, 400]
 
+
+function meetingPlanner(slotsA, slotsB, dur) {
+	slotAIndex = 0;
+	slotBIndex = 0;
+
+	while (slotAIndex < slotsA.length && slotsBIndex < slotsB.length) {
+		const slotA = slotsA[slotsAIndex];
+		const slotB = slotsB[slotsBIndex];
+		const latestStart = Math.max(slotA[0], slotB[0]);
+		const endingTime = latestStart + dur;
+
+		if (endingTime > slotA[1] || endingTime > slotB[1]) {
+			if (endingTime > slotA[1]) ++slotAIndex;
+			if (endingTime > slotB[1]) ++slotBIndex;
+		}
+		else return [latestStart, latestStart + dur]
+    }
+
+    return [];
+}
