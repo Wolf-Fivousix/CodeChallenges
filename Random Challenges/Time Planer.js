@@ -14,3 +14,54 @@
 //         slotsB = [[0, 15], [60, 70]]
 //         dur = 12
 // output: [] # since there is no common slot whose duration is 12
+
+// slotsA = [[10, 30], [100, 150]]
+// slotsB = [[70, 100]]
+// dur = 20
+
+// output: []
+
+// slotsA = [[10, 30], [100, 150]]
+// slotsB = [[70, 100], [110, 130]]
+// dur = 20
+
+// output: [110, 130]
+
+// slotA = []
+
+// slotsA = [[10, 300], [350, 1500]]
+// slotsB = [[70, 100], [110, 130], [200, 300], [310, 400]]
+// dur = 50
+
+// output: [200, 250]
+
+// slotsA = [[10, 300], [350, 1500]]
+// slotsB = [[70, 100], [110, 130], [200, 230], [310, 400]]
+// dur = 50
+
+// output: [350, 400]
+
+// slotsA = [[10, 300]]
+// slotsB = [[70, 100], [110, 130], [200, 230], [310, 400]]
+// dur = 50
+
+// output: []
+
+// pointer to slotA start as first slot of slotA. (index for slotA)
+// pointer to slotB start as first slot of slotB. (index for slotB)
+
+// loop through slots until one of the pointers goes beyond their limit (slot length)
+// latest start time variable that compares both pointers and picks the latest start time between them.
+// earliest end time variable that compares both pointers and pick the earliest end time between them.
+// if latest start time plus meeting duration goes beyond earliest end time, we have to update our pointers (indexes).
+// if latest start time plus meeting duration goes beyond pointer A OR B end time, increase that pointer(index).
+// else we can add latest start time and latest start time plus duration to our result. Then break the loop.
+// return empty array.
+
+// slotsA = [[10, 300], [350, 1500]]
+// slotsB = [[70, 100], [110, 130], [200, 230], [310, 400]]
+// dur = 50
+// start time = 350 + 50 = 400
+// end time = 400
+// output: [350, 400]
+
