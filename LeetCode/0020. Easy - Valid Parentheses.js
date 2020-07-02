@@ -46,3 +46,43 @@ var isValid = function(s) {
     
     return stack.length ? false : true;
 };
+
+/*
+Second iteration through problem.
+
+    initialize an empty stack (array)
+    initialize a hash table with opening and closing brackets.
+    whenever we find an opening bracket ( { [ we`re going to add to stack.
+    whenever we find a closing brackt ) } ] we're pop our stack 
+    AND compare to the current closing bracket.
+        If they don't match, return false.
+        
+    return the OPPOSITE of the stack is empty. (array length)        
+
+*/
+
+function isValid(s) {
+    const brackets = {
+        ")": "(",
+        "}": "{",
+        "]": "["
+    };
+    
+    const stack = [];
+    
+    for (let i = 0; i < s.length; ++i) {
+        const currentCharacter = s[i];
+        
+        if (brackets[currentCharacter]) {
+            const lastOpen = stack.pop();
+            
+            if (lastOpen !== brackets[currentCharacter]) return false;
+        }
+        else stack.push(currentCharacter);
+    }
+    
+    return !stack.length;
+};
+
+// Runtime: 60 ms, faster than 77.31% of JavaScript online submissions for Valid Parentheses.
+// Memory Usage: 33.6 MB, less than 93.56% of JavaScript online submissions for Valid Parentheses.
