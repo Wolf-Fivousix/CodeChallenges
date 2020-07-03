@@ -92,3 +92,12 @@ function trailingZeroes(n) {
 
 // Runtime: 64 ms, faster than 85.87% of JavaScript online submissions for Factorial Trailing Zeroes.
 // Memory Usage: 36 MB, less than 20.53% of JavaScript online submissions for Factorial Trailing Zeroes.
+
+// Solution by xcv58
+
+function trailingZeroes(n) {
+    return n === 0 ? 0 : Math.floor(n / 5) + trailingZeroes(n / 5);
+}
+// Runtime: 120 ms, faster than 10.76% of JavaScript online submissions for Factorial Trailing Zeroes.
+// Memory Usage: 38.9 MB, less than 5.33% of JavaScript online submissions for Factorial Trailing Zeroes.
+// Due to recursion it performs way worse than the iterative approach.
