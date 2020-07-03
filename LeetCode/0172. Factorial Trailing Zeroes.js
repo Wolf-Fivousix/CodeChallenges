@@ -76,3 +76,19 @@ function countZeros(value) {
 // 23 => 2.154.334.728.240.414.720.000
 // 24 => 51.704.033.477.769.953.280.000
 // 25 => 1.292.600.836.944.248.832.000.000
+
+// Seems like every 5 factorial we get an increase in 1 ZERO.
+// Also, whenever N / 5 is greater than 5, we add another zero.
+
+function trailingZeroes(n) {
+    let zeros = 0;
+    while (n > 0) {
+        zeros += Math.floor(n / 5);
+        n = Math.floor(n / 5);
+    }
+    
+    return zeros;
+}
+
+// Runtime: 64 ms, faster than 85.87% of JavaScript online submissions for Factorial Trailing Zeroes.
+// Memory Usage: 36 MB, less than 20.53% of JavaScript online submissions for Factorial Trailing Zeroes.
