@@ -70,3 +70,33 @@ function combinationSum(candidates, target) {
 
 // Right now the problem is that when the currentAnswer resets, so does I.
 // Look at output for [2,3,7], target 7.
+
+function combinationSum(candidates, target) {
+    const result = [];
+    
+    for (let i = 0; i < candidates.length; ++i) {
+        combineElements([candidates[i]], i, target - candidates[i]);
+    }
+    
+    return result;
+    
+    
+    function combineElements(currentArray, startIndex, target) {
+        if (target < 0) return;
+        if (target === 0) {
+            result.push(currentArray);
+            return;
+        }
+        
+        for (let i = startIndex; i < candidates.length; ++i) {
+            combineElements(currentArray.concat(candidates[i]), i, target - candidates[i]);
+        }
+    }
+}
+
+// I'm using a closure here in order to not pass in a 4th argument to the recursive function.
+// Runtime: 200 ms, faster than 8.19% of JavaScript online submissions for Combination Sum.
+// Memory Usage: 42.8 MB, less than 20.02% of JavaScript online submissions for Combination Sum.
+
+// We are doing a Polynomial Time Complexity. Trying every single possible combination.
+// We are also making multiple copies of arrays in order to calculate all that, so Polynomial Space Complexity as well.
