@@ -64,3 +64,6 @@ function printQ(queue) {
 
 // Runtime: 92 ms, faster than 83.01% of JavaScript online submissions for Deepest Leaves Sum.
 // Memory Usage: 45.6 MB, less than 39.80% of JavaScript online submissions for Deepest Leaves Sum.
+
+// Linear Time Complexity, as we need to traverse all nodes to make sure we did not miss any leaves.
+// Linear Space Complexity, as we could have all nodes at the same time in the queue.
