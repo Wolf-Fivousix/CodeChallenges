@@ -53,3 +53,23 @@ function swapPairs(head) {
 
 // Linear Time Complexity, as we need to traverse the whole list.
 // Constant Space Complexity, as we only need 3 pointers to make the changes.
+
+// Solution by test321bro
+var swapPairs = function(head) {
+    let cur = head;
+    let newHead = head && head.next ? head.next : head;
+        
+    while (cur && cur.next) {
+        let next = cur.next;
+        let temp = next.next;
+        
+        next.next = cur;
+        cur.next = temp && temp.next ? temp.next : temp;
+        
+        cur = temp;
+    }
+
+    
+    return newHead;
+};
+
