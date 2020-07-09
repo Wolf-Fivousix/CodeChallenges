@@ -68,3 +68,21 @@ function minPathSum(grid) {
 
 // Runtime: 76 ms, faster than 56.09% of JavaScript online submissions for Minimum Path Sum.
 // Memory Usage: 38.3 MB, less than 32.03% of JavaScript online submissions for Minimum Path Sum.
+
+function minPathSum(grid) {
+    for (let row = 0; row < grid.length; ++row) {
+        for (let column = 0; column < grid[row].length; ++column) {
+            let up = row - 1 < 0 ? Number.POSITIVE_INFINITY : grid[row - 1][column];
+            const left = column - 1 < 0 ? Number.POSITIVE_INFINITY : grid[row][column - 1];
+            
+            if (row - 1 < 0 && column - 1 < 0) up = 0;
+            grid[row][column]  += Math.min(up, left);
+        }
+    }
+
+    return grid[grid.length - 1][grid[grid.length - 1].length - 1];
+}
+
+// This is the Constant Space version.
+// Runtime: 68 ms, faster than 81.61% of JavaScript online submissions for Minimum Path Sum.
+// Memory Usage: 36.8 MB, less than 56.92% of JavaScript online submissions for Minimum Path Sum.
