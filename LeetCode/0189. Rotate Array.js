@@ -51,16 +51,35 @@ function rotate(nums, k) {
 
 function rotate(nums, k) {
     k = k % nums.length;
-    for (let i = 0; i < k; ++i) {
-        let temp = null;
-        for (let currentIndex = i + k; currentIndex < nums.length; currentIndex += k) {
-            console.log(i, nums);
-            temp = nums[currentIndex];
-            nums[currentIndex] = nums[i];
-            nums[i] = temp;
-            
+    // for (let i = 0; i < k; ++i) {
+    console.log(nums);
+    if (nums.length % k === 0 || k % 2 === 0 && nums.length % 2 === 0) {
+        for (let i = 0; i < k; ++i) {
+            let temp = null;
+            for (let currentIndex = i + k; currentIndex < nums.length; currentIndex += k) {
+                console.log(i, currentIndex, nums);
+                temp = nums[currentIndex];
+                nums[currentIndex] = nums[i];
+                nums[i] = temp;
+            }
         }
     }
+    else {
+        let currentIndex = k;
+        while (currentIndex !== 0) {
+            const temp = nums[currentIndex];
+            nums[currentIndex] = nums[0];
+            nums[0] = temp;
+            console.log(currentIndex, nums);
+            currentIndex = (currentIndex + k) % nums.length;
+        }
+    }
+    console.log(nums);
 };
 
 // I'm trying to figure out a way to swap the itens in place manually by looping through the array.
+// I keep hitting edge cases. I have not quite figured out if this is even possible.
+// console.log(rotate([1,2,3,4,5,6,7], 3));
+// console.log(rotate([-1,-100,3,99], 2));
+// console.log(rotate([1,2,3,4,5,6], 3));
+console.log(rotate([1,2,3,4,5,6], 4));
