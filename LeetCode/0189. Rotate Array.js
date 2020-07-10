@@ -49,4 +49,18 @@ function rotate(nums, k) {
 // Linear Time Complexity with Constant Space.
 // I wonder if JS does some array reassigning under the hood whenever Pop or Shift/Unshift are called on it.
 
+function rotate(nums, k) {
+    k = k % nums.length;
+    for (let i = 0; i < k; ++i) {
+        let temp = null;
+        for (let currentIndex = i + k; currentIndex < nums.length; currentIndex += k) {
+            console.log(i, nums);
+            temp = nums[currentIndex];
+            nums[currentIndex] = nums[i];
+            nums[i] = temp;
+            
+        }
+    }
+};
 
+// I'm trying to figure out a way to swap the itens in place manually by looping through the array.
