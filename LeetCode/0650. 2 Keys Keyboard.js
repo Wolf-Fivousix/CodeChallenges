@@ -82,3 +82,24 @@ function findDivisor(n) {
 //         return ans;
 //     }
 // }
+
+// Solution by Yin.
+// function minSteps(n){
+//     let initChars = "A";
+//     let holdingValue = "A";
+//     function backtracking(cur, hold){
+//         if(cur.length > n){
+//             return Infinity;
+//         }
+//         if(cur.length == n ){
+//             return 0;
+//         }
+
+//         // just paste
+//         const stepsOfP = backtracking(cur + hold, hold) + 1;
+//         const stepsOfCP = backtracking(cur + cur, cur) + 2;
+//         return Math.min(stepsOfP, stepsOfCP);
+//     }
+
+//     return backtracking(initChars, holdingValue) + 1;
+// }
