@@ -87,3 +87,29 @@ function invertTree(root) {
 
 // Runtime: 96 ms, faster than 6.00% of JavaScript online submissions for Invert Binary Tree.
 // Memory Usage: 33.4 MB, less than 97.75% of JavaScript online submissions for Invert Binary Tree.
+
+// Linear Time Complexity.
+// Constant Space Complexity. (as we modify the original tree)
+
+function invertTree(root) {
+    const queue = [root];
+    
+    while (queue.length) {
+        const node = queue.shift();
+        if (!node) continue;
+
+        const leftBranch = node.left;
+        node.left = node.right;
+        node.right = leftBranch;    
+
+        queue.push(node.left);
+        queue.push(node.right);
+    }
+    
+    return root;
+}
+
+// This is the non-recursive method. Time and Space complexities are the same.
+
+// Runtime: 104 ms, faster than 6.00% of JavaScript online submissions for Invert Binary Tree.
+// Memory Usage: 33.5 MB, less than 93.17% of JavaScript online submissions for Invert Binary Tree.
