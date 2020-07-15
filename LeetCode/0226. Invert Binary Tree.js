@@ -44,7 +44,7 @@ function invertTree(root) {
 	const queue = [root.left, root.right];
 	
 	while (queue.length) {
-        console.log(queue);
+        // console.log(queue);
 		const node = queue.shift();
 		if (!node) continue;
 
@@ -70,3 +70,20 @@ function insertElement(root, value) {
 
 // This solution works for regular Binary Trees, but it does not work when they are already inverted.
 // Like [1,2, null]. In this case the higher values are already on the left side of the tree.
+
+// For each node in the tree, we are going to invert their left and rights.
+
+function invertTree(root) {
+	if (!root) return root;
+
+    const leftBranch = root.left;
+    root.left = root.right;
+    root.right = leftBranch;
+    invertTree(root.left);
+    invertTree(root.right);
+
+    return root;
+}
+
+// Runtime: 96 ms, faster than 6.00% of JavaScript online submissions for Invert Binary Tree.
+// Memory Usage: 33.4 MB, less than 97.75% of JavaScript online submissions for Invert Binary Tree.
