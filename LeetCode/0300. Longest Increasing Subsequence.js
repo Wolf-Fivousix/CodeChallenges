@@ -77,3 +77,34 @@ maxLength = 2
 ]
 */
 // Polynomial for Time and Space Complexity.
+function lengthOfLIS(nums) {
+    if (!nums.length) return 0;
+    const maxArray = [nums[0]];
+    // [5,6,7,1,2]
+    //         ^
+    // [5, 6, 7, 7, 7]
+    for (let i = 1; i < nums.length; ++i) {
+        maxArray.push(Math.max(maxArray[maxArray.length - 1], nums[i]));
+    }
+    const minArray = [nums[nums.length - 1]];
+    // [5,6,7,1,2]
+    //  ^
+    // [1,1,1,1,2]
+    for (let i = nums.length - 2; i > -1; --i) {
+        minArray.unshift(Math.min(minArray[0], nums[i]));
+    }
+    let maxLength = 1;
+    for (let i = 1; i < maxArray.length; ++i) {
+        if (maxArray[i] > maxArray[i - 1]) ++maxLength;
+    }
+    let minLength = 1;
+    for (let i = 1; i < minArray.length; ++i) {
+        if (minArray[i] > minArray[i - 1]) ++minLength;
+    }
+    console.log(maxArray);
+    console.log(minArray);
+    return Math.max(maxLength, minLength);
+}
+// console.log(lengthOfLIS([2,2,3])); // => 2
+// console.log(lengthOfLIS([2,3,10,5,6])); // => 4
+console.log(lengthOfLIS([2,15,3,7,8,6,18])); // => 5
