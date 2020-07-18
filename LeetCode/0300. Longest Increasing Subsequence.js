@@ -107,15 +107,7 @@ function lengthOfLIS(nums) {
 }
 // console.log(lengthOfLIS([2,2,3])); // => 2
 // console.log(lengthOfLIS([2,3,10,5,6])); // => 4
-console.log(lengthOfLIS([2,15,3,7,8,6,18])); // => 5
-
-
-
-
-
-
-
-
+// console.log(lengthOfLIS([2,15,3,7,8,6,18])); // => 5
 
 
 // Provided Solution Strategies
@@ -131,15 +123,9 @@ console.log(lengthOfLIS([2,15,3,7,8,6,18])); // => 5
 
 // Complexity Analysis
 
-// Time complexity : O(2^n)O(2 
-// n
-//  ). Size of recursion tree will be 2^n2 
-// n
-//  .
+// Time complexity : O(2^n)O(2n). Size of recursion tree will be 2^n2 n.
 
-// Space complexity : O(n^2)O(n 
-// 2
-//  ). memomemo array of size n * nn∗n is used.
+// Space complexity : O(n^2)O(n2). memomemo array of size n * nn∗n is used.
 
 // Approach 2: Recursion with Memoization
 // Algorithm
@@ -149,36 +135,23 @@ console.log(lengthOfLIS([2,15,3,7,8,6,18])); // => 5
 
 // Complexity Analysis
 
-// Time complexity : O(n^2)O(n 
-// 2
-//  ). Size of recursion tree can go upto n^2n 
-// 2
-//  .
+// Time complexity : O(n^2)O(n2). Size of recursion tree can go upto n^2n 2.
 
-// Space complexity : O(n^2)O(n 
-// 2
-//  ). memomemo array of n*nn∗n is used.
+// Space complexity : O(n^2)O(n2). memomemo array of n*nn∗n is used.
 
 // Approach 3: Dynamic Programming
 // Algorithm
 
-// This method relies on the fact that the longest increasing subsequence possible upto the i^{th}i 
-// th
-//   index in a given array is independent of the elements coming later on in the array. Thus, if we know the length of the LIS upto i^{th}i 
-// th
-//   index, we can figure out the length of the LIS possible by including the (i+1)^{th}(i+1) 
-// th
-//   element based on the elements with indices jj such that 0 \leq j \leq (i + 1)0≤j≤(i+1).
+// This method relies on the fact that the longest increasing subsequence possible upto the i^{th}i th index in a given array is 
+// independent of the elements coming later on in the array. Thus, if we know the length of the LIS upto i^{th}i 
+// th index, we can figure out the length of the LIS possible by including the (i+1)^{th}(i+1) 
+// th element based on the elements with indices jj such that 0 \leq j \leq (i + 1)0≤j≤(i+1).
 
 // We make use of a dpdp array to store the required data. dp[i]dp[i] represents the length of the longest increasing subsequence possible considering the array elements upto the i^{th}i 
-// th
-//   index only ,by necessarily including the i^{th}i 
-// th
-//   element. In order to find out dp[i]dp[i], we need to try to append the current element(nums[i]nums[i]) in every possible increasing subsequences upto the (i-1)^{th}(i−1) 
-// th
-//   index(including the (i-1)^{th}(i−1) 
-// th
-//   index), such that the new sequence formed by adding the current element is also an increasing subsequence. Thus, we can easily determine dp[i]dp[i] using:
+// th index only ,by necessarily including the i^{th}i 
+// th element. In order to find out dp[i]dp[i], we need to try to append the current element(nums[i]nums[i]) in every possible increasing subsequences upto the (i-1)^{th}(i−1) 
+// th index(including the (i-1)^{th}(i−1) 
+// th index), such that the new sequence formed by adding the current element is also an increasing subsequence. Thus, we can easily determine dp[i]dp[i] using:
 
 // dp[i] = \text{max}(dp[j]) + 1, \forall 0\leq j < idp[i]=max(dp[j])+1,∀0≤j<i
 
@@ -196,9 +169,7 @@ console.log(lengthOfLIS([2,15,3,7,8,6,18])); // => 5
 
 // Complexity Analysis
 
-// Time complexity : O(n^2)O(n 
-// 2
-//  ). Two loops of nn are there.
+// Time complexity : O(n^2)O(n2). Two loops of nn are there.
 
 // Space complexity : O(n)O(n). dpdp array of size nn is used.
 
@@ -206,12 +177,9 @@ console.log(lengthOfLIS([2,15,3,7,8,6,18])); // => 5
 // Algorithm
 
 // In this approach, we scan the array from left to right. We also make use of a dpdp array initialized with all 0's. This dpdp array is meant to store the increasing subsequence formed by including the currently encountered element. While traversing the numsnums array, we keep on filling the dpdp array with the elements encountered so far. For the element corresponding to the j^{th}j 
-// th
-//   index (nums[j]nums[j]), we determine its correct position in the dpdp array(say i^{th}i 
-// th
-//   index) by making use of Binary Search(which can be used since the dpdp array is storing increasing subsequence) and also insert it at the correct position. An important point to be noted is that for Binary Search, we consider only that portion of the dpdp array in which we have made the updates by inserting some elements at their correct positions(which remains always sorted). Thus, only the elements upto the i^{th}i 
-// th
-//   index in the dpdp array can determine the position of the current element in it. Since, the element enters its correct position(ii) in an ascending order in the dpdp array, the subsequence formed so far in it is surely an increasing subsequence. Whenever this position index ii becomes equal to the length of the LIS formed so far(lenlen), it means, we need to update the lenlen as len = len + 1len=len+1.
+// th index (nums[j]nums[j]), we determine its correct position in the dpdp array(say i^{th}i 
+// th index) by making use of Binary Search(which can be used since the dpdp array is storing increasing subsequence) and also insert it at the correct position. An important point to be noted is that for Binary Search, we consider only that portion of the dpdp array in which we have made the updates by inserting some elements at their correct positions(which remains always sorted). Thus, only the elements upto the i^{th}i 
+// th index in the dpdp array can determine the position of the current element in it. Since, the element enters its correct position(ii) in an ascending order in the dpdp array, the subsequence formed so far in it is surely an increasing subsequence. Whenever this position index ii becomes equal to the length of the LIS formed so far(lenlen), it means, we need to update the lenlen as len = len + 1len=len+1.
 
 // Note: dpdp array does not result in longest increasing subsequence, but length of dpdp array will give you length of LIS.
 
@@ -237,3 +205,20 @@ console.log(lengthOfLIS([2,15,3,7,8,6,18])); // => 5
 // Time complexity : O(n\log n)O(nlogn). Binary search takes \log nlogn time and it is called nn times.
 
 // Space complexity : O(n)O(n). dpdp array of size nn is used.
+
+
+// My own notes.
+/*
+So, this is how the improved bruteforce solution (N^2) works:
+
+We make an auxiliary array that will hold the length of the sequence up to that point.
+The first element starts at 1, because the smallest sequence is always 1. (don't forget to return 0 at the start for empty input.)
+For each point in the array, we will compare the current value with every other value before it.
+    At each loop, we will keep track of the max length, wich starts at 0.
+    Whenever we find a value that is lower, we will compare the length we had at that point with our current length. We do this by using our auxiliary arrray.
+    This works becase we know, for a fact, that whatever length we had at a number that is LOWER than our current, we can improve by one.
+
+    Once we loop ends, we save our current max length for the current element and move on.
+
+At the end we return the best value found.
+*/
