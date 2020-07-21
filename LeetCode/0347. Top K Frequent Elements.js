@@ -1,3 +1,5 @@
+// Medium
+
 // Given a non-empty array of integers, return the k most frequent elements.
 
 // Example 1:
@@ -36,3 +38,6 @@ function topKFrequent(nums, k) {
     result = result.map(pair => pair[0]);
     return result.slice(0, k);
 }
+
+// Runtime: 112 ms, faster than 34.51% of JavaScript online submissions for Top K Frequent Elements.
+// Memory Usage: 39.9 MB, less than 38.05% of JavaScript online submissions for Top K Frequent Elements.
