@@ -36,3 +36,8 @@ function containsDuplicate(nums) {
 // Memory Usage: 41.5 MB, less than 47.25% of JavaScript online submissions for Contains Duplicate.
 
 // Linear Time and Space Complexity.
+
+// Solution by loctn
+var containsDuplicate = function(nums) {
+    return new Set(nums).size < nums.length;
+};
