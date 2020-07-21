@@ -43,3 +43,6 @@ function deleteNode(node) {
 
 // Runtime: 80 ms, faster than 36.34% of JavaScript online submissions for Delete Node in a Linked List.
 // Memory Usage: 38.3 MB, less than 30.70% of JavaScript online submissions for Delete Node in a Linked List.
+
+// This is a very.... weird question. But I suppose it is not technically wrong.
+// The current node has been, indeed, "deleted".
