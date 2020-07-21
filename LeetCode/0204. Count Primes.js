@@ -36,5 +36,26 @@ function isPrime(value) {
 
 // Bruteforce solution. Runs out of time during execution.
 // Let's think about this: As I go through the values, I already know which ones were prime before it.
-// Hence, what I need to do is not figure out if the current value is prime, but instead, WHICH
-// values are prime from 2 to N - 1.
+// If I save those primes, all I need to do is see if those primes are divisors of it.
+
+function countPrimes(n) {
+    let primes = [];
+
+    for (let value = 2; value < n; ++value) {
+        let primeFlag = true;
+        
+        for (let i = 0; i < primes.length; ++i) {
+            const divisor = primes[i];
+            if (value % divisor === 0) {
+                primeFlag = false;
+                break;
+            }
+        }
+        
+        if (primeFlag) primes.push(value);
+    }
+    
+    return primes.length;
+}
+
+// New version. Still running out of time. =/
