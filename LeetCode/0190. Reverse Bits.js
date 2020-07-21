@@ -33,12 +33,15 @@
  */
 function reverseBits(n) {
     const binary = n.toString(2).split("").reverse();
-    for (let i = binary.length; i < 32; ++i) {
+    while (binary.length < 32) {
         binary.push("0");
     }
 
     return parseInt(binary.join(""), 2);
 }
+
+// Runtime: 88 ms, faster than 63.83% of JavaScript online submissions for Reverse Bits.
+// Memory Usage: 38.5 MB, less than 21.33% of JavaScript online submissions for Reverse Bits.
 
 // Constant Time Complexity, even though we traverse the binary representation about 4 times, the input is always 32
 // bits long, meaning the work will never change, regardless of the input.
