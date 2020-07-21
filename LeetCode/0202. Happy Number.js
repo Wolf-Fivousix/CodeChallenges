@@ -36,9 +36,9 @@ function isHappy(n) {
 
 	while (n > 1) {
 		if (visited.has(n)) return false;
-		else visited.add(n);
-
-		let sum = 0;
+		visited.add(n);
+        let sum = 0;
+        
 		while (n > 0) {
 			const digit = n % 10;
 			sum += digit * digit;
