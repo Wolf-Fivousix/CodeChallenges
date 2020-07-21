@@ -38,3 +38,21 @@ function reverseList(head) {
 
 // Linear Time and Space complexity.
 // Iterate through list once, make a new list with all those values.
+
+function reverseList(head) {
+    let newHead = null;
+    
+    while (head) {
+        const node = head;
+        head = head.next;
+        
+        node.next = newHead;
+        newHead = node;
+    }
+    
+    return newHead;
+}
+
+// Variation with Constant Space Complexity.
+// Runtime: 80 ms, faster than 36.07% of JavaScript online submissions for Reverse Linked List.
+// Memory Usage: 38.6 MB, less than 5.09% of JavaScript online submissions for Reverse Linked List.
