@@ -40,6 +40,8 @@ function reverseBits(n) {
     return parseInt(binary.join(""), 2);
 }
 
-// Linear Time Complexity, as we traverse the binary representation about 4 times.
+// Constant Time Complexity, even though we traverse the binary representation about 4 times, the input is always 32
+// bits long, meaning the work will never change, regardless of the input.
+
 // Constant Space Complexity, as we have a guarantee that our input is 32bits long. Meaning our
 // array will always be of size 32.
