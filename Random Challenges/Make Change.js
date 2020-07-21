@@ -80,6 +80,7 @@ Output: 2 // 1x1 + 1x5 and 6x1
 // 211
 // 1111
 
+// Answer by Justin Lieu
 function numberOfWaysToMakeChange(n, denoms) {
  // Write your code here.
  let ways = new Array(n+1).fill(0);
