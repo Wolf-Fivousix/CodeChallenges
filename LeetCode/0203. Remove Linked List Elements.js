@@ -31,12 +31,12 @@
  * @return {ListNode}
  */
 function removeElements(head, value) {
-	if (!head) return null;
-
-	while (head && head.val === value) head = head.next;
+    while (head && head.val === value) head = head.next;
+    if (!head) return null;
+    
 	let currentNode = head;
 
-	while (currentNode && currentNode.next) {
+	while (currentNode.next) {
             if (currentNode.next.val === value) currentNode.next = currentNode.next.next;
             else currentNode = currentNode.next;
     }
