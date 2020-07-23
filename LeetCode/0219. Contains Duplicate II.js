@@ -28,7 +28,7 @@ function containsNearbyDuplicate(nums, k) {
     }
     
     return false;
-};
+}
 
 // Runtime: 1232 ms, faster than 12.42% of JavaScript online submissions for Contains Duplicate II.
 // Memory Usage: 38.1 MB, less than 81.20% of JavaScript online submissions for Contains Duplicate II.
@@ -36,3 +36,30 @@ function containsNearbyDuplicate(nums, k) {
 // Bruteforce approach.
 // "Polinomial" Time Complexity (O Nums * K).
 // Constant Space Complexity. We only use 2 variables.
+
+function containsNearbyDuplicate(nums, k) {
+    if (!k || nums.length < 2) return false;
+    
+    // const currentNumbers = new Set(nums.slice(0, k + 1));
+    // if (currentNumbers.size < k) return true;
+    const currentNumbers = new Set();
+    for (let i = 0; i < nums.length && i <= k; ++i) {
+        if (currentNumbers.has(nums[i])) return true;
+        currentNumbers.add(nums[i]);
+    }
+    
+    
+    for (let i = k + 1; i < nums.length; ++i) {
+        currentNumbers.delete(nums[i - k - 1]);
+        if (currentNumbers.has(nums[i])) return true;
+        currentNumbers.add(nums[i]);
+    }
+    
+    return false;
+}
+
+// Runtime: 80 ms, faster than 80.21% of JavaScript online submissions for Contains Duplicate II.
+// Memory Usage: 40.8 MB, less than 78.95% of JavaScript online submissions for Contains Duplicate II.
+
+// Linear Time Complexity (size of numbers array).
+// Linear Space Complexity (size of K).
