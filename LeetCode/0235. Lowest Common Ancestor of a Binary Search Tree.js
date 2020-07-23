@@ -45,7 +45,6 @@ function lowestCommonAncestor(root, p, q) {
     
     if (p.val > q.val) [p, q] = [q, p];
     if (root === p || root === q) return root;
-    if (p.val <= root.val && root.val <= q.val) return root;
 
     if (p.val < root.val && q.val < root.val) return lowestCommonAncestor(root.left, p, q);
     return lowestCommonAncestor(root.right, p ,q);
