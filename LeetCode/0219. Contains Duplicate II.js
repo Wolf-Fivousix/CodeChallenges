@@ -40,8 +40,6 @@ function containsNearbyDuplicate(nums, k) {
 function containsNearbyDuplicate(nums, k) {
     if (!k || nums.length < 2) return false;
     
-    // const currentNumbers = new Set(nums.slice(0, k + 1));
-    // if (currentNumbers.size < k) return true;
     const currentNumbers = new Set();
     for (let i = 0; i < nums.length && i <= k; ++i) {
         if (currentNumbers.has(nums[i])) return true;
@@ -63,3 +61,13 @@ function containsNearbyDuplicate(nums, k) {
 
 // Linear Time Complexity (size of numbers array).
 // Linear Space Complexity (size of K).
+
+// Solution by lifongi
+function containsNearbyDuplicate(nums, k) {
+    var map = {};
+    for (var i = 0; i < nums.length; i++) {
+      if (map[nums[i]] >= 0 && i - map[nums[i]] <= k) return true;
+      map[nums[i]] = i;
+    }
+    return false;
+}
