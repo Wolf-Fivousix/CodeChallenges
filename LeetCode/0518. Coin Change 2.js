@@ -57,3 +57,28 @@ function change(amount, coins) {
 // Runtime: 84 ms, faster than 51.46% of JavaScript online submissions for Coin Change 2.
 // Memory Usage: 36.6 MB, less than 91.11% of JavaScript online submissions for Coin Change 2.
 // This solution was provided by Justin Lieu. (with my own naming alterations)
+
+function change(amount, coins) {
+    let possibilities = 0;
+    
+    while (coins.length) {
+        const change = [];
+        let amountLeft = amount;
+        
+        for (let i = coins.length - 1; i > -1; --i) {
+            for (let j = 0; j < Math.floor(amountLeft / coins[i]); ++j) {
+                change.push(coins[i]);
+            }
+            amountLeft %= coins[i];
+        }
+
+        console.log(coins, change);
+        if (change.length) ++possibilities;
+        coins.pop();
+    }
+    
+    return possibilities;
+}
+
+// A variation that I thought it could work. It almost does, but it fails in considering
+// when one coin can be swapped by a lower one, like 5, [1,2,5];
