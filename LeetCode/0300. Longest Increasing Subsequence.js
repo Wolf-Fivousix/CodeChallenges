@@ -222,3 +222,45 @@ For each point in the array, we will compare the current value with every other 
 
 At the end we return the best value found.
 */
+
+// Solution by slkuo230 (N Log N)
+var lengthOfLIS = function(nums) {
+    
+    if(!nums.length) return 0;
+    
+    // dynamic length because JavaScript is awesome like that :)
+    // hence we don't need to track of the current running length of tails
+    const tails = [];
+    
+    tails[0] = nums[0];
+    
+    for(let i = 1; i < nums.length; i++) {
+        
+        // replace current nums[i] with head if it's smaller
+        if(nums[i] < tails[0]) {
+            tails[0] = nums[i];     
+        // if current nums[i] is bigger than the largest value we've recorded
+        // we can extend our tails by current nums[i]
+        } else if(nums[i] > tails[tails.length-1]) {
+            tails.push(nums[i]);
+        } else {
+            // using binary search to find the insertion point of current nums[i]
+            // return r because we're looking to replace index of tail that's greater than nums[i]
+            let l = 0;
+            let r = tails.length-1;
+            while(l < r) {
+                const mid = (l+r)/2 >> 0;
+                if(tails[mid] >= nums[i]) {
+                    r = mid
+                } else {
+                    l = mid + 1;
+                }
+            }
+            tails[r] = nums[i];
+        }
+        
+    }
+    
+    return tails.length;  
+};
+// https://leetcode.com/problems/longest-increasing-subsequence/discuss/223258/JavaScript-Binary-Search-Nlog(N)
