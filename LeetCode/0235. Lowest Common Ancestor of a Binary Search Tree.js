@@ -54,5 +54,20 @@ function lowestCommonAncestor(root, p, q) {
 // Runtime: 100 ms, faster than 38.68% of JavaScript online submissions for Lowest Common Ancestor of a Binary Search Tree.
 // Memory Usage: 46.2 MB, less than 15.34% of JavaScript online submissions for Lowest Common Ancestor of a Binary Search Tree.
 
-// Logaritimic Time Complexity. As we might have to traverse a branch all the way to the before-last node.
+// Actually it is Linear Time Complexity. As we could have a binary tree that is shaped like a linked list. (increasing/decreasing order)
 // Constant Space Complexity.
+
+// Solution by hon9g
+var lowestCommonAncestor = function(root, p, q) {
+    while (root) {
+        if (root.val < p.val && root.val < q.val) {
+            root = root.right;
+        }
+        else if (root.val > p.val && root.val > q.val) {
+            root = root.left;
+        } else {
+            break;
+        }
+    }
+    return root;
+};
