@@ -76,3 +76,29 @@ function removeNthFromEnd(head, n) {
 // Memory Usage: 37.7 MB, less than 5.13% of JavaScript online submissions for Remove Nth Node From End of List.
 // Linear Time Complexity.
 // Constant Space Complexity.
+
+// Second approach.
+function removeNthFromEnd(head, n) {
+    if (!head) return null;
+    
+    const queue = [head];
+    let node = head;
+    let size = 0;
+    while(node) {
+        queue.push(node);
+        ++size;
+        if (queue.length > n + 1) queue.shift();
+        
+        node = node.next;
+    }
+    
+    node = queue.shift();
+    if (!node.next || size <= n) return head.next;
+        
+    node.next = node.next.next;
+    return head;
+}
+// Runtime: 80 ms, faster than 44.11% of JavaScript online submissions for Remove Nth Node From End of List.
+// Memory Usage: 37.5 MB, less than 5.13% of JavaScript online submissions for Remove Nth Node From End of List.
+// Linear Time Complexity, where N is the size of linked list.
+// Linear Space Complexity, where N is the input N.
