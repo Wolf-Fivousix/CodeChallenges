@@ -102,3 +102,61 @@ function removeNthFromEnd(head, n) {
 // Memory Usage: 37.5 MB, less than 5.13% of JavaScript online submissions for Remove Nth Node From End of List.
 // Linear Time Complexity, where N is the size of linked list.
 // Linear Space Complexity, where N is the input N.
+
+
+// Proposed solution, does in one pass with constant space:
+// Approach 2: One pass algorithm
+// Algorithm
+
+// The above algorithm could be optimized to one pass. Instead of one pointer, we could use two pointers. The first pointer advances the list by n+1n+1 steps from the beginning, while the second pointer starts from the beginning of the list. Now, both pointers are exactly separated by nn nodes apart. We maintain this constant gap by advancing both pointers together until the first pointer arrives past the last node. The second pointer will be pointing at the nnth node counting from the last. We relink the next pointer of the node referenced by the second pointer to point to the node's next next node.
+
+// Remove the nth element from a list
+// public ListNode removeNthFromEnd(ListNode head, int n) {
+//     ListNode dummy = new ListNode(0);
+//     dummy.next = head;
+//     ListNode first = dummy;
+//     ListNode second = dummy;
+//     // Advances first pointer so that the gap between first and second is n nodes apart
+//     for (int i = 1; i <= n + 1; i++) {
+//         first = first.next;
+//     }
+//     // Move first to the end, maintaining the gap
+//     while (first != null) {
+//         first = first.next;
+//         second = second.next;
+//     }
+//     second.next = second.next.next;
+//     return dummy.next;
+// }
+
+// Complexity Analysis
+
+// Time complexity : O(L)O(L).
+
+// The algorithm makes one traversal of the list of LL nodes. Therefore time complexity is O(L)O(L).
+
+// Space complexity : O(1)O(1).
+
+// We only used constant extra space.
+
+function removeNthFromEnd(head, n) {
+    if (!head) return null;
+    
+    const dummy = new ListNode(null, head);
+    let pointer1 = dummy;
+    let pointer2 = dummy;
+    
+    for (let i = 0; i < n + 1 && pointer1; ++i) {
+        pointer1 = pointer1.next;
+    }
+    
+    while (pointer1) {
+        pointer1 = pointer1.next;
+        pointer2 = pointer2.next;
+    }
+    
+    pointer2.next = pointer2.next.next;
+    return dummy.next;
+}
+// Runtime: 92 ms, faster than 24.68% of JavaScript online submissions for Remove Nth Node From End of List.
+// Memory Usage: 36.7 MB, less than 5.13% of JavaScript online submissions for Remove Nth Node From End of List.
