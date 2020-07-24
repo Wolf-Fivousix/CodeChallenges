@@ -28,3 +28,51 @@ Possible problem: What happens if the list is smaller than N?
 Linear Time and Space, but we do it in 1 pass instead of 2.
 */
 
+// First appraoch.
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} n
+ * @return {ListNode}
+ */
+function removeNthFromEnd(head, n) {
+    if (!head) return null;
+    
+    let size = 0;
+    let tempHead = head;
+    while (tempHead) {
+        ++size;
+        tempHead = tempHead.next;
+    }
+    
+    tempHead = head;
+    const target = size - n;
+    
+    if (size <= n) {
+        head = head.next;
+        return head;
+    }
+    
+    size = 0;
+    while (tempHead) {
+        ++size;
+        if (size === target) {
+            tempHead.next = tempHead.next.next;
+            break;
+        }
+        tempHead = tempHead.next;
+    }
+    
+    return head;
+}
+
+// Runtime: 80 ms, faster than 44.11% of JavaScript online submissions for Remove Nth Node From End of List.
+// Memory Usage: 37.7 MB, less than 5.13% of JavaScript online submissions for Remove Nth Node From End of List.
+// Linear Time Complexity.
+// Constant Space Complexity.
