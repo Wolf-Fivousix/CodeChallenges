@@ -39,3 +39,6 @@ function threeSumClosest(nums, target) {
 // Bruteforce approach.
 // Polynomial (N ^ 3) Time Complexity.
 // Constant Space Complexity.
+
+// Runtime: 200 ms, faster than 12.98% of JavaScript online submissions for 3Sum Closest.
+// Memory Usage: 37.3 MB, less than 23.17% of JavaScript online submissions for 3Sum Closest.
