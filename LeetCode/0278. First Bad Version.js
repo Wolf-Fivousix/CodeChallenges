@@ -40,7 +40,7 @@ function solution(isBadVersion) {
         let end = n;
         
         while (start < end) {
-            const middle = Math.floor((start + end) / 2);
+            const middle = Math.floor(start + ((end - start) / 2));
 
             if (isBadVersion(middle)) end = middle;
             else start = middle + 1;
