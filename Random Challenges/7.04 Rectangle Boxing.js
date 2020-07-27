@@ -82,3 +82,9 @@ function rectangleBoxes(operations) {
     }
     return result;
 }
+
+// Now, this solution was not passing all the test cases due to efficiency.
+// That second inner loop is killing it's run time.
+// What are some improvements we can do?
+// I know we have to iterate through the input at least once, so no better way than Linear.
+// What can we do about the boxes?
