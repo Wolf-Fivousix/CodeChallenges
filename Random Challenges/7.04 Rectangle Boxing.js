@@ -88,3 +88,13 @@ function rectangleBoxes(operations) {
 // What are some improvements we can do?
 // I know we have to iterate through the input at least once, so no better way than Linear.
 // What can we do about the boxes?
+
+// I could keep track of the greatest length and heigh found, but I would miss some edge cases, like:
+// rectangle 1 is 3x1
+// rectangle 2 is 1x7
+// box is 1x7
+/*
+In this case, greatest height would be 3, and greatest width 7.
+We know that the box fits the 7, no problem. But the height doesn't match the width.
+If we turn the box, now we lost the measurments for width... But the idea has potential.
+*/
