@@ -52,10 +52,9 @@ function searchRange(nums, target) {
             }
             else start = middle + 1;
         }
-        
-        return start;
     }    
     
+    // Find the highest index.
     function highHigh() {
         let start = highest;
         let end = nums.length - 1;
@@ -68,8 +67,6 @@ function searchRange(nums, target) {
             }
             else end = middle - 1;
         }
-        
-        return start;
     }
     
     lowLow();
@@ -170,3 +167,36 @@ function binarySearch(array, target) {
 //         return targetRange;
 //     }
 // }
+
+// Solution by ybmlk
+var searchRange = function(nums, target) {
+    let low = 0, high = nums.length-1, mid;
+    
+    // find the start
+    while(low <= high) {
+        mid = Math.floor((low+high)/2);
+        if(nums[mid] >= target) high = mid-1;
+        else low = mid+1;
+    }
+    
+    // if target doesn't exist
+    if(nums[low] !== target) return [-1, -1];
+    
+    const start = low;
+    
+    // reset low and high
+    low = 0, high = nums.length-1;
+    
+    // find the end
+    while(low <= high) {
+        mid = Math.floor((low+high)/2);
+        if(nums[mid] <= target) low = mid+1;
+        else high = mid-1;
+    }
+    return [start, high];
+};
+
+// Now this one is more interesting.
+// What it does is Binary search for the lowest index first.
+// Then reset the start and end variables and look for the highest index.
+// Both are spaggethi.
