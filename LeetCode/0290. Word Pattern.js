@@ -72,3 +72,11 @@ function hashMe(sequence) {
     
     return hash;
 }
+
+// Runtime: 80 ms, faster than 31.58% of JavaScript online submissions for Word Pattern.
+// Memory Usage: 36.4 MB, less than 8.33% of JavaScript online submissions for Word Pattern.
+
+// Linear Time and Space complexity, as we iterate through the inputs about 3 times and
+// our hash tables grow as our input grows.
+// Given, there's only so many characters that can be used for the key. But since we are hashing
+// both inputs, only one becomes constant, while String remains linear.
