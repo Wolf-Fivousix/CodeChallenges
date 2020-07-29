@@ -115,3 +115,10 @@ function foodPick (dinners, restaurants) {
 
     return firstPick["name"];
 }
+
+// We have Linear Time and Space Complexity, where it depends on Dinners AND Restaurants.
+// O(D * R)
+
+// We could, potentially, have Linear Space Complexity as well, where every restaurant is
+// a valid choice. Making Places as big as Restaurants
+// Cuisine will grow as large as Dinners Cuisines are, so not quite as big as the Dinners input itself. 
