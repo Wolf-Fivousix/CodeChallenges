@@ -122,3 +122,41 @@ function foodPick (dinners, restaurants) {
 // We could, potentially, have Linear Space Complexity as well, where every restaurant is
 // a valid choice. Making Places as big as Restaurants
 // Cuisine will grow as large as Dinners Cuisines are, so not quite as big as the Dinners input itself. 
+
+// Solution by Ethan.
+const food = (requests, restuarants) => {
+    let count = {};
+    for (let i = 0; i < restuarants.length; i++) {
+        const restuarant = restuarants[i];
+        for (let j = 0; j < requests.length; j++) {
+            const request = requests[j];
+            if (request.type.includes(restuarant.type)) {
+                if (count[restuarant.name] === undefined) {
+                    count[restuarant.name] = 0
+                }
+                count[restuarant.name] += 1
+            }
+            if (request.price.length >= restuarant.price.length) {
+                if (count[restuarant.name] === undefined) {
+                    count[restuarant.name] = 0
+                }
+                count[restuarant.name] += 1
+            } else {
+                count[restuarant.name] -= 1
+            }
+        }
+    }
+    let best = 0;
+    let winner = '';
+    Object.keys(count).forEach(key => {
+        if (count[key] >= best) {
+            best = count[key]
+            winner = key
+        }
+    })
+    return winner
+}
+
+// This solution is Polynomial Time Complexity.
+// And Linear Space complexity, based on the Restaurants. As the hash "count" grows
+// per restaurant name.
