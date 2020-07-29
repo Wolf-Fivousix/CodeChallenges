@@ -77,3 +77,41 @@ requests = [
 
 // return firstPick.
 // Inputs are arrays of objects.
+
+function foodPick (dinners, restaurants) {
+	let priceRange = Number.POSITIVE_INFINITY;
+	for (let i = 0; i < dinners.length; ++i) {
+		const currentPrice = dinners[i][“price”].length;
+		if (currentPrice < priceRange) priceRange = currentPrice;
+    }
+
+    let places = restaurants.filter(restaurant => restaurant[“price”].length <= priceRange);
+
+    // if (!places.length) go back and fix the Dinners / Restaurants.
+
+    const cuisines = {};
+    for (let i = 0; i < dinners.length; ++i) {
+        const currentCuisine = dinners[i][“cuisine”];
+        for (let j = 0; j < currentCuisine.length; ++j) {
+            if (cuisines[currentCuisine[j]]) ++cuisines[currentCuisine[j]];
+            else cuisines[currentCuisine[j]] = 1;
+        }
+    }
+
+    let firstPick;
+    let bestScore = -1;
+    for (let i = 0; i < places.length; ++i) {
+        const kitchen = places[i][“cuisine”];
+        let currentScore = -1;
+        if (cuisines[kitchen]) {
+            currentScore = cuisines[kitchen];
+        }
+        else {
+            currentScore = 0;
+        }
+
+        if (bestScore < currentScore) firstPick = places[i];
+    }
+
+    return firstPick[“name”];
+}
