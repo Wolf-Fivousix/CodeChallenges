@@ -26,33 +26,13 @@
 // Split the string into an array separated by white spaces.
 // if the length is different than the legth of pattern, return false.
 
-// For the pattern string, we need to know which characters map
+// For the pattern AND string, we need to know which characters map
 // to which indexes. That's important for our comparsion later.
-// We can iterate through the pattern once and hash table it's
-// character to the indexes found.
-
-// With that information we can now iterate through every key.
-    // in every key, we iterate through every index.
-        // We then theck if the string has the same word in all those positions.
-        // if not, we return false early.
-
-// Once this process is complete, the pattern is true.
-
-// There's a problem here.
-// Think about pattern = "abba", str = "dog dog dog dog" => False
-// In this case, we would return true, since the letters are compared within itself.
-// Let's change our approach.
-// How about we do the same process of "indexing" the elements of both sequences.
-// If the values length are different, return false.
-// Then we iterate through the values.
-    // For each value, we iterate again and compare indexes.
-        // if we find a index that is different, we can return false.
-
+// We can iterate through them once and hash table it's elements to the indexes found.
+    // If the values length are different, return false.
+    // Then we iterate through the values arrays.
+            // if we find a index that is different, we can return false.
 // At the end, return true.
-
-// Possible point of failure: Does the hashes values get orderd by creation time or
-// lexicographically? That could break our solution.
-// Testing shows that it would return them by order inserted. Let's do it.
 
 /**
  * @param {string} pattern
