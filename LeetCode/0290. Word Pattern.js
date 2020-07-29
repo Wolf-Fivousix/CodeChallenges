@@ -23,12 +23,6 @@
 // Notes:
 // You may assume pattern contains only lowercase letters, and str contains lowercase letters that may be separated by a single space.
 
-/**
- * @param {string} pattern
- * @param {string} str
- * @return {boolean}
- */
-
 // Split the string into an array separated by white spaces.
 // if the length is different than the legth of pattern, return false.
 
@@ -44,7 +38,23 @@
 
 // Once this process is complete, the pattern is true.
 
+// There's a problem here.
+// Think about pattern = "abba", str = "dog dog dog dog" => False
+// In this case, we would return true, since the letters are compared within itself.
+// Let's change our approach.
+// How about we do the same process of "indexing" the elements of both sequences.
+// If the values length are different, return false.
+// Then we iterate through the values.
+    // For each value, we iterate again and compare indexes.
+        // if we find a index that is different, we can return false.
 
+// At the end, return true.
+
+/**
+ * @param {string} pattern
+ * @param {string} str
+ * @return {boolean}
+ */
 function wordPattern(pattern, str) {
 
 }
