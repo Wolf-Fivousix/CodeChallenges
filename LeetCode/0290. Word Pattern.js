@@ -60,5 +60,35 @@
  * @return {boolean}
  */
 function wordPattern(pattern, str) {
+    const string = str.split(" ");
+    if (string.length !== pattern.length) return false;
+    
+    const pats = Object.values(hashMe(pattern));
+    const seqs = Object.values(hashMe(string));
+    
+    if (pats.length !== seqs.length) return false;
+    
+    for (let i = 0; i < pats.length; ++i) {
+        const patt = pats[i];
+        const seqq = seqs[i];
+        if (patt.length !== seqq.length) return false;
+        
+        for (let j = 0; j < patt.length; ++j) {
+            if (patt[j] !== seqq[j]) return false;
+        }
+    }
+    
+    
+    return true;
+}
 
+function hashMe(sequence) {
+    const hash = {};
+    
+    for (let i = 0; i < sequence.length; ++i) {
+        if (hash[sequence[i]]) hash[sequence[i]].push(i);
+        else hash[sequence[i]] = [i];
+    }
+    
+    return hash;
 }
