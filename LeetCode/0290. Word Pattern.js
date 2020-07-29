@@ -50,6 +50,10 @@
 
 // At the end, return true.
 
+// Possible point of failure: Does the hashes values get orderd by creation time or
+// lexicographically? That could break our solution.
+// Testing shows that it would return them by order inserted. Let's do it.
+
 /**
  * @param {string} pattern
  * @param {string} str
