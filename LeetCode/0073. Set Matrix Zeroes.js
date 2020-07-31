@@ -69,4 +69,13 @@ function setZeroes(matrix) {
 // Memory Usage: 38.9 MB, less than 54.90% of JavaScript online submissions for Set Matrix Zeroes.
 
 // Linear Time Complexity, as we need to iterate through the matrix 3 times at worse case.
-// Linear Space Complexity, as the sets will grow as much as many 0's in the matrix.
+// Linear Space Complexity O(M + N), as the sets will grow as much as many 0's in the matrix.
+
+// For the follow up: How about we had a "flag" number that we'll keep as a marker.
+// We iterate through the matrix once and swap the 0's for the marker.
+// We iterate a second time, whenever we find a flag, we change the rows and columns to 0.
+    // EXCEPET the values marked with a flag.
+    // we change the current flag to 0.
+
+// Now we don't use any extra space, and, even though we are iterating multiple times through the matrix,
+// we use Linear Space.
