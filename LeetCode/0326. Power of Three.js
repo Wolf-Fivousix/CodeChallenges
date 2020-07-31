@@ -39,3 +39,8 @@ function isPowerOfThree(n) {
 // Memory Usage: 46.4 MB, less than 38.46% of JavaScript online submissions for Power of Three.
 // Logarithimic Time Complexity.
 // Constant Space Complexity.
+
+// For the follow up question:
+// The result is achieved through the application of mathematics. Using logarithmic formula to compute
+// the given number. Even then, despite a faster run time (log 3) instead of (log 2), the overall
+// complexity of solution does not decrease from Logarithmic to Constant.
