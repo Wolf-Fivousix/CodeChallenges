@@ -41,23 +41,30 @@
  * @param {TreeNode} root
  * @return {boolean}
  */
-function isValidBST(root, minValue, maxValue) {
-    if (!root) return true;
+function isValidBST(root) {
+    const inOrder = inOrderTraversal(root);
     
-    console.log(root.val, minValue, maxValue);
-    if (minValue && root.val >= minValue) return false;
-    if (maxValue && root.val <= maxValue) return false;
+    for (let i = 1; i < inOrder.length; ++i) {
+        if (inOrder[i] <= inOrder[i - 1]) return false;
+    }
     
-    minValue = root.val;
-    maxValue = root.val;
-    
-    // if (root.left) {
-    //     if (root.left.val >= maxValue) return false;
-    // }
-    // if (root.right) {
-    //     if (root.right.val <= minValue) return false;
-    // }
-    
-    return isValidBST(root.left, minValue, null) && isValidBST(root.right, null, maxValue);
+    return true;
 }
 
+function inOrderTraversal(root) {
+    if (!root) return [];
+    
+    const left = inOrderTraversal(root.left);
+    left.push(root.val, ...inOrderTraversal(root.right));
+    
+    return left;
+}
+
+// Runtime: 76 ms, faster than 89.37% of JavaScript online submissions for Validate Binary Search Tree.
+// Memory Usage: 42.1 MB, less than 5.11% of JavaScript online submissions for Validate Binary Search Tree.
+
+// Brute Force solution:
+// Traversing a Binary Search Tree IN ORDER should give us the elements in a sorted order.
+// Let's leverage that and converte from Tree into Array. Then check to see if it is sorted.
+
+// Linear Time and Space Complexity. We traverse the "tree" twice and add every element to an array.
