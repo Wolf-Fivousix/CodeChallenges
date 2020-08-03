@@ -68,3 +68,32 @@ function inOrderTraversal(root) {
 // Let's leverage that and converte from Tree into Array. Then check to see if it is sorted.
 
 // Linear Time and Space Complexity. We traverse the "tree" twice and add every element to an array.
+
+// The Final proposed solution is very similar to what I accomplished, except they do it iteractively.
+// Unfortunately, there is no improvement in the Space Complexity, because worse case cenariou would be
+// A unbalanced Binary Search Tree that is valid. Given, actual Complexity is better.
+// Take a look at the images as well.
+// https://leetcode.com/problems/validate-binary-search-tree/solution/
+
+// And here is the Java code to do a DFS In Order traversal (add all "left" nodes to stack first):
+// class Solution {
+//     public boolean isValidBST(TreeNode root) {
+//       Stack<TreeNode> stack = new Stack();
+//       double inorder = - Double.MAX_VALUE;
+  
+//       while (!stack.isEmpty() || root != null) {
+//         while (root != null) {
+//           stack.push(root);
+//           root = root.left;
+//         }
+//         root = stack.pop();
+//         // If next element in inorder traversal
+//         // is smaller than the previous one
+//         // that's not BST.
+//         if (root.val <= inorder) return false;
+//         inorder = root.val;
+//         root = root.right;
+//       }
+//       return true;
+//     }
+// }
