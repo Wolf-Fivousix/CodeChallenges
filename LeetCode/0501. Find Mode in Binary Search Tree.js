@@ -82,3 +82,22 @@ function mode(hash) {
 // Linear Time and Space Complexity.
 // Runtime: 104 ms, faster than 43.98% of JavaScript online submissions for Find Mode in Binary Search Tree.
 // Memory Usage: 45.2 MB, less than 37.50% of JavaScript online submissions for Find Mode in Binary Search Tree.
+
+// Solution by claytonjwong
+// Attention to how he keeps track of the max count during the hash construction.
+// Then he uses that value to filter the result array.
+
+// Preorder traversal of the tree, tracking the count of each value and the maximum count max. Return the answer as all node values with maximum count max.
+
+let findMode = function(root, m = new Map(), max = 0) {
+    let go = root => {
+        if (!root)
+            return;
+        m.set(root.val, 1 + (m.get(root.val) || 0));
+        max = Math.max(max, m.get(root.val));
+        go(root.left);
+        go(root.right);
+    };
+    go(root);
+    return [...m.entries()].filter(e => e[1] == max).map(e => e[0]);
+};
