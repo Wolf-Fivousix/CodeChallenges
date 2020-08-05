@@ -48,3 +48,5 @@ function intersect (nums1, nums2) {
 // Linear Time and Space complexity, based on both inputs, so O(N1 + N2)
 // Runtime: 120 ms, faster than 9.78% of JavaScript online submissions for Intersection of Two Arrays II.
 // Memory Usage: 37.1 MB, less than 45.76% of JavaScript online submissions for Intersection of Two Arrays II.
+
+// If we sort the inputs we can reduce the memory footprint by the cost of some efficiency.
