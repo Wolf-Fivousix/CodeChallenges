@@ -18,7 +18,7 @@
 // If not, we know it will never have 3 of each element.
 
 function threeOfKind(array) {
-    if (array.length % 3 !== 0) return false;
+    if (array.length % 3) return false;
 
     const hash = {};
     array.forEach(value => hash[value] = ++hash[value] || 1);
@@ -27,6 +27,7 @@ function threeOfKind(array) {
 
     return values.filter(count => count !== 3).length === 0;
 }
+
 console.log([], threeOfKind([]) === true);
 console.log([7, 7, 7], threeOfKind([7, 7, 7]) === true);
 console.log([1, 7, 7, 1, 7], threeOfKind([1, 7, 7, 1, 7]) === false);
