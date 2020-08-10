@@ -6,6 +6,7 @@
 // [1, 7, 1, 7, 1, 7] => true
 
 // [1, 7, 1, 7, 7] => false
+// [7, 7, 7, 7, 7, 7] => false
 // [] => true
 
 // For some reason I deleted the code from here without realizing. =(
@@ -15,6 +16,22 @@
     // Any value that does not have a multiple of 3 returns false early.
 // As an early optimization we can return first by comparing if the array length is divisible by 3.
 // If not, we know it will never have 3 of each element.
+
+function threeOfKind(array) {
+    if (array.length % 3 !== 0) return false;
+
+    const hash = {};
+    array.forEach(value => hash[value] = ++hash[value] || 1);
+
+    const values = Object.values(hash);
+
+    return values.filter(count => count !== 3).length === 0;
+}
+console.log([], threeOfKind([]) === true);
+console.log([7, 7, 7], threeOfKind([7, 7, 7]) === true);
+console.log([1, 7, 7, 1, 7], threeOfKind([1, 7, 7, 1, 7]) === false);
+console.log([1, 7, 1, 7, 1, 7], threeOfKind([1, 7, 1, 7, 1, 7]) === true);
+console.log([7, 7, 7, 7, 7, 7], threeOfKind([7, 7, 7, 7, 7, 7]) === false);
 
 // straight of size 5, duplicate values are allowed
 // consecutive in value
