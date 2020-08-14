@@ -87,5 +87,17 @@ std::string run_length_encode(const std::string& in)
 
 std::string run_length_decode(const std::string& in)
 {
+    // Decompression is even simpler. The catch is numbers greater than 9.
+    // Define result as empty string.
+    // Define value as empty string.
+    // Iterate through input string.
+        // If we find a number (0-9), add it to our "number" variable.
+        // Else, is a character:
+            // Convert value from string to a number. (empty string means 0)
+            // Add the last character input value number of times.
+            // Add the current character.
+            // Reset the value to empty.
 
+    // Once loop ends, check if value has anything. If it does, repeat the adding logic.
+    // Return decoded string.
 }
