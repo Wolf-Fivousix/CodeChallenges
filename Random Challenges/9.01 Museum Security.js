@@ -82,6 +82,22 @@ process.stdin.on("end", function () {
         museum[parseInt(rowIndex)][parseInt(columnIndex)] = room;
     });
 
+    // I'm going with my second approach here, for a simple reason:
+    // I have the guarantee that it will only run 5 M * N times, compared to
+    // (Guards * M+N) * M * N from my first submission. In a case with a lot of guards, that would be bad.
+    // That said, maybe the clarity of the first approach is something that the
+    // team might consider worth looking at, so I left it as a comment at the end.
+
+// Logic
+    // We're going to have 5 passes total.
+    // 1-2 passes are about rows, 3-4 about columns. They all do the same:
+        // I have a "watch" flag that starts false.
+        // if I find a guard, I change the flag to true.
+        // if I find a wall, I change the flag to false.
+        // Update the position based on the "watch" flag.
+    // 5th pass is to pick any position that was not filled.
+        // Technically we can do this on the 4th pass, but for clarity of code, I opted for a 5th pass.
+
     matrixPasses(museum);
 
     const unguarded = [];
@@ -139,48 +155,36 @@ function matrixPasses(museum) {
     for (let i = 0; i < museum.length; ++i) {
         let watch = false;
         for (let j = 0; j < museum[i].length; ++j) {
-            if (museum[i][j] === "g") {
-                watch = true;
-                continue;
-            }
-            if (museum[i][j] === "w") watch = false;
-            if (watch) museum[i][j] = "-";
+            watch = updateLocation(watch, museum, i, j);
         }
     }
     // 2nd pass, right to left.
     for (let i = 0; i < museum.length; ++i) {
         let watch = false;
         for (let j = museum[i].length - 1; j > -1; --j) {
-            if (museum[i][j] === "g") {
-                watch = true;
-                continue;
-            }
-            if (museum[i][j] === "w") watch = false;
-            if (watch) museum[i][j] = "-";
+            watch = updateLocation(watch, museum, i, j);
         }
     }
     // 3rd pass, downward.
     for (let column = 0; column < museum[0].length; ++column) {
         let watch = false;
         for (let row = 0; row < museum.length; ++row) {
-            if (museum[row][column] === "g") {
-                watch = true;
-                continue;
-            }
-            if (museum[row][column] === "w") watch = false;
-            if (watch) museum[row][column] = "-";
+            watch = updateLocation(watch, museum, row, column);
         }
     }
     // 4th pass, upward.
     for (let column = museum[0].length - 1; column > -1; --column) {
         let watch = false;
         for (let row = museum.length - 1; row > -1; --row) {
-            if (museum[row][column] === "g") {
-                watch = true;
-                continue;
-            }
-            if (museum[row][column] === "w") watch = false;
-            if (watch) museum[row][column] = "-";
+            watch = updateLocation(watch, museum, row, column);
         }
     }
+}
+
+function updateLocation(watch, museum, x, y) {
+    if (museum[x][y] === "g") return true;
+    if (museum[x][y] === "w") watch = false;
+    if (watch) museum[x][y] = "-";
+
+    return watch;
 }
