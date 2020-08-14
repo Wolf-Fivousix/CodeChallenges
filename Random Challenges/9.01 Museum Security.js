@@ -77,24 +77,12 @@ process.stdin.on("end", function () {
     museumRows = inputRows.slice(1, inputRows.length);
     [ rows, columns ] = inputRows[0].split(' ').map(dimension => parseInt(dimension));
     museum = [...Array(rows)].map(row => Array(columns));
-    const guards = [];
     museumRows.forEach((museumRow) => {
         [rowIndex, columnIndex, room] = museumRow.split(' ');
         museum[parseInt(rowIndex)][parseInt(columnIndex)] = room;
-        if (room === "g") guards.push([parseInt(rowIndex), parseInt(columnIndex)]);
     });
 
-    // console.log(guards);
-    // Iterate through guards.
-        // for each guard we are going to "expand" their "vision" until we reach a wall / limits of museum.
-    // Iterate through museum and find any spot that is unguarded.
-        // if unguarded, add to result.
-    // return true if unguarded is empty.
-    // return false + unguarded positions, if unguarded is not empty.
-
-    guards.forEach(guard => {
-        expandVision(guard, museum);
-    });
+    matrixPasses(museum);
 
     const unguarded = [];
     for (let i = 0; i < museum.length; ++i) {
@@ -107,29 +95,6 @@ process.stdin.on("end", function () {
     unguarded.forEach(spot => console.log(spot[0], spot[1]));
 });
 
-function expandVision(guard, museum) {
-    const [x, y] = guard;
-    // left to right.
-    for (let i = y + 1; i < museum[x].length; ++i) {
-        if (museum[x][i] === "w") break;
-        museum[x][i] = "-";
-    }
-    // right to left.
-    for (let i = y - 1; i > -1; --i) {
-        if (museum[x][i] === "w") break;
-        museum[x][i] = "-";
-    }
-    // upwards.
-    for (let i = x - 1; i > -1; --i) {
-        if (museum[i][y] === "w") break;
-        museum[i][y] = "-";
-    }
-    // downwards.
-    for (let i = x + 1; i < museum.length; ++i) {
-        if (museum[i][y] === "w") break;
-        museum[i][y] = "-";
-    }
-}
 // This is a working soluiton, but not the most optimal.
 // Let's see if we can make it a little better.
 // 5 / 5 test cases.
@@ -168,3 +133,54 @@ function expandVision(guard, museum) {
 
 // Know I know for sure I have 4 * M * N, regardless of how many guards are there. Which could be a possible efficiency improvement.
 // And then a 5th time to see any unguarded positions.
+
+function matrixPasses(museum) {
+    // 1st pass, left to right.
+    for (let i = 0; i < museum.length; ++i) {
+        let watch = false;
+        for (let j = 0; j < museum[i].length; ++j) {
+            if (museum[i][j] === "g") {
+                watch = true;
+                continue;
+            }
+            if (museum[i][j] === "w") watch = false;
+            if (watch) museum[i][j] = "-";
+        }
+    }
+    // 2nd pass, right to left.
+    for (let i = 0; i < museum.length; ++i) {
+        let watch = false;
+        for (let j = museum[i].length - 1; j > -1; --j) {
+            if (museum[i][j] === "g") {
+                watch = true;
+                continue;
+            }
+            if (museum[i][j] === "w") watch = false;
+            if (watch) museum[i][j] = "-";
+        }
+    }
+    // 3rd pass, downward.
+    for (let column = 0; column < museum[0].length; ++column) {
+        let watch = false;
+        for (let row = 0; row < museum.length; ++row) {
+            if (museum[row][column] === "g") {
+                watch = true;
+                continue;
+            }
+            if (museum[row][column] === "w") watch = false;
+            if (watch) museum[row][column] = "-";
+        }
+    }
+    // 4th pass, upward.
+    for (let column = museum[0].length - 1; column > -1; --column) {
+        let watch = false;
+        for (let row = museum.length - 1; row > -1; --row) {
+            if (museum[row][column] === "g") {
+                watch = true;
+                continue;
+            }
+            if (museum[row][column] === "w") watch = false;
+            if (watch) museum[row][column] = "-";
+        }
+    }
+}
