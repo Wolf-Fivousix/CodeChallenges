@@ -100,4 +100,27 @@ std::string run_length_decode(const std::string& in)
 
     // Once loop ends, check if value has anything. If it does, repeat the adding logic.
     // Return decoded string.
+    
+    char * input = new char [in.size() + 1];
+    strcpy(input, in.c_str());
+    std::string result("");
+    std::string value("");
+    char previousCharacter = '\0';
+
+    for (int i = 0; i < in.size(); ++i)
+    {
+        int ord = int(input[i]);
+        if (ord > 47 && ord < 57) value.push_back(input[i]);
+        else
+        {
+            int times = value.size() > 0 ? std::stoi(value) - 1 : 0;
+            result.append(times, previousCharacter);
+            previousCharacter = input[i];
+            result.push_back(previousCharacter);
+            value = "";
+        }
+    }
+    if (value.size() > 0) result.append(std::stoi(value) - 1, previousCharacter);
+
+    return result;
 }
