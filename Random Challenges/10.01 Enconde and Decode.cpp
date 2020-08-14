@@ -124,3 +124,11 @@ std::string run_length_decode(const std::string& in)
 
     return result;
 }
+
+// I can't seem to figure out the pattern for handling the null characters.
+// input: std::string("\0""5", 2);
+// input: std::string("\0\0\0\0\0");
+
+// For the current solutions we have Linear Time for both Enconde and Decode functcions.
+// In space terms, we have Linear for Enconding and a possibly heap breaking size
+// for the decoding.
