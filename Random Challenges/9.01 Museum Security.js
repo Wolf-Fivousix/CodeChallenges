@@ -133,3 +133,38 @@ function expandVision(guard, museum) {
 // This is a working soluiton, but not the most optimal.
 // Let's see if we can make it a little better.
 // 5 / 5 test cases.
+
+// This is a working solution, but not the most optimal.
+// Let's see if we can make it a little better.
+
+// as we iterate through the matrix left top to bottom right, we will know if a guard has appeared on that line.
+// Unfortunately, if we find a guard by the very end, we still have to do a second pass to update...
+// on the other hand, we know, before we start, every single guard position.
+// If we don't need to "find" the guards, we are as good as set from the first pass.
+// I want a constant way of checking to see if any X or Y has a guard. (ignore walls for now).
+    // I could do that with 2 sets, one for rows, one for columns. Any value inside there, is valid.
+// let`s think about the wall. 
+    // if I know there's a GUARD on this COLUMN or LINE, we check for a wall as well.
+    // If there's none, no problem.
+    // If there is one, I want to know, if it is between current point, and GUARD.
+        // I know the wall is in between when
+        // WALL is lesser than CURRENT POS AND GUARD is lesser than WALL.
+        // OR 
+        // CURRENT POS is lesser than WALL AND WALL is lesser than GUARD.
+// The problem is that, for every iteration, I need to look up through guards and walls. That's starting to compound as bad as my previous "growing" solution.
+// Right now I have a (Guards * (M + N) + MN) solution.
+
+// Ignoring walls again.
+// If I have one array "on top" and one array "on the side" to mark guards, I could say reliably where they are.
+
+// What if I do 4 passes:
+// first pass is about rows.
+    // I have a flag that starts false.
+    // if I find a guard, I change the flag to true.
+    // if I find a wall, I change the flag to false.
+    // This works one way. If I find a gaurd at the end of the row, with no walls, I want to go back and update.
+    // repeat the process, but now from right to left.
+// we repeat the process, but now for each column.
+
+// Know I know for sure I have 4 * M * N, regardless of how many guards are there. Which could be a possible efficiency improvement.
+// And then a 5th time to see any unguarded positions.
