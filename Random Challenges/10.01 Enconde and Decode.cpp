@@ -57,11 +57,35 @@ std::string run_length_encode(const std::string& in)
     // If the counter is greater than 1, add that to the result.
     // Return encoded string.
 
+    char * input = new char [in.size() + 1];
+    strcpy(input, in.c_str());
+
+    std::string result ("");
+    char previousCharacter = '\0';
+    int counter = 0;
     
+    for (int i = 0; i < in.size(); ++i)
+    {
+        if (previousCharacter == input[i])
+        {
+            ++counter;    
+        }
+        else
+        {
+            if (counter > 1) result.append(std::to_string(counter));
+            result.push_back(input[i]);
+            counter = 1;
+            previousCharacter = input[i];
+        }
+        
+    }
+    if (counter > 1) result.append(std::to_string(counter));
+
+    return result;
 }
 
 
 std::string run_length_decode(const std::string& in)
 {
-   
+
 }
