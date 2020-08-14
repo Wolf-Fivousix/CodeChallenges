@@ -1,0 +1,38 @@
+// # Run-length encoding
+
+// Implement [Run-length encoding][1] for ASCII text strings.
+
+// ## Task
+
+// 1. Write code to pass all tests.  
+// 2. Follow the instructions below in order to successfully complete this task.
+
+// ## Task Details
+
+// ### Introduction
+// You’ve just joined the team of one of the world's most advanced digitization companies. Due to the limitations of the software used by the company all scanned documents are uploaded to the cloud server and then compressed. This results in extended wait times for customers and increased costs. In order to improve customer satisfaction and reduce costs write a script that will compress the images before they are uploaded. Your script will employ a method known as Run-length encoding.
+
+// ### Problem Statement
+// Implement the function `run_length_encode` that accepts a string of characters
+// as input and returns a compressed string of characters. The compression process
+// should follow this recipe: if the character **X** appears more than once in a
+// row, replace all consecutive occurrences with a single instance of **XN** where
+// **N** is the count of occurrences and **X** is the character being repeated. For
+// example:
+// - `WWWABC` should be replaced with `W3ABC`.
+// - `WWWWBBWWWWW` should be replaced with `W4B2W5`.
+
+// Implement the function `run_length_decode` that accepts a compressed string of
+// characters and returns it in its uncompressed form. Replace every instance of
+// **XN** with the character **X** multiplied **N** times. For example:
+// -  `W3ABC` should be replaced with `WWWABC`.
+// -  `W4B2W5` should be replaced with `WWWWBBWWWWW`.
+
+// Ensure that the following sentence is always valid:
+// `str == run_length_decode(run_length_encode(str))`
+
+// ## Hints
+
+// You can assume that the uncompressed string contains no decimal digits.
+
+// [1]: https://en.wikipedia.org/wiki/Run-length_encoding
