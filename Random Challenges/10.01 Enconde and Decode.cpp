@@ -36,3 +36,32 @@
 // You can assume that the uncompressed string contains no decimal digits.
 
 // [1]: https://en.wikipedia.org/wiki/Run-length_encoding
+
+#include "rle.hpp"
+#include <iostream>
+#include <cstring>
+
+std::string run_length_encode(const std::string& in)
+{
+    // Very simple logic here:
+    // Define result as empty string.
+    // Define counter as 0.
+    // Define previousCharacter as empty string.
+    // Iterate through the string.
+        // If the current character is the same as previous character, just increase counter.
+        // Otherwise, we want to add the counter to result (if greater than 1)
+            // Add the currentCharacter.
+            // Update counter to 1.
+    // Once the loop ends, we need to check one more time to see if we have anything left in
+    // our "buffer" which would be our counter here.
+    // If the counter is greater than 1, add that to the result.
+    // Return encoded string.
+
+    
+}
+
+
+std::string run_length_decode(const std::string& in)
+{
+   
+}
