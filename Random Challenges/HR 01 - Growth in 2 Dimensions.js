@@ -136,7 +136,7 @@
  * The function accepts STRING_ARRAY upRight as parameter.
  */
 
-function countMax(upRight) {
+function countMax1(upRight) {
     // Scan the input once, find R and C.
     // Make the grid out of those values, filling it with 0's.
     // Because of the way we "normally" iterate through a matrix,
@@ -219,3 +219,23 @@ function findHighestElementFrequency(matrix) {
 
 // 6/11 Test Cases.
 // Right now it is failing when the heap explodes due to gigantic input.
+
+function countMax2(upRight) {
+    // Heap explodes, let's go back to the idea of calculating one point at a time.
+    // Iterate through input once, find the max values that we going to use to do our total iteration.
+    // Define highestValue starting at 0.
+    // Define count starting at 0.
+    // Iterate through the virtual "matrix".
+        // For each "element", calculate what this position value would be.
+            // Define value starting at 0.
+            // Iterate through input (which we converted to nice Numbers)
+                // If the current X, Y (currentElemnt) is inside this range. Increase value by 1.
+            // Now repeat the logic for fidind the HighestValue.
+            // If the element is higher than highestValue.
+                // Update highestValue.
+                // Update count to 1.
+                // continue.
+            // If the element is the same as highestValue, update count by 1.
+            // otherwise we know the element is lower, don't do anything.
+
+}
