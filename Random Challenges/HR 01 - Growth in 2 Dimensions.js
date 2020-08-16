@@ -221,6 +221,16 @@ function findHighestElementFrequency(matrix) {
 // Right now it is failing when the heap explodes due to gigantic input.
 
 function countMax2(upRight) {
+    let maxRow = 0;
+    let maxColumn = 0;
+    let ranges = [];
+    upRight.forEach(range => {
+        const [x, y] = range.split(" ").map(value => Number(value));
+        if (x > maxRow) maxRow = x;
+        if (y > maxColumn) maxColumn = y;
+        ranges.push([x, y]);
+    });
+
     // Heap explodes, let's go back to the idea of calculating one point at a time.
     // Iterate through input once, find the max values that we going to use to do our total iteration.
     // Define highestValue starting at 0.
@@ -238,4 +248,23 @@ function countMax2(upRight) {
             // If the element is the same as highestValue, update count by 1.
             // otherwise we know the element is lower, don't do anything.
 
+    let highestValue = 0;
+    let count = 0;
+    for (let row = 0; row < maxRow; ++row) {
+        for (let column = 0; column < maxColumn; ++column) {
+            let currentValue = 0;
+            ranges.forEach(([x, y]) => {
+                if (row < x && column < y) ++currentValue;
+            });
+
+            if (highestValue < currentValue) {
+                highestValue = currentValue;
+                count = 1;
+                continue;
+            }
+            if (highestValue === currentValue) ++count;
+        }
+    }
+
+    return count;
 }
