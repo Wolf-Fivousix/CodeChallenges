@@ -216,3 +216,6 @@ function findHighestElementFrequency(matrix) {
 
     return count;
 }
+
+// 6/11 Test Cases.
+// Right now it is failing when the heap explodes due to gigantic input.
