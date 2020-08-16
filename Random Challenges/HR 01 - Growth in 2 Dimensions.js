@@ -268,3 +268,7 @@ function countMax2(upRight) {
 
     return count;
 }
+
+// This one does calculate the points without breaking the heap.
+// But it takes Polynomial time, meaning it fails run time efficiency tests.
+// 5/11 Test Cases passes.
