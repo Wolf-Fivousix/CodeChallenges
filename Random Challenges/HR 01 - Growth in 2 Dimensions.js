@@ -269,6 +269,19 @@ function countMax2(upRight) {
     return count;
 }
 
+function countMax3(upRight) {
+    let minRow = Number.POSITIVE_INFINITY;
+    let minColumn = Number.POSITIVE_INFINITY;
+
+    upRight.forEach(range => {
+        const [x, y] = range.split(" ").map(value => Number(value));
+        if (x < minRow) minRow = x;
+        if (y < minColumn) minColumn = y;
+    });
+
+    return minRow * minColumn;
+}
+
 // This one does calculate the points without breaking the heap.
 // But it takes Polynomial time, meaning it fails run time efficiency tests.
 // 5/11 Test Cases passes.
@@ -584,5 +597,5 @@ const array5 = [
 //   '151 190',
 //   '169 151' ]
 
-console.log(countMax2(array1) === 2);
-console.log(countMax2(array5) === 1159920); // => 1159920
+console.log(countMax3(array1) === 2);
+console.log(countMax3(array5) === 1159920); // => 1159920
