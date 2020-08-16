@@ -100,3 +100,28 @@
 // Explanation
 // The list of movie titles for the year 2010 is
 // printed as returned by the API.
+
+async function getMovieList(year) {
+    // write your code here
+    // API endpoint: https://jsonmock.hackerrank.com/api/movies?Year=<year>
+
+    return new Promise((resolve, reject) => {
+        https.get(`https://jsonmock.hackerrank.com/api/movies?Year=${year}`, (res) => {
+        res.on('data', (d) => {
+            
+            const movies = JSON.parse(d).data;
+            let titles = [];
+            
+            for (let i = 0; i < movies.length; ++i) {
+                titles.push(movies[i]["Title"]);
+            }
+            resolve(titles);
+        });
+
+        }).on('error', (e) => {
+            reject(e => console.error(e));
+        });
+    });
+}
+
+// 11/11 Test Cases
