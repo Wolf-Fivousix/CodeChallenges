@@ -269,10 +269,14 @@ function countMax2(upRight) {
     return count;
 }
 
+// This one does calculate the points without breaking the heap.
+// But it takes Polynomial time, meaning it fails run time efficiency tests.
+// 5/11 Test Cases passes.
+
 function countMax3(upRight) {
     let minRow = Number.POSITIVE_INFINITY;
     let minColumn = Number.POSITIVE_INFINITY;
-
+    
     upRight.forEach(range => {
         const [x, y] = range.split(" ").map(value => Number(value));
         if (x < minRow) minRow = x;
@@ -282,9 +286,11 @@ function countMax3(upRight) {
     return minRow * minColumn;
 }
 
-// This one does calculate the points without breaking the heap.
-// But it takes Polynomial time, meaning it fails run time efficiency tests.
-// 5/11 Test Cases passes.
+// This is the real deal.
+// Linear Time complexity.
+// Constant Space Complexity.
+
+
 
 const array1 = ["2 3", "3 7", "4 1"];
 const array2 = [ '18 29', '32 17', '34 9', '38 15', '36 22', '7 14', '5 100' ]; // => 45
