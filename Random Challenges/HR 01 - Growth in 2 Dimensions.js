@@ -161,4 +161,58 @@ function countMax(upRight) {
 
     // Return our count.
 
+    let maxRow = 0;
+    let maxColumn = 0;
+    let ranges = [];
+    upRight.forEach(range => {
+        const [x, y] = range.split(" ").map(value => Number(value));
+        if (x > maxRow) maxRow = x;
+        if (y > maxColumn) maxColumn = y;
+        ranges.push([x, y]);
+    });
+
+    const matrix = makeGrid(maxRow, maxColumn);
+
+    calculateMatrix(matrix, ranges);
+
+    return findHighestElementFrequency(matrix);
+}
+
+function makeGrid(row, column) {
+    const matrix = [];
+    for (let i = 0; i < row; ++i) {
+        const newRow = new Array(column).fill(0);
+        matrix.push(newRow);
+    }
+
+    return matrix;
+}
+
+function calculateMatrix(matrix, ranges) {
+    ranges.forEach(range => {
+        for (let row = 0; row < range[0]; ++row) {
+            for (let column = 0; column < range[1]; ++column) {
+                ++matrix[row][column];
+            }
+        }
+    });
+}
+
+function findHighestElementFrequency(matrix) {
+    let highestValue = 0;
+    let count = 0;
+    for (let row = 0; row < matrix.length; ++row) {
+        for (let column = 0; column < matrix[row].length; ++column) {
+            const current = matrix[row][column];
+
+            if (highestValue < current) {
+                highestValue = current;
+                count = 1;
+                continue;
+            }
+            if (highestValue === current) ++count;
+        }
+    }
+
+    return count;
 }
