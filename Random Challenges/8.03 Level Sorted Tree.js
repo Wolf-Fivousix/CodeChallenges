@@ -47,3 +47,8 @@ const position = (start + arraySize) / 2;
 }
    return node.value;
 }
+
+// Let me explain the idea here:
+// Once we figure out which level of the tree our element is.
+// We can "binary search" the target level, as if it was an array.
+// Instead of a specific index, we need to use a Tree Traversal algorithm.
