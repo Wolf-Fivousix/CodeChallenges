@@ -37,21 +37,24 @@ function sortedDistance(input, target) {
     let before = after - 1;
     const result = [];
     
-    while (result.length < input.length) {
-        if (before > -1 && after < input.length && Math.abs(input[before] - target) <= Math.abs(input[after] - target)) {
+    while (before > -1 && after < input.length) {
+        if (Math.abs(input[before] - target) <= Math.abs(input[after] - target)) {
             result.push(input[before]);
             --before;
         }
-        else if (after < input.length) {
+        else {
             result.push(input[after]);
             ++after;
         }
-        else {
-            result.push(input[before]);
-            --before;
-        }
     }
-    
+
+    // One of the pointers is out of range, keep building result with the one in range.
+    while (result.length < input.length) {
+        const i = before > -1 ? before : after;
+        result.push(input[i]);
+        before > -1 ? --before : ++after;
+    }
+
     return result;
 }
 
