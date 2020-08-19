@@ -31,3 +31,34 @@
         // push after to output.
         // increase after pointer.
 // return our output array.
+
+function sortedDistance(input, target) {
+    let after = findIndexOf(input, target);
+    let before = after - 1;
+    const result = [];
+    
+    while (result.length < input.length) {
+        if (before > -1 && after < input.length && Math.abs(input[before] - target) <= Math.abs(input[after] - target)) {
+            result.push(input[before]);
+            --before;
+        }
+        else if (after < input.length) {
+            result.push(input[after]);
+            ++after;
+        }
+        else {
+            result.push(input[before]);
+            --before;
+        }
+    }
+    
+    return result;
+}
+
+function findIndexOf(input, target) {
+    for (let i = 0; i < input.length; ++i) {
+        if (input[i] >= target) return i;
+    }
+    
+    return input.length;
+}
