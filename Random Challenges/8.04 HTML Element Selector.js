@@ -85,3 +85,44 @@ function getChildren(node) {
 
     return result;
 }
+
+
+// ‘div p a’
+
+// body
+//     div1
+//         p
+//             a1
+//                 a2
+//                 p
+//                     a5
+//             a3
+//                 p
+//     div2
+//         p
+//         a2
+// querySelectorAll(‘div p a’, body) => [a1, a3]
+
+
+
+function querySelectorAll(selector, node) {
+    // iterate through the nodes and get all tags that match selector[0]
+    // at this point we have a result array that matches selector[0];
+    
+    // move selector forward.
+    // until our result array, is not empty and selector is not out of bounds, iterate
+    //     temporary array starts empty
+    //     iterate through result
+    //         every child that matches the selector[current] add to temporary array.
+
+    //     load temporary into result.
+    //     increase selector.
+    // Iterate through given node, and find all tags that match the sel
+        
+
+    
+
+    
+
+    // return result.
+}
