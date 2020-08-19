@@ -62,3 +62,12 @@ function findIndexOf(input, target) {
     
     return input.length;
 }
+// [-5, -2, -1, 2, 3, 4, 20] 3,
+
+// I: [-20, -8, 0, 1, 2, 20], 3
+// O: [2, 1, 0, -8, 20, -20]
+console.log(sortedDistance([-20, -8, 0, 1, 2, 20], 3));
+console.log(sortedDistance([ -20, -8, -5, -2, -1, 0], 3));
+console.log(sortedDistance([ -20, -8, 0, 1, 2, 4, 20], 3));
+// I: [ -20, -8, -5, -2, -1, 0], 3
+// I: [ -20, -8, 0, 1, 2, 4, 20], 3
