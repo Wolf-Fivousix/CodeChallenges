@@ -58,6 +58,9 @@ function sortedDistance(input, target) {
     return result;
 }
 
+// We are doing a linear scan here to find the index location.
+// Ideally, we can improve performance doing a Binary Search.
+// It does not affect the run time of the solution, but it would be more efficient.
 function findIndexOf(input, target) {
     for (let i = 0; i < input.length; ++i) {
         if (input[i] >= target) return i;
