@@ -58,22 +58,39 @@ function sortedDistance(input, target) {
     return result;
 }
 
-// We are doing a linear scan here to find the index location.
-// Ideally, we can improve performance doing a Binary Search.
-// It does not affect the run time of the solution, but it would be more efficient.
 function findIndexOf(input, target) {
-    for (let i = 0; i < input.length; ++i) {
-        if (input[i] >= target) return i;
+    let start = 0;
+    let end = input.length - 1;
+
+    while (start <= end) {
+        let middle = Math.floor(start + ((end - start) / 2));
+
+        if (input[middle] === target) return middle;
+        if (input[middle] < target) {
+            start = middle + 1;
+        }
+        else end = middle - 1;
     }
-    
-    return input.length;
+
+    return start;
 }
 // [-5, -2, -1, 2, 3, 4, 20] 3,
 
 // I: [-20, -8, 0, 1, 2, 20], 3
 // O: [2, 1, 0, -8, 20, -20]
-console.log(sortedDistance([-20, -8, 0, 1, 2, 20], 3));
-console.log(sortedDistance([ -20, -8, -5, -2, -1, 0], 3));
-console.log(sortedDistance([ -20, -8, 0, 1, 2, 4, 20], 3));
+// console.log(sortedDistance([1, 2], 5));
+// console.log(sortedDistance([-20, -8, 0, 1, 2, 20], 3));
+// console.log(sortedDistance([ -20, -8, -5, -2, -1, 0], 3));
+// console.log(sortedDistance([ -20, -8, 0, 1, 2, 4, 20], 3));
+console.log(findIndexOf([1, 2], 1));
+console.log(findIndexOf([1, 2], 5));
+console.log(findIndexOf([-20, -8, 0, 1, 2, 20], 3));
+console.log(findIndexOf([-20, -8, 0, 1, 2, 3, 20], 3));
+console.log(findIndexOf([-20, -8, -5, -2, -1, 0], 3));
+console.log(findIndexOf([-20, -8, 0, 1, 2, 4, 20], -20));
+console.log(findIndexOf([1, 2, 3, 4, 6, 7, 8], 0) === 0);
+console.log(findIndexOf([0, 1, 2, 3, 4, 6, 7, 8], 0) === 0);
+console.log(findIndexOf([0, 1, 2, 3, 4, 6, 7, 8], 5) === 5);
+console.log(findIndexOf([0, 0, 0, 0, 0], 0));
 // I: [ -20, -8, -5, -2, -1, 0], 3
 // I: [ -20, -8, 0, 1, 2, 4, 20], 3
