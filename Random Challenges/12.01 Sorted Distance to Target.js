@@ -94,3 +94,31 @@ console.log(findIndexOf([0, 1, 2, 3, 4, 6, 7, 8], 5) === 5);
 console.log(findIndexOf([0, 0, 0, 0, 0], 0));
 // I: [ -20, -8, -5, -2, -1, 0], 3
 // I: [ -20, -8, 0, 1, 2, 4, 20], 3
+
+// Solution by Eunice
+// The concat kills the efficiency of this solution, but that's easily fixable.
+// It is concise, clear and gets the job done.
+// Thx for sharing! =)
+
+function sortDist(arr, target) {
+    let distHash = {} // key = distance; value = el in array
+    let res = [];
+
+    for (let el of arr) {
+      if (distHash[Math.abs(el - target)]) {
+        distHash[Math.abs(el - target)].push(el)
+      } else {
+        distHash[Math.abs(el - target)] = [el]
+      }
+    }
+
+    for (let key in distHash) {
+      res = res.concat(distHash[key]);
+    }
+    
+    return res;
+}
+console.log(sortDist([1, 2], 5));
+console.log(sortDist([-20, -8, 0, 1, 2, 20], 3));
+console.log(sortDist([ -20, -8, -5, -2, -1, 0], 3));
+console.log(sortDist([ -20, -8, 0, 1, 2, 4, 20], 3));
