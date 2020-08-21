@@ -119,3 +119,33 @@
 // wallHeights = [1, 5].  The heights of the
 // mud segments from positions  2
 // through  9 are  [2, 3, 4, 5, 6, 7, 7, 6].
+
+// Assume that the array always have a starting and ending concrete wall.
+function maxHeight(wallPositions, wallHeights) {
+    const dam = new Array(wallPositions[wallPositions.length - 1]);
+    const walls = {};
+    for (let i = 0; i < wallPositions.length; ++i) {
+        walls[wallPositions[i] - 1] = wallHeights[i];
+    }
+    
+    let currentWall = 0;
+    for (let i = 0; i < dam.length; ++i) {
+        if (walls[i]) {
+            currentWall = walls[i];
+            dam[i] = currentWall;
+        }
+        else dam[i] = ++currentWall;
+    }
+
+    let maxMud = 0;
+    for (let i = dam.length - 1; i > -1; --i) {
+        if (walls[i]) currentWall = walls[i];
+        else {
+            dam[i] = Math.min(dam[i], ++currentWall);
+            if (dam[i] > maxMud) maxMud = dam[i];
+        }
+    }
+    
+    return maxMud;
+}
+// 11/15 Test Cases. Heap out of memory for the array.
