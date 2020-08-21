@@ -73,3 +73,28 @@
 // case is  3 - 1 = 2 , for 'e' is  10 - 6 = 4 , and
 // for 'f' is  6 - 5 = 1. The letter 'e' is the
 // slowest key.
+
+/*
+ * Complete the 'slowestKey' function below.
+ *
+ * The function is expected to return a CHARACTER.
+ * The function accepts 2D_INTEGER_ARRAY keyTimes as parameter.
+ */
+
+function slowestKey(keyTimes) {
+    let slowKey = -1;
+    let time = Number.NEGATIVE_INFINITY;
+    let currentTime = 0;
+
+    for (let i = 0; i < keyTimes.length; ++i) {
+        const delay = keyTimes[i][1] - currentTime;
+        if (delay > time) {
+            slowKey = keyTimes[i][0];
+            time = delay;
+        }
+        currentTime = keyTimes[i][1];
+    }
+    
+    return String.fromCharCode(slowKey + 97);
+}
+// 15/15 Test Cases
