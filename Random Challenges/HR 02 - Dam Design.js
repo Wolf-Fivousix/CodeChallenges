@@ -149,6 +149,40 @@ function maxHeight(wallPositions, wallHeights) {
     return maxMud;
 }
 // 11/15 Test Cases. Heap out of memory for the array.
+
+function maxHeight(wallPositions, wallHeights) {
+    // Define maxMud as 0.
+    // iterate throught the positions array.
+        // find the distance between them - 1 (distance 1 means no distance).
+        // distance is our budget.
+
+        // Start from the min pillar.
+        // Start building pillars until we reach the max height of the two pillars + 1.
+        // Once we reach the height of max pillar + 1, we have a cost of 2 to build a new mudWall.
+        // Keep building walls until budge runs out.
+
+        // update maxMud with current mudWall height.
+    
+    // return our maxMud wall.
+    let maxMud = 0;
+
+    for (let i = 1; i < wallPositions.length; ++i) {
+        let budget = wallPositions[i] - wallPositions[i - 1] - 1;
+        let cost = 1;
+        const minPillar = Math.min(wallHeights[i], wallHeights[i - 1]);
+        const maxPillar = Math.max(wallHeights[i], wallHeights[i - 1]);
+        if (budget) maxMud = minPillar;
+
+        while (budget - cost >= 0) {
+            ++maxMud;
+            budget -= cost;
+            if (maxMud === maxPillar + 1) cost = 2;
+        }
+    }
+
+    return maxMud;
+}
+
 const wP2 = [ 8, 8, 9, 8, 8, 11 ];
 const wH2 = [ 7, 12, 16, 22, 26, 29 ];
 // Expected output 11.
