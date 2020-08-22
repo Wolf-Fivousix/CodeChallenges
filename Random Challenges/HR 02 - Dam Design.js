@@ -185,6 +185,11 @@ function maxHeight2(wallPositions, wallHeights) {
     return maxMud;
 }
 
+// Now this is more like it!
+// Linear Time Complexity, as we have to iterate through the input array.
+    // Reality is a little worse, because we are calculating the budget, but we can fix that in a bit.
+// Constat Space Complexity, as we only use 6 different variables.
+
 const wP1 = [1, 2, 4, 7];
 const wH1 = [4, 6, 8, 11];
 // Expected result 10.
