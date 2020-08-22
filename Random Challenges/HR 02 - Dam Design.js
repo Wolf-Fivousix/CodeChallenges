@@ -178,16 +178,25 @@ function maxHeight2(wallPositions, wallHeights) {
             budget -= cost;
             if (mudWall === maxPillar + 1) cost = 2;
         }
-
+        
         maxMud = Math.max(maxMud, mudWall);
     }
 
     return maxMud;
 }
 
+const wP1 = [1, 2, 4, 7];
+const wH1 = [4, 6, 8, 11];
+// Expected result 10.
 const wP2 = [ 7, 12, 16, 22, 26, 29 ];
 const wH2 = [ 8, 8, 9, 8, 8, 11 ];
 // Expected output 11.
+const wP3 = [1, 3, 7];
+const wH3 = [4, 3, 3];
+// Expected output 5.
+const wP4 = [1, 10];
+const wH4 = [1, 5];
+// Expected output 7.
 const wP5 = [ 5,
     11,
     12,
@@ -310,5 +319,8 @@ const wP5 = [ 5,
         15 ];
 // Expected output 61.
 
+console.log(maxHeight2(wP1, wH1)); // 10
 console.log(maxHeight2(wP2, wH2)); // 11
+console.log(maxHeight2(wP3, wH3)); // 5
+console.log(maxHeight2(wP4, wH4)); // 7
 console.log(maxHeight2(wP5, wH5)); // 61
