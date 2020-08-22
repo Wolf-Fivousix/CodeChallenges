@@ -69,3 +69,15 @@ function getMinimumMoves(arr) {
 // This logic is flawed, think of cases like:
 // [1,3,5,2] which should output 2.
 // [3,2,1] which should output 2.
+
+// Solution shared by Natalie.
+function getMinimumMoves(arr) {
+    // Write your code here
+    let copy = [...arr]
+    copy = copy.sort((a,b)=>a-b);
+    let count =0;
+    for(let i=0; i < arr.length;i++){
+        if(arr[i] === copy[count])count++
+    }
+    return arr.length - count
+}
