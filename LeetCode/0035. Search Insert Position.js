@@ -65,3 +65,24 @@ var searchInsert = function(nums, target) {
     
     return left;
 };
+
+// Encountered this problem as a subset of another, so here goes my latest coding.
+// Yes, it is almost the same as the above solution.
+function searchInsert(nums, target) {
+    let start = 0;
+    let end = nums.length - 1;
+
+    while (start <= end) {
+        let middle = Math.floor(start + ((end - start) / 2));
+
+        if (nums[middle] === target) return middle;
+        if (nums[middle] < target) {
+            start = middle + 1;
+        }
+        else end = middle - 1;
+    }
+
+    return start;
+}
+// Runtime: 76 ms, faster than 59.56% of JavaScript online submissions for Search Insert Position.
+// Memory Usage: 37 MB, less than 20.44% of JavaScript online submissions for Search Insert Position.
