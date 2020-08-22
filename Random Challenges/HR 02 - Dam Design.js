@@ -171,13 +171,15 @@ function maxHeight2(wallPositions, wallHeights) {
         let cost = 1;
         const minPillar = Math.min(wallHeights[i], wallHeights[i - 1]);
         const maxPillar = Math.max(wallHeights[i], wallHeights[i - 1]);
-        if (budget) maxMud = minPillar;
+        let mudWall = budget ? minPillar : 0;
 
         while (budget - cost >= 0) {
-            ++maxMud;
+            ++mudWall;
             budget -= cost;
-            if (maxMud === maxPillar + 1) cost = 2;
+            if (mudWall === maxPillar + 1) cost = 2;
         }
+
+        maxMud = Math.max(maxMud, mudWall);
     }
 
     return maxMud;
