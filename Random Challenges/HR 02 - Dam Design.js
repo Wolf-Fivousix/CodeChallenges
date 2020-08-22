@@ -168,17 +168,16 @@ function maxHeight2(wallPositions, wallHeights) {
 
     for (let i = 1; i < wallPositions.length; ++i) {
         let budget = wallPositions[i] - wallPositions[i - 1] - 1;
-        let cost = 1;
+        if (budget === 0) continue;
+        
         const minPillar = Math.min(wallHeights[i], wallHeights[i - 1]);
         const maxPillar = Math.max(wallHeights[i], wallHeights[i - 1]);
-        let mudWall = budget ? minPillar : 0;
+        const consumption = Math.min(budget, maxPillar + 1 - minPillar);
 
-        while (budget - cost >= 0) {
-            ++mudWall;
-            budget -= cost;
-            if (mudWall === maxPillar + 1) cost = 2;
-        }
-        
+        let mudWall = minPillar + consumption;
+        budget -= consumption;
+        mudWall += Math.floor(budget / 2);
+                
         maxMud = Math.max(maxMud, mudWall);
     }
 
@@ -187,7 +186,6 @@ function maxHeight2(wallPositions, wallHeights) {
 
 // Now this is more like it!
 // Linear Time Complexity, as we have to iterate through the input array.
-    // Reality is a little worse, because we are calculating the budget, but we can fix that in a bit.
 // Constat Space Complexity, as we only use 6 different variables.
 
 const wP1 = [1, 2, 4, 7];
@@ -324,8 +322,8 @@ const wP5 = [ 5,
         15 ];
 // Expected output 61.
 
-console.log(maxHeight2(wP1, wH1)); // 10
-console.log(maxHeight2(wP2, wH2)); // 11
-console.log(maxHeight2(wP3, wH3)); // 5
-console.log(maxHeight2(wP4, wH4)); // 7
-console.log(maxHeight2(wP5, wH5)); // 61
+console.log(maxHeight2(wP1, wH1) === 10, maxHeight2(wP1, wH1)); // 10
+console.log(maxHeight2(wP2, wH2) === 11, maxHeight2(wP2, wH2)); // 11
+console.log(maxHeight2(wP3, wH3) === 5, maxHeight2(wP3, wH3)); // 5
+console.log(maxHeight2(wP4, wH4) === 7, maxHeight2(wP4, wH4)); // 7
+console.log(maxHeight2(wP5, wH5) === 61, maxHeight2(wP5, wH5)); // 61
