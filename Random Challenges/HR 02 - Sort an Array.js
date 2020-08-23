@@ -61,17 +61,15 @@ function getMinimumMoves(arr) {
     let start = 0;
     let counter = 0;
     while (start < arr.length) {
-        let minIndex = start;
         for (let i = start; i < arr.length; ++i) {
-            if (arr[i] < arr[minIndex]) minIndex = i;
+            if (arr[i] < arr[start]) start = i;
         }
         ++counter;
-        start = minIndex + 1;
+        ++start;
     }
 
     return arr.length - counter;
 }
-// 0/8 Test Cases.
 
 
 // Solution shared by Natalie.
