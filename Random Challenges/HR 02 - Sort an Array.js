@@ -56,13 +56,26 @@
 // sort the array is 1.
 
 function getMinimumMoves(arr) {
+    if (!arr.length) return 0;
 
+    let start = 0;
+    let counter = 0;
+    while (start < arr.length) {
+        let minIndex = start;
+        for (let i = start; i < arr.length; ++i) {
+            if (arr[i] < arr[minIndex]) minIndex = i;
+        }
+        ++counter;
+        start = minIndex + 1;
+    }
+
+    return arr.length - counter;
 }
 // 0/8 Test Cases.
 
 
 // Solution shared by Natalie.
-function getMinimumMoves(arr) {
+function getMinimumMoves2(arr) {
     let copy = [...arr]
     copy = copy.sort((a,b)=>a-b);
     let count =0;
