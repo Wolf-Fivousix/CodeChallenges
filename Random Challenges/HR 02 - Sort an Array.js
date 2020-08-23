@@ -55,9 +55,10 @@
 // the minimum number of moves required to
 // sort the array is 1.
 
+// First we need to find the smallest value in the sequence. That is how many elements we DO NOT need to move.
+// Then we repeat the process from that point forward, until we reach the end of the array.
+// At this point we have the size of the smallest sequence inside the array. Everything else needs to be moved.
 function getMinimumMoves(arr) {
-    if (!arr.length) return 0;
-
     let start = 0;
     let counter = 0;
     while (start < arr.length) {
@@ -71,6 +72,10 @@ function getMinimumMoves(arr) {
     return arr.length - counter;
 }
 
+// Not a great solution, but get's the job done.
+// Polynomial Time Complexity.
+// Constant Space Complexity.
+
 
 // Solution shared by Natalie.
 function getMinimumMoves2(arr) {
@@ -82,6 +87,9 @@ function getMinimumMoves2(arr) {
     }
     return arr.length - count
 }
+
+// This solution is great on time complexity, Log Linear.
+// But is Linear in Space.
 
 console.log(getMinimumMoves([5,1,3,2]) === 2);
 console.log(getMinimumMoves([1,2,3]) === 0);
