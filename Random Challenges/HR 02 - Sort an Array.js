@@ -85,5 +85,8 @@ function getMinimumMoves2(arr) {
     return arr.length - count
 }
 
-console.log(getMinimumMoves([1,3,5,2]));
-console.log(getMinimumMoves([3,2,1]));
+console.log(getMinimumMoves([5,1,3,2]) === 2);
+console.log(getMinimumMoves([1,2,3]) === 0);
+console.log(getMinimumMoves([1,3,2]) === 1);
+console.log(getMinimumMoves([1,3,5,2]) === 2);
+console.log(getMinimumMoves([3,2,1]) === 2);
