@@ -52,5 +52,23 @@ function luckyNumbers(matrix) {
     // 1,1 = 3  equal to Overhead[1] = 16 ? NO
     // 2,3 = 12 equal to Overhead[3] = 12 ? YES
 
-
+    const maxColumn = new Array(matrix[0].length).fill(Number.NEGATIVE_INFINITY);
+    const minRow = new Array(matrix.length).fill(0);
+    
+    for (let row = 0; row < matrix.length; ++row) {
+        for (let column = 0; column < matrix[row].length; ++column) {
+            const currentValue = matrix[row][column];
+            if (currentValue < matrix[row][minRow[row]]) minRow[row] = column;
+            if (currentValue > maxColumn[column]) maxColumn[column] = currentValue;
+        }
+    }
+    
+    const result = [];
+    for (let i = 0; i < minRow.length; ++i) {
+        const currentIndex = minRow[i];
+        const currentValue = matrix[i][currentIndex];
+        if (currentValue === maxColumn[currentIndex]) result.push(currentValue);
+    }
+    
+    return result;
 }
