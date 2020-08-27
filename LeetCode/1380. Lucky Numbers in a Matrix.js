@@ -72,3 +72,10 @@ function luckyNumbers(matrix) {
     
     return result;
 }
+
+// Linear Time complexity, as O(M*N + M) since we traverse the matrix once and then M rows.
+// Linear Space Complexity, as O(M + N) since we have 2 arrays of size M and N.
+// compared to the matrix input itself, the space footprint is much lower.
+
+// Runtime: 76 ms, faster than 90.29% of JavaScript online submissions for Lucky Numbers in a Matrix.
+// Memory Usage: 40 MB, less than 21.69% of JavaScript online submissions for Lucky Numbers in a Matrix.
