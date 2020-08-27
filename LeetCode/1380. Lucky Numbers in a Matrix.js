@@ -79,3 +79,26 @@ function luckyNumbers(matrix) {
 
 // Runtime: 76 ms, faster than 90.29% of JavaScript online submissions for Lucky Numbers in a Matrix.
 // Memory Usage: 40 MB, less than 21.69% of JavaScript online submissions for Lucky Numbers in a Matrix.
+
+// Solution by claytonjwong
+let luckyNumbers  = (A, ans = []) => {
+    let M = A.length,
+        N = A[0].length;
+    let min = Array(M).fill( Infinity);
+    let max = Array(N).fill(-Infinity);
+    for (let i = 0; i < M; ++i)
+        for (let j = 0; j < N; ++j)
+            min[i] = Math.min(min[i], A[i][j]),
+            max[j] = Math.max(max[j], A[i][j]);
+    for (let i = 0; i < M; ++i)
+        for (let j = 0; j < N; ++j)
+            if (min[i] == max[j]) // 🍀 lucky number 🍀
+                ans.push(A[i][j]);
+    return ans;
+};
+
+// This solution is almost the same as mine, except the Space complexity is worse, at O(2x M*N).
+// The space used remains the same at M + N.
+
+// That said, it is much easier to reason about it, so maybe the optmization in run time might not be
+// worth the added complexity of the solution.
