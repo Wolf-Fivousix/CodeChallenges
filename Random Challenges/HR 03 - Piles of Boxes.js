@@ -86,3 +86,13 @@ function pilesOfBoxes(boxesInPiles) {
 // 14/14 Test Cases
 // Log Linear Time Complexity, as we have to sort the array and then iterate once through it.
 // Linear Space Complexity, because we need to store the sorted array.
+
+const array1 = [4,5,5,2,4]; // 6
+const array2 = [886, 777]; // 1
+const array3 = [886, 777, 915, 1793]; // 6
+const array4 = [153348, 159818, 45611, 112438, 117632, 132688, 161491, 142542]; // 28
+
+console.log(pilesOfBoxes(array1) === 6);
+console.log(pilesOfBoxes(array2) === 1);
+console.log(pilesOfBoxes(array3) === 6);
+console.log(pilesOfBoxes(array4) === 28);
