@@ -84,3 +84,5 @@ function pilesOfBoxes(boxesInPiles) {
 }
 
 // 14/14 Test Cases
+// Log Linear Time Complexity, as we have to sort the array and then iterate once through it.
+// Linear Space Complexity, because we need to store the sorted array.
