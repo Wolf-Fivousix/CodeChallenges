@@ -101,3 +101,48 @@ function findMaxIndex(numbers) {
 }
 
 // 6/12 Test Cases - Last 6 tests fail due to efficiency.
+
+
+// Convert from array into a hash (we need constant access and write times)
+    // keep track of the highest key (values)
+    // values are how many times the element appears.
+
+// Iterate K number of times
+    // While the "maxKey" is invalid, decrement.
+    // Get tha number (if it was the last in the hash (value count of 1) delete it.)
+    // Make the division and add back into the hash.
+
+// Iterate through the hash and calculate the sum.
+// Return the sum.
+function minSum(num, k) {
+    const hash = hashMe(num);
+    let maxKey = Math.max(...num);
+    
+    for (let i = 0; i < k; ++i) {
+        while (!hash[maxKey]) --maxKey;
+        if (hash[maxKey] === 1) delete hash[maxKey];
+        else --hash[maxKey];
+
+        const division = Math.ceil(maxKey / 2);
+
+        if (hash[division]) ++hash[division];
+        else hash[division] = 1;
+    }
+
+    let sum = 0;
+    for (const value in hash) sum += value * hash[value];
+
+    return sum;
+}
+
+function hashMe(array) {
+    const hash = {};
+    array.forEach(value => {
+        if (hash[value]) ++hash[value];
+        else hash[value] = 1;
+    });
+
+    return hash;
+}
+
+// 12/12 Test Cases
