@@ -146,3 +146,25 @@ function hashMe(array) {
 }
 
 // 12/12 Test Cases
+
+// Polynomial Time Complexity, O (K * DISTANCE) where K is given and Distance is the gap between the smallest and greatest value.
+// Linear Space Complexity, as we build the hash possibly as big as the array input.
+
+const array1 = [2];
+const k1 = 1; // 1
+
+const array2 = [2,3];
+const k2 = 1; // 4
+
+const array3 = [
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+];
+const k3 = 500; // 100
+
+console.log(minSum(array1, k1) === 1);
+console.log(minSum(array2, k2) === 4);
+console.log(minSum(array3, k3) === 100);
