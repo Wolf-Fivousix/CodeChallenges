@@ -130,3 +130,6 @@ function findLIS(s) {
     return maxLength;
 }
 // 8/8 Test Cases.
+
+// Polynomial Time Complixy, as we traverse the input length twice (nested).
+// Linear Space Complexity, as we build an array of the same size of input.
