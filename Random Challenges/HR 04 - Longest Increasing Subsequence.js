@@ -133,3 +133,29 @@ function findLIS(s) {
 
 // Polynomial Time Complixy, as we traverse the input length twice (nested).
 // Linear Space Complexity, as we build an array of the same size of input.
+// test 0
+// 3
+// 1
+// 4
+// 3
+// Your Output (stdout)
+// 2
+
+// Test 1
+// 5
+// 1
+// 4
+// 5
+// 2
+// 6
+// Your Output (stdout)
+// 4
+
+// Test 2
+// 4
+// 2
+// 3
+// 3
+// 5
+// Your Output (stdout)
+// 3
