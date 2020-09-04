@@ -89,3 +89,8 @@ function howMany(sentence) {
 }
 
 // 15/15 Test Cases.
+
+// Linear Time Complexity, as we traverse the input once to break it up, then a second time to filter.
+// Linear Space Complexity, as we store the filtered array.
+
+// We could optimize to do it all in one pass and no extra memory, but unless strictly necessary, the logic like this is easier to understand.
