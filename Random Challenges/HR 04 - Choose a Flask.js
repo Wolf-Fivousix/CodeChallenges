@@ -148,3 +148,11 @@ function chooseFlask(requirements, flaskTypes, markings) {
     return flasksArray.reduce((minIndex, flask, currentIndex) => flask[currentIndex] < flask[minIndex] ? currentIndex : minIndex , 0);
 }
 // This one won't work, because we are not using only ONE marking for all requirements. Each flask type has multiple markings that we can use.
+
+// Possible optimizations: Filter the flask types first using the minMarking and maxMarkings.
+// That way we don't iterate over elements that we know are not valid.
+
+// Then for waste calculation, instead of iterating through the array, we can make it into a hash table of requirement (key) and frequency (value).
+// Yes, we will be paying that N Log N for the iteration sorting, BUT if we have multiple requirements that are the same, like [3,3,3,3,33,3,3,3,3,3,3,33] it will pay off!
+// This would be helpful in a real work kind of application. Not for the test cases.
+// Most of them are a count between 1 to 4. Meaning we are actually loosing time here because of the hash key sorting.
