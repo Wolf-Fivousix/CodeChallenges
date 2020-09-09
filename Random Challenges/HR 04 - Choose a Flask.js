@@ -156,3 +156,64 @@ function chooseFlask(requirements, flaskTypes, markings) {
 // Yes, we will be paying that N Log N for the iteration sorting, BUT if we have multiple requirements that are the same, like [3,3,3,3,33,3,3,3,3,3,3,33] it will pay off!
 // This would be helpful in a real work kind of application. Not for the test cases.
 // Most of them are a count between 1 to 4. Meaning we are actually loosing time here because of the hash key sorting.
+
+
+/*
+ * Complete the 'chooseFlask' function below.
+ *
+ * The function is expected to return an INTEGER.
+ * The function accepts following parameters:
+ *  1. INTEGER_ARRAY requirements
+ *  2. INTEGER flaskTypes
+ *  3. 2D_INTEGER_ARRAY markings
+ */
+
+function chooseFlask(requirements, flaskTypes, markings) {
+    const flasks = make2DArray(flaskTypes);
+    markings.forEach(flask => flasks[flask[0]].push(flask[1]));
+
+    const waste = flasks.map(flask => calculateWaste(flask, requirements));
+
+    console.log(requirements);
+    console.log(flasks);
+    console.log(waste);
+
+    return minWasteIndex(waste);
+}
+
+function make2DArray(size) {
+    const array = [];
+
+    for (let i = 0; i < size; ++i) {
+        array.push([]);
+    }
+
+    return array;
+}
+
+function calculateWaste(markings, requirements) {
+    let waste = 0;
+
+    for (let i = 0; i < requirements.length; ++i) {
+        let impossibleFlask = true;
+        for (let j = 0; j < markings.length; ++j) {
+            if (markings[j] < requirements[i]) continue;
+            impossibleFlask = false;
+            waste += markings[j] - requirements[i];
+            break;
+        }
+        if (impossibleFlask) waste = Number.POSITIVE_INFINITY;
+    }
+
+    return waste;
+}
+
+function minWasteIndex(waste) {
+    let minIndex = 0;
+    for (let i = 1; i < waste.length; ++i) {
+        if (waste[i] < waste[minIndex]) minIndex = i;
+    }
+    return minIndex;
+}
+// 11/12 Test Cases (test 12 is failing by run time)
+// Run time for this is Polynomial, as Requirements ^ Markings.
