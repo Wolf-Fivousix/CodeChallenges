@@ -217,3 +217,73 @@ function minWasteIndex(waste) {
 }
 // 11/12 Test Cases (test 12 is failing by run time)
 // Run time for this is Polynomial, as Requirements ^ Markings.
+
+// Applying the filtering of the flasks is enough to pass the 12th test case:
+function chooseFlask(requirements, flaskTypes, markings) {
+    let flasks = make2DArray(flaskTypes);
+    markings.forEach(flask => flasks[flask[0]].push(flask[1]));
+    // Find Min and Max
+    let minMark = Number.POSITIVE_INFINITY;
+    let maxMark = Number.NEGATIVE_INFINITY;
+    for (let i = 0; i < requirements.length; ++i) {
+        if (minMark > requirements[i]) minMark = requirements[i];
+        if (maxMark < requirements[i]) maxMark = requirements[i];
+    }
+
+    flasks = flasks.map(flask => filterOutOfRange(flask, minMark, maxMark));
+
+    const waste = flasks.map(flask => calculateWaste(flask, requirements));
+
+    console.log(requirements);
+    console.log(flasks);
+    console.log(waste);
+
+    return minWasteIndex(waste);
+}
+
+function make2DArray(size) {
+    const array = [];
+
+    for (let i = 0; i < size; ++i) {
+        array.push([]);
+    }
+
+    return array;
+}
+
+function filterOutOfRange(array, min, max) {
+    const onRange = [];
+    // console.log(min, max);
+    array.forEach(number => {
+        if (number >= min) onRange.push(number);
+        // console.log(number);
+        // console.log(onRange);
+    });
+
+    return onRange;
+}
+
+function calculateWaste(markings, requirements) {
+    let waste = 0;
+
+    for (let i = 0; i < requirements.length; ++i) {
+        let impossibleFlask = true;
+        for (let j = 0; j < markings.length; ++j) {
+            if (markings[j] < requirements[i]) continue;
+            impossibleFlask = false;
+            waste += markings[j] - requirements[i];
+            break;
+        }
+        if (impossibleFlask) waste = Number.POSITIVE_INFINITY;
+    }
+
+    return waste;
+}
+
+function minWasteIndex(waste) {
+    let minIndex = 0;
+    for (let i = 1; i < waste.length; ++i) {
+        if (waste[i] < waste[minIndex]) minIndex = i;
+    }
+    return minIndex;
+}
