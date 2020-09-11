@@ -130,34 +130,6 @@
 // minimum waste and minimum index
 // is 1 .
 
-function chooseFlask(requirements, flaskTypes, markings) {
-    const requirement = Math.max(...requirements);
-    const flasksArray = new Array(flaskTypes).fill(Number.POSITIVE_INFINITY);
-
-    for (let i = 0; i < markings.length; ++i) {
-        const [type, mark] = [markings[i][0], markings[i][1]];
-        
-        if (mark < requirement) continue;
-
-        flasksArray[type] = Math.min(flasksArray[type], mark);
-    }
-
-    // console.log(requirements);
-    // console.log(flasksArray);
-
-    return flasksArray.reduce((minIndex, flask, currentIndex) => flask[currentIndex] < flask[minIndex] ? currentIndex : minIndex , 0);
-}
-// This one won't work, because we are not using only ONE marking for all requirements. Each flask type has multiple markings that we can use.
-
-// Possible optimizations: Filter the flask types first using the minMarking and maxMarkings.
-// That way we don't iterate over elements that we know are not valid.
-
-// Then for waste calculation, instead of iterating through the array, we can make it into a hash table of requirement (key) and frequency (value).
-// Yes, we will be paying that N Log N for the iteration sorting, BUT if we have multiple requirements that are the same, like [3,3,3,3,33,3,3,3,3,3,3,33] it will pay off!
-// This would be helpful in a real work kind of application. Not for the test cases.
-// Most of them are a count between 1 to 4. Meaning we are actually loosing time here because of the hash key sorting.
-
-
 /*
  * Complete the 'chooseFlask' function below.
  *
@@ -168,127 +140,6 @@ function chooseFlask(requirements, flaskTypes, markings) {
  *  3. 2D_INTEGER_ARRAY markings
  */
 
-function chooseFlask(requirements, flaskTypes, markings) {
-    const flasks = make2DArray(flaskTypes);
-    markings.forEach(flask => flasks[flask[0]].push(flask[1]));
-
-    const waste = flasks.map(flask => calculateWaste(flask, requirements));
-
-    console.log(requirements);
-    console.log(flasks);
-    console.log(waste);
-
-    return minWasteIndex(waste);
-}
-
-function make2DArray(size) {
-    const array = [];
-
-    for (let i = 0; i < size; ++i) {
-        array.push([]);
-    }
-
-    return array;
-}
-
-function calculateWaste(markings, requirements) {
-    let waste = 0;
-
-    for (let i = 0; i < requirements.length; ++i) {
-        let impossibleFlask = true;
-        for (let j = 0; j < markings.length; ++j) {
-            if (markings[j] < requirements[i]) continue;
-            impossibleFlask = false;
-            waste += markings[j] - requirements[i];
-            break;
-        }
-        if (impossibleFlask) waste = Number.POSITIVE_INFINITY;
-    }
-
-    return waste;
-}
-
-function minWasteIndex(waste) {
-    let minIndex = 0;
-    for (let i = 1; i < waste.length; ++i) {
-        if (waste[i] < waste[minIndex]) minIndex = i;
-    }
-    return minIndex;
-}
-// 11/12 Test Cases (test 12 is failing by run time)
-// Run time for this is Polynomial, as Requirements ^ Markings.
-
-// Applying the filtering of the flasks is enough to pass the 12th test case:
-function chooseFlask(requirements, flaskTypes, markings) {
-    let flasks = make2DArray(flaskTypes);
-    markings.forEach(flask => flasks[flask[0]].push(flask[1]));
-    // Find Min and Max
-    let minMark = Number.POSITIVE_INFINITY;
-    let maxMark = Number.NEGATIVE_INFINITY;
-    for (let i = 0; i < requirements.length; ++i) {
-        if (minMark > requirements[i]) minMark = requirements[i];
-        if (maxMark < requirements[i]) maxMark = requirements[i];
-    }
-
-    flasks = flasks.map(flask => filterOutOfRange(flask, minMark, maxMark));
-
-    const waste = flasks.map(flask => calculateWaste(flask, requirements));
-
-    console.log(requirements);
-    console.log(flasks);
-    console.log(waste);
-
-    return minWasteIndex(waste);
-}
-
-function make2DArray(size) {
-    const array = [];
-
-    for (let i = 0; i < size; ++i) {
-        array.push([]);
-    }
-
-    return array;
-}
-
-function filterOutOfRange(array, min, max) {
-    const onRange = [];
-    // console.log(min, max);
-    array.forEach(number => {
-        if (number >= min) onRange.push(number);
-        // console.log(number);
-        // console.log(onRange);
-    });
-
-    return onRange;
-}
-
-function calculateWaste(markings, requirements) {
-    let waste = 0;
-
-    for (let i = 0; i < requirements.length; ++i) {
-        let impossibleFlask = true;
-        for (let j = 0; j < markings.length; ++j) {
-            if (markings[j] < requirements[i]) continue;
-            impossibleFlask = false;
-            waste += markings[j] - requirements[i];
-            break;
-        }
-        if (impossibleFlask) waste = Number.POSITIVE_INFINITY;
-    }
-
-    return waste;
-}
-
-function minWasteIndex(waste) {
-    let minIndex = 0;
-    for (let i = 1; i < waste.length; ++i) {
-        if (waste[i] < waste[minIndex]) minIndex = i;
-    }
-    return minIndex;
-}
-
-// Final refactored code
 function chooseFlask(requirements, flaskTypes, markings) {
     let flasks = make2DArray(flaskTypes);
     markings.forEach(flask => flasks[flask[0]].push(flask[1]));
@@ -336,3 +187,5 @@ function minWasteIndex(waste) {
 
     return minIndex;
 }
+
+// 12/12 Test Cases.
