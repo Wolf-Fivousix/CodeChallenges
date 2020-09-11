@@ -287,3 +287,52 @@ function minWasteIndex(waste) {
     }
     return minIndex;
 }
+
+// Final refactored code
+function chooseFlask(requirements, flaskTypes, markings) {
+    let flasks = make2DArray(flaskTypes);
+    markings.forEach(flask => flasks[flask[0]].push(flask[1]));
+
+    const minMark = Math.min(...requirements);
+    flasks = flasks.map(flask => filterOutOfRange(flask, minMark));
+
+    const waste = flasks.map(flask => calculateWaste(flask, requirements));
+    return minWasteIndex(waste);
+}
+
+function make2DArray(size) {
+    const array = [];
+
+    for (let i = 0; i < size; ++i) array.push([]);
+
+    return array;
+}
+
+function filterOutOfRange(array, min) {
+    return array.filter(element => element >= min);
+}
+
+function calculateWaste(markings, requirements) {
+    let waste = 0;
+
+    for (let i = 0; i < requirements.length; ++i) {
+        let impossibleFlask = true;
+        for (let j = 0; j < markings.length; ++j) {
+            if (markings[j] < requirements[i]) continue;
+            impossibleFlask = false;
+            waste += markings[j] - requirements[i];
+            break;
+        }
+        if (impossibleFlask) waste = Number.POSITIVE_INFINITY;
+    }
+
+    return waste;
+}
+
+function minWasteIndex(waste) {
+    let minIndex = 0;
+
+    for (let i = 1; i < waste.length; ++i) if (waste[i] < waste[minIndex]) minIndex = i;
+
+    return minIndex;
+}
