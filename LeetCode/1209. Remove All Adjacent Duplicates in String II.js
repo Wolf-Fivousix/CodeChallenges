@@ -85,3 +85,12 @@ function removeDuplicate(string, k) {
 
 // Runtime: 92 ms, faster than 57.89% of JavaScript online submissions for Remove All Adjacent Duplicates in String II.
 // Memory Usage: 40 MB, less than 66.85% of JavaScript online submissions for Remove All Adjacent Duplicates in String II.
+
+// Let's improve this.
+// Right now we have one iteration to check if there is duplicates.
+// Then we iterate again to remove the duplicates. In this iteration we return a new string (another iteration).
+
+// We can do the loop with a flag anytime a duplicate was found.
+// Within the iteration, instead of returning as soon as we remove a duplicate, we build the new string as we go.
+// This way for every iteration we remove all current duplicates once, before repeating the process.
+// This off "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa". No reason to iterate through this multiple times, we can remove the duplicates in one single iteration.
