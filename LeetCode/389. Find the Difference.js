@@ -50,7 +50,7 @@ First (Brute Force) approach:
 Second (Better) approach:
 W know they are the same + 1 length. We also know they have the SAME letters, except for one.
 Let's save memory and do a Log Linear sorting with Linear Scan. This way the Time Complexity will be Log Linear and Space Constant.
-    Sort both strings (if we use copies, we have Space Complexity of S + T).
+    Sort both strings (we have to convert them into arrays for the sorting, so we have Space Complexity of S + T).
     Loop through S's length:
         Compare S char with T char.
         If different, return T char.
@@ -59,5 +59,15 @@ Let's save memory and do a Log Linear sorting with Linear Scan. This way the Tim
 
 */
 function findTheDifference(s, t) {
+    const stringS = s.split("").sort().join("");
+    const stringT = t.split("").sort().join("");
     
+    for(let i = 0; i < stringS.length; ++i) {
+        if(stringS[i] !== stringT[i]) return stringT[i];
+    }
+    
+    return stringT[stringT.length - 1];
 };
+
+// Runtime: 88 ms, faster than 59.63% of JavaScript online submissions for Find the Difference.
+// Memory Usage: 40.4 MB, less than 45.45% of JavaScript online submissions for Find the Difference.
