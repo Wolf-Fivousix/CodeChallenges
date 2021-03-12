@@ -59,8 +59,8 @@ Let's save memory and do a Log Linear sorting with Linear Scan. This way the Tim
 
 */
 function findTheDifference(s, t) {
-    const stringS = s.split("").sort().join("");
-    const stringT = t.split("").sort().join("");
+    const stringS = s.split("").sort();
+    const stringT = t.split("").sort();
     
     for(let i = 0; i < stringS.length; ++i) {
         if(stringS[i] !== stringT[i]) return stringT[i];
@@ -69,5 +69,5 @@ function findTheDifference(s, t) {
     return stringT[stringT.length - 1];
 };
 
-// Runtime: 88 ms, faster than 59.63% of JavaScript online submissions for Find the Difference.
-// Memory Usage: 40.4 MB, less than 45.45% of JavaScript online submissions for Find the Difference.
+// Runtime: 84 ms, faster than 78.34% of JavaScript online submissions for Find the Difference.
+// Memory Usage: 40.4 MB, less than 53.21% of JavaScript online submissions for Find the Difference.
