@@ -50,7 +50,8 @@ Return Perimeter.
 This iterates through the grid once, and considering the whole grid was a land mass, it would check every adjacent spot once again.
 Making it 4 * row * column, which still Linear Time Complexity (N is the grid) with Constant Space Complexity.
 
-Can we do better? Maybe memoization or a recursive function where we pass Perimiter 4 and reduce it for each land cell that touches it... More complex, will bring it down to 1 * Grid, which is quicker, but is it worth the trade off?
+Can we do better? Maybe memoization or a recursive function where we pass Perimiter 4 and reduce it for each land cell that touches it...
+ More complex, will bring it down to 1 * Grid, which is quicker, but is it worth the trade off?
 
 Scan the grid until we find a land.
 Once land is found, return the perimeter (recursive function)
@@ -85,3 +86,39 @@ function islandPerimeter(grid) {
 
 // Runtime: 196 ms, faster than 74.07% of JavaScript online submissions for Island Perimeter.
 // Memory Usage: 48.8 MB, less than 53.87% of JavaScript online submissions for Island Perimeter.
+
+// Solution by ghewadesumit
+// He flips the land to -1 to mark already calculated cells.
+var islandPerimeter = function(grid) {
+    if(grid == null || grid.length == 0 || grid[0].length == 0) return 0;
+    for(let i = 0; i < grid.length; i++){
+        for(let j = 0; j < grid[0].length; j++){
+            if(grid[i][j] == 1) return dfs(i,j,grid); 
+        }
+    } 
+    return 0;
+};
+
+let dfs = function(i,j,grid){
+    if(i< 0 || i >= grid.length || j < 0 || j >= grid[0].length) return 1;
+    if(grid[i][j] == 0) return 1;   
+    if(grid[i][j] == -1) return 0;   
+    let count =  0;
+
+    grid[i][j] = -1;
+    
+    count += dfs(i-1,j,grid);
+    count += dfs(i,j-1,grid);
+    count += dfs(i,j+1,grid);
+    count += dfs(i+1,j,grid);
+    
+    return count;
+}
+// Runtime: 200 ms, faster than 65.32% of JavaScript online submissions for Island Perimeter.
+// Memory Usage: 48.9 MB, less than 43.77% of JavaScript online submissions for Island Perimeter.
+// Runtime: 196 ms, faster than 74.07% of JavaScript online submissions for Island Perimeter.
+// Memory Usage: 49 MB, less than 35.02% of JavaScript online submissions for Island Perimeter.
+// Runtime: 200 ms, faster than 65.32% of JavaScript online submissions for Island Perimeter.
+// Memory Usage: 48.9 MB, less than 43.77% of JavaScript online submissions for Island Perimeter.
+
+// As expected, the performance difference is irrelevant.
