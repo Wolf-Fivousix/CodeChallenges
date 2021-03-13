@@ -60,6 +60,72 @@ Iterate through the hash VALUES (count).
 Return length.
         
 */
+// Take a look at the last solution (by gorkiy), for a more efficient approach.
 function longestPalindrome(s) {
+    const hash = {};
+    for(let i = 0; i < s.length; ++i) {
+        const char = s[i];
+        if(hash[char]) ++hash[char];
+        else hash[char] = 1;
+    }
     
+    let length = 0;
+    const counters = Object.values(hash);
+    counters.forEach(count => {
+        if(count % 2 === 0 || length % 2 === 0) length += count;
+        else length += count - 1;
+    });
+    
+    return length;
 };
+
+// Runtime: 84 ms, faster than 76.88% of JavaScript online submissions for Longest Palindrome.
+// Memory Usage: 39.5 MB, less than 86.19% of JavaScript online submissions for Longest Palindrome.
+
+// Runtime: 88 ms, faster than 59.16% of JavaScript online submissions for Longest Palindrome.
+// Memory Usage: 39.5 MB, less than 86.19% of JavaScript online submissions for Longest Palindrome.
+
+
+// Solution by jdhp
+// Interesting approach with a Set.
+// Do remember that a set is iteractive and not constant access (implemented as a List), so worst case, this could become Polynomial O(N^2)
+var longestPalindrome = function(s) {
+    const set = new Set();
+    let count = 0;
+    
+    for (const char of s) {
+        if (set.has(char)) {
+			count += 2;
+            set.delete(char);
+        } 
+		else {
+            set.add(char);
+        }
+    }
+
+    return count + (set.size > 0 ? 1 : 0);
+};
+// Runtime: 80 ms, faster than 90.39% of JavaScript online submissions for Longest Palindrome.
+// Memory Usage: 40.3 MB, less than 39.94% of JavaScript online submissions for Longest Palindrome.
+// Runtime: 84 ms, faster than 76.88% of JavaScript online submissions for Longest Palindrome.
+// Memory Usage: 39.9 MB, less than 73.27% of JavaScript online submissions for Longest Palindrome.
+
+// Solution by gorkiy
+// Only one loop.
+var longestPalindrome = function(s) {
+    let ans = 0;
+    let keys = {};
+    
+    for (let char of s) {
+      keys[char] = (keys[char] || 0) + 1;
+      if (keys[char] % 2 == 0) ans += 2;
+    }
+    return s.length > ans ? ans + 1 : ans;
+};
+
+// Runtime: 84 ms, faster than 76.88% of JavaScript online submissions for Longest Palindrome.
+// Memory Usage: 40.1 MB, less than 52.25% of JavaScript online submissions for Longest Palindrome.
+// Runtime: 88 ms, faster than 59.16% of JavaScript online submissions for Longest Palindrome.
+// Memory Usage: 40.1 MB, less than 61.26% of JavaScript online submissions for Longest Palindrome.
+
+// No complexity difference, no runtime difference for the tests provided, but it is more efficient.
