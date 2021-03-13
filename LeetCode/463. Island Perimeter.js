@@ -42,16 +42,46 @@ the perimeter based on how many land masses touch each cell.
 Perimeter starts at 0.
 Iterate through rows
     Iterate through columns
-        Is it water? Add 0.
-        How many "land cells" touch horizontal/vertically? Reduce Perimeter by 1 for each.
-            Check row - 1, row + 1, column - 1, row - 1.
+        If land...
+            How many "land cells" touch horizontal/vertically? Reduce Perimeter by 1 for each.
+                Check row - 1, row + 1, column - 1, row - 1.
 Return Perimeter.
 
 This iterates through the grid once, and considering the whole grid was a land mass, it would check every adjacent spot once again.
 Making it 4 * row * column, which still Linear Time Complexity (N is the grid) with Constant Space Complexity.
 
 Can we do better? Maybe memoization or a recursive function where we pass Perimiter 4 and reduce it for each land cell that touches it... More complex, will bring it down to 1 * Grid, which is quicker, but is it worth the trade off?
+
+Scan the grid until we find a land.
+Once land is found, return the perimeter (recursive function)
+
+Perimeter Method:
+    What is my perimeter? It is going to be the adition of the perimeters around me.
+    But now, unless I somehow mark if a cell already had a perimeter calculated, I will double count something.
+The complexity of this will not add much to the performance.
 */
 function islandPerimeter(grid) {
-    
+    let perimeter = 0;
+    for (let row = 0; row < grid.length; ++row) {
+        for (let column = 0; column < grid[row].length; ++column) {
+            const land = grid[row][column];
+            if (land) {
+                if(row - 1 < 0 || grid[row - 1][column] === 0) ++perimeter;
+                if(row + 1 >= grid.length || grid[row + 1][column] === 0) ++perimeter;
+                if(column - 1 < 0 || grid[row][column - 1] === 0) ++perimeter;
+                if(column + 1 >= grid[row].length || grid[row][column + 1] === 0) ++perimeter;
+            }
+            // console.log(`Row: ${row} Column: ${column} - ${land} => ${perimeter}`)  
+        }
+    }
+    return perimeter;
 };
+
+// Runtime: 208 ms, faster than 44.11% of JavaScript online submissions for Island Perimeter.
+// Memory Usage: 48.7 MB, less than 68.01% of JavaScript online submissions for Island Perimeter.
+
+// Runtime: 184 ms, faster than 91.92% of JavaScript online submissions for Island Perimeter.
+// Memory Usage: 49.1 MB, less than 30.98% of JavaScript online submissions for Island Perimeter.
+
+// Runtime: 196 ms, faster than 74.07% of JavaScript online submissions for Island Perimeter.
+// Memory Usage: 48.8 MB, less than 53.87% of JavaScript online submissions for Island Perimeter.
