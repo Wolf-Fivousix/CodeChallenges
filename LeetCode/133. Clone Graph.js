@@ -84,5 +84,43 @@ Input is not an array (like the examples), but an actual Node.
 So I have to traverse it like I would traverse a graph.
 */
 function cloneGraph(node) {
-
+    if (!node) return null;
+    const nodeTable = traverseGraph(node);
+    connectNeighbors(node, nodeTable);
+    
+    return nodeTable[1];
 };
+
+function traverseGraph(node) {
+    const nodes = {};
+    const queue = [node];
+    while (queue.length) {
+        const currentNode = queue.shift();
+        const value = currentNode.val;
+        if (nodes[value]) continue;
+        
+        nodes[value] = new Node(value);
+        queue.push(...currentNode.neighbors);
+    }
+    
+    return nodes;
+}
+
+function connectNeighbors(node, nodeTable) {
+    const queue = [node];
+    while (queue.length) {
+        const currentNode = queue.shift();
+        const value = currentNode.val;
+        if (nodeTable[value].neighbors.length) continue;
+        
+        const neighbors = currentNode.neighbors.map(node => node.val);
+        neighbors.forEach(neighbor => nodeTable[value].neighbors.push(nodeTable[neighbor]));
+        
+        queue.push(...currentNode.neighbors);
+    }
+}
+
+// Runtime: 88 ms, faster than 38.55% of JavaScript online submissions for Clone Graph.
+// Memory Usage: 40.7 MB, less than 9.44% of JavaScript online submissions for Clone Graph.
+// Runtime: 80 ms, faster than 86.85% of JavaScript online submissions for Clone Graph.
+// Memory Usage: 40.6 MB, less than 21.59% of JavaScript online submissions for Clone Graph.
