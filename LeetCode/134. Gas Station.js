@@ -97,5 +97,24 @@ Constant Space Complexity
 
 */
 function canCompleteCircuit(gas, cost) {
+    let totalSum = 0;
+    let currentFuel = 0;
+    let startIndex = 0;
     
+    gas.forEach((_gas, index) => {
+        const diff = gas[index] - cost[index]; 
+        totalSum += diff;
+        currentFuel += diff;
+        if (currentFuel < 0) {
+            currentFuel = 0;
+            startIndex = index + 1;
+        }
+    });
+    
+    if (totalSum < 0 || startIndex >= gas.length) return -1;
+    
+    return startIndex;
 };
+
+// Runtime: 76 ms, faster than 88.68% of JavaScript online submissions for Gas Station.
+// Memory Usage: 38.8 MB, less than 77.63% of JavaScript online submissions for Gas Station.
