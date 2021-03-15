@@ -40,3 +40,62 @@
 // 1 <= n <= 104
 // 0 <= gas[i], cost[i] <= 104
 
+/**
+ * @param {number[]} gas
+ * @param {number[]} cost
+ * @return {number}
+ */
+
+/*
+Any point where gas is LOWER than cost, is not a valid starting point.
+
+Approach 1 (Brute Force):
+Scan the arrays for EVERY STARTIN POINT.
+Iterate through those points until we find a valid answer or no answer.
+
+Polynomial Time Complexity.
+Linear Space Complexity.
+
+
+The key here is the fuel and cost.
+Once I "move" into one direction, I know that, from that point, I'll ALWAYS be able to move.
+The problem happens when there is not enough fuel. These are the corner stones for our efficiency.
+
+[-2, -2, -2, 3, 3] The difference between GAS and COST.
+Any index with a NEGATIVE value is an invalid starting point.
+Any index with 0 OR POSITIVE value is a valid starting point.
+
+[-1, -1, -1...., 200] If I SUM everything and ends in 0+, then I know it can be circular.
+As I scan through this difference array, anytime the SUM reaches -1 or less, "the run" has ended. Everything before it can be discarded.
+
+Approach 2:
+(All of these can be done in one pass, but I'll break down into multiple passes for clarity)
+Calculate the "difference" array.
+Check if the SUM of it is 0 or MORE, if it is not, there is no way to circle around the route, return -1.
+Define totalSum as 0.
+Define currentSum as 0.
+Define startIndex as 0.
+
+Iterate through diff array.
+    Add current value to totalSum and currentSum.
+    If currentSum dips bellow 0
+        currentSum becomes 0
+        startIndex becomes NEXT INDEX (current + 1)
+
+Once we reach the end, we either have a valid startIndex or not (index greater than input length)
+Return startIndex if lesser than input length.
+Otherwise return -1.
+
+Linear Time Complexity
+Linear Space Complexity
+    
+Approach 3 (Optimal):
+Instead of calculating the diff array first, we do it as we go. Only using the "totalSum" variable to keep track of things.
+
+Linear Time Complexity
+Constant Space Complexity
+
+*/
+function canCompleteCircuit(gas, cost) {
+    
+};
