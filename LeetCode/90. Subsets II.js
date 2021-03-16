@@ -35,7 +35,6 @@ Set does not work here, because each array object would be a different object, t
 function subsetsWithDup(nums) {
     const sorted = nums.sort((a, b) => a - b);
     const results = [[]];
-    const map = {};
     sorted.forEach(number => {
         // console.log("#: ", number);
         // console.log(results);
@@ -57,7 +56,6 @@ function copyArray(original) {
 }
 
 function hasArray(matrix, array) {
-    let hasArray = false;
     for (let i = 0; i < matrix.length; ++i) {
         if (!isDifferentArray(matrix[i], array)) return true;
     }
@@ -74,3 +72,26 @@ function isDifferentArray(array1, array2) {
     
     return false;
 }
+
+// Runtime: 92 ms, faster than 36.04% of JavaScript online submissions for Subsets II.
+// Memory Usage: 40.8 MB, less than 56.64% of JavaScript online submissions for Subsets II.
+// Runtime: 84 ms, faster than 80.76% of JavaScript online submissions for Subsets II.
+// Memory Usage: 40.8 MB, less than 56.64% of JavaScript online submissions for Subsets II.
+// Runtime: 80 ms, faster than 92.68% of JavaScript online submissions for Subsets II.
+// Memory Usage: 40.6 MB, less than 71.00% of JavaScript online submissions for Subsets II.
+
+// Because there is no way to keep track of the array's in a set or a map, there is no choice but to 
+// compare it every time we have a new array. That is a polynomial comparisson.
+// Worst case, every single number is different, so even though we are comparing all arrays, they will never be 
+// equal.
+// We do this analysis inside a a loop for the elements inside result array. (2^N)
+// Which we do inside of another loop of the nums array. (3^N)
+// In reality, this might be even worse, because as "results" grow, so will grow the initial loop.
+// And we grow in space as well...
+
+
+// Exponential Time Complexity of O(N^3)
+// Exponential Space Complexity 
+
+// There might be a better way, by converting the array into a string of numbers, I could then use a hash table
+// to see if it has showed up before. We'll be paying the cost of string conversion, but we would eliminate one loop.
