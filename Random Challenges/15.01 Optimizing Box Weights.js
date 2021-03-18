@@ -33,4 +33,24 @@
  * The function accepts INTEGER_ARRAY arr as parameter.
  */
 
+/*
+I need the highest weights, but I also need them in sorted order.
+If I have the same number, it HAS TO be in the same array, in other words:
+[5,5,5,5, 200] => All the 5's need to be together.
 
+We can sort the input.
+Count the ocurrances and the SUM of each number with a hash table
+then we start pop itens out of A and UNSHIFT into B.
+    If the number popped has multiple counts, then pop those extra times as well.
+    (this guarantees the intersection of A/B is null and their union is equal to original arr)
+Once the SUM of A is lower than B, break the loop.
+
+return B.
+
+Because we're starting from the biggest numbers, a case like:
+[10,10,10,20] would give us A = [] and B = [10,10,10,20]
+when B should actually be [10,10,10]
+It is the same problem I'm having with test #3, where we have 6x 45, and that's throwing out the balance.
+
+
+*/
