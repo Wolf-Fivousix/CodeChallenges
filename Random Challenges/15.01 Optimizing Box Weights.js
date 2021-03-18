@@ -53,4 +53,61 @@ when B should actually be [10,10,10]
 It is the same problem I'm having with test #3, where we have 6x 45, and that's throwing out the balance.
 
 
+Keep the similar approach, balancing A and B.
+Once they are split in half, now I need to "fine comb" the B array
+For each element in it (from 0 to N), I'll calculate if that element can be moved to A, while keeping the balance
+    In the 6x 45 case, SUM went from 450/800 to 750/500. 
+    I have a relationship between HOW MANY of a certain element I have, and HOW HEAVY it's total weight is.
+    I want to KEEP the HEAVIEST ones, but not the ones with too many elements:
+        Ex: 1.000x 1's is worse than 2x 500.
+            1.000x 1's and 2x499, I would still have to keep the 1's....
+            
+Not enough.... my approach is flawed.
+
+If I could bruteforce and find every single combination that satisfies the conditions.
+    I don't have enough time to do this, but it would be exponentially inneficient...
+Then I can filter the ones with the smallest array size.
+Then I pick the one with the greatest weight.
+
+
+
 */
+function minimalHeaviestSetA(arr) {
+    const subsetA = arr.sort((a, b) => a - b);
+    const subsetB = [];
+    const counter = countOccurrances(subsetA);
+    let sumA = subsetA.reduce((acc, num) => acc + num);
+    let sumB = 0;
+    // console.log(counter, sumA, sumB);
+    while (sumA > sumB) {
+        const value = subsetA[subsetA.length - 1];
+        for (let i = 0; i < counter[value]; ++i) {
+            subsetB.unshift(subsetA.pop());
+        }
+        sumA -= counter[value] * value;
+        sumB += counter[value] * value;
+    }
+    
+    // At this point, they are balanced, let's iterate through B and pick out whatever we can.
+    for (let i = 0; i < subsetB.length; ++i) {
+        const value = subsetB[i];
+        const itemWeight = counter[value] * value;
+        if (sumA + itemWeight < sumB - itemWeight) {   
+            subsetA.push(...subsetB.splice(i, counter[value]));
+            --i; // Adjust i to repeat the current index.
+        }
+    }
+    
+    return subsetB;
+}
+
+function countOccurrances(array) {
+    const hash = {};
+    array.forEach(number => { 
+        hash[number] = hash[number] + 1 || 1
+    });
+    
+    return hash;
+}
+
+// 4/15 tests...
