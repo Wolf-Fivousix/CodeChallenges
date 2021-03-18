@@ -62,3 +62,30 @@ Log Linear Time Complexity O(n log n) (sorting array and iterating through it on
 Linear Space Complexity O(h) or O(v), whichever is biggest (because we had to sort the input, now we had to use more space)
     If space is limited, we can bring this down by doing an "in place" sorting of the inputs, but that will affect heavly our processing times. (most likely making it Polynomial complexity)
 */
+function storage(n, m, h, v) {
+    return (countAdjacentSeparators(h) + 1 ) * (countAdjacentSeparators(v) + 1);
+}
+
+function countAdjacentSeparators(arr) {
+    if (!arr.length) return 0;
+    const array = arr.sort((a, b) => a - b); // Sanitize input
+    
+    let currentValue = array[0];
+    let largestSize = 1;
+    let size = 1;
+    
+    for (let i = 1; i < array.length; ++i) {
+        const num = array[i]; 
+        if (currentValue + 1 === num) ++size;
+        else {
+            largestSize = Math.max(largestSize, size);
+            size = 1;
+        }
+        currentValue = num;
+    }
+    largestSize = Math.max(largestSize, size);
+    
+    return largestSize;
+}
+
+// 13/13 Tests
