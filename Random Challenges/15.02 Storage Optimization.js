@@ -33,3 +33,32 @@
  *  4. INTEGER_ARRAY v
  */
 
+/*
+We don't really care WHERE the size changes, as we care about HOW MUCH it changes.
+And HOW MUCH it changes, is going to depend if the spaces removed are adjacent.
+That means I need to split my input in dinstinguised chunks. The biggest one is what we care.
+    We want to "split" the input into it's largest consecutive count. (helper method)
+Repeat the process with horizontal separators.
+(Add 1 to each, since they are separators)
+Multiple by each other.
+That's the biggest space.
+
+count adjacent separators
+if array is empty, return 0.
+    currentValue = first element of the array
+    largestSize = 1;
+    size 1;
+    Iterate through the array (start at index 1) (assuming it is sorted, might not be)
+        if current element is equal to currentValue + 1 (a sequence number)
+            size + 1
+        else 
+            largestSize = max between largestSize and size
+            size resets to 1.
+        currentValue = currentElement
+    return largestSize.
+
+Because we had do sort H and V, we lost some efficiency.
+Log Linear Time Complexity O(n log n) (sorting array and iterating through it once)
+Linear Space Complexity O(h) or O(v), whichever is biggest (because we had to sort the input, now we had to use more space)
+    If space is limited, we can bring this down by doing an "in place" sorting of the inputs, but that will affect heavly our processing times. (most likely making it Polynomial complexity)
+*/
