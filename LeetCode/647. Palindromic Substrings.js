@@ -54,3 +54,39 @@ Polynomial Time Complexity O(N^3)
 Linear Space Compelxity O(N) - Because we need to "slice" the string for our palindrome check
 
 */
+function countSubstrings(s) {
+    // console.log("a", isPalindrome("a"));
+    // console.log("abc", isPalindrome("abc"));
+    // console.log("aaa", isPalindrome("aaa"));
+    // console.log("abcd".slice(1,2));
+    // console.log("abcd".slice(2,4));
+    // console.log("abcd".slice(0,4));
+    let counter = 0;
+    let window = 1;
+    while (window <= s.length) {
+        for (let i = 0; i + window <= s.length; ++i) {
+            if (isPalindrome(s.slice(i, i + window))) ++counter;
+        }
+        ++window;
+    }
+    
+    return counter;
+};
+
+function isPalindrome(word) {
+    let start = 0;
+    let end = word.length - 1;
+    
+    while (start <= end) {
+        if (word[start] !== word[end]) return false;
+        ++start;
+        --end;
+    }
+    
+    return true;
+}
+
+// Runtime: 528 ms, faster than 17.73% of JavaScript online submissions for Palindromic Substrings.
+// Memory Usage: 44.6 MB, less than 40.60% of JavaScript online submissions for Palindromic Substrings.
+// Runtime: 508 ms, faster than 18.13% of JavaScript online submissions for Palindromic Substrings.
+// Memory Usage: 44.6 MB, less than 41.95% of JavaScript online submissions for Palindromic Substrings.
