@@ -90,3 +90,17 @@ function divide(value, operations) {
     
     return [value / 2, value / 2];
 }
+
+
+// Input [9], 2
+// Expected 3
+
+// Input [7, 17], 2
+// Expected 7
+
+// Input [17], 1
+// Expected 8
+
+// Input [431,922,158,60,192,14,788,146,788,775,772,792,68,143,376,375,877,516,595,82,56,704,160,403,713,504,67,332,26] , 80
+// Output 174
+// Expected 129
