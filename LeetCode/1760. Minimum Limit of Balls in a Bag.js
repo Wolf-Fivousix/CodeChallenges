@@ -40,3 +40,53 @@
 
 // 1 <= nums.length <= 105
 // 1 <= maxOperations, nums[i] <= 109
+
+/**
+ * @param {number[]} nums
+ * @param {number} maxOperations
+ * @return {number}
+ */
+
+/*
+I can dive the bag however I want (No need to /2 all the time).
+Because I'm operating on the highest values, I can sort the input so that
+it is easy for me to pick the next element to be worked on.
+
+Keeping the array sorted after every single operation will require
+x * (N Log N). Which is not great, but let's just take that for the time being.
+    // If I use "concat" I will have to traverse the array again to make the copy, so let's just "push".
+Paying for this, I get: The biggest bag is always the last element.
+
+Let's go with this approach. Not the most efficient, but it is very simple and will get the job done.
+
+The problem here is when the number is ODD. For EVEN numbers, dividing by 2 is the best approach.
+    If I have 2 or more operations, then "divide by three".
+    Otherwise, go with the division by 2 appraoch.
+
+Polynomial Time Complexity of O(N Log N ^ O), where N is the nums array and O is the maxOperations.
+Linear Space Complexity O(N + O) where N is the nums array and O is the maxOperations by which it is going to grow.
+
+
+Another option to save memory would be to keep track of all the keys in a set.
+But that will add to time complexity of finding the biggest key.
+*/
+function minimumSize(nums, maxOperations) {
+    if (!nums.length) return null;
+    let sorted = nums.sort((a, b) => a - b);
+    
+    for (let cycle = maxOperations; 0 < cycle; --cycle) {
+        const max = sorted.pop();
+        const division = divide(max, maxOperations);
+        sorted.push(...division);
+        sorted = sorted.sort((a, b) => a - b);
+    }
+    
+    return sorted[sorted.length - 1];
+};
+
+function divide(value, operations) {
+    if (value % 2 && operations >= 2) return [Math.floor(value / 3), 2 * Math.ceil(value / 3)];
+    if (value % 2) return [Math.floor(value / 2), Math.ceil(value / 2)];
+    
+    return [value / 2, value / 2];
+}
