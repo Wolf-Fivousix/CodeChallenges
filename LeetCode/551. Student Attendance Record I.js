@@ -29,3 +29,34 @@
 
 // 1 <= s.length <= 1000
 // s[i] is either 'A', 'L', or 'P'.
+
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+ function checkRecord(s) {
+    let absence = 0;
+    let late = 0;
+    
+    for (let i = 0; i < s.length; ++i) {
+        const attendance = s[i];
+        switch (attendance) {
+            case "L":
+                ++late;
+                break;
+            case "A":
+                ++absence; // Absence should also reset the "lateness" counter.
+            default:
+                late = 0;
+        }
+        
+        if (absence > 1 || late > 2) return false;
+    }
+    
+    return true;
+};
+
+// Runtime: 76 ms, faster than 84.35% of JavaScript online submissions for Student Attendance Record I.
+// Memory Usage: 38.7 MB, less than 51.53% of JavaScript online submissions for Student Attendance Record I.
+// Linear Time Complexity
+// Constant Space Complexity
