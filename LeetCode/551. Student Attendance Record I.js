@@ -60,3 +60,12 @@
 // Memory Usage: 38.7 MB, less than 51.53% of JavaScript online submissions for Student Attendance Record I.
 // Linear Time Complexity
 // Constant Space Complexity
+
+// There's a community "liked" way of doing this, which is less efficient and require a little bit more understanding.
+// But fits in a one line:
+
+// return s.indexOf('A') == s.lastIndexOf('A') && !s.contains("LLL");
+
+// Because we can only have 1 "A", checking the indexes for the first and last occurances satisfies the first condition.
+// While checking for the 3x "L" in a row, satisfies the second condition.
+// On the same note, this has to perfrom 3 scans, making it O(3x N), still linear, but 200% worse with no option for early return optimization.
