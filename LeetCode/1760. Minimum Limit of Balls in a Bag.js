@@ -104,3 +104,8 @@ function divide(value, operations) {
 // Input [431,922,158,60,192,14,788,146,788,775,772,792,68,143,376,375,877,516,595,82,56,704,160,403,713,504,67,332,26] , 80
 // Output 174
 // Expected 129
+
+// Notes on how to use binary search for this problem:
+// https://leetcode.com/discuss/general-discussion/786126/python-powerful-ultimate-binary-search-template-solved-many-problems
+// https://leetcode.com/problems/minimum-limit-of-balls-in-a-bag/discuss/1064497/Unravel-it-Layer-by-Layer
+// https://leetcode.com/problems/minimum-limit-of-balls-in-a-bag/
