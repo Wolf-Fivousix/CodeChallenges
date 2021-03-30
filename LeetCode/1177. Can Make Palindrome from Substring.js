@@ -63,3 +63,38 @@ Suppose we have 100 querries, all on the same 0...20 string. Each one increasing
 If we store the substring and instead of checking if we CAN make it a palindrome with X replacements, we calculated HOW MANY replacements would take to make that substring a palindrome. Now we store this, any substring that hits it, we can instantly say if it will be a palindrome or not!
 
 */
+
+function canMakePaliQueries(s, queries) {
+    return queries.map(query => canBePalindrome(s.slice(query[0], query[1] + 1), query[2]));
+};
+
+function canBePalindrome(string, replacements) {
+    // Keep it simple, splice, split, sort and join. We can optmize this latter.
+    // Let me stop here, this "off by 1" is prone for bugs. And since I`m not storing the string for optimizing right now, I don't need to worry about sorting it.
+//     string = string.split("").sort().join("");
+//     let oddLetters = false;
+//     let counter = 0;
+//     for (let i = 0; i < string.length; ++i) {
+        
+//     }
+    
+//     return true;
+    
+    // A simpler way of doing the counting (probably not as optimal) is to just count the letters
+    // then calculate if the replacements will be enough to compensate for the odd counts (maybe dividing by 2?)
+    const letterCounter = {};
+    for (let i = 0; i < string.length; ++i) {
+        const char = string[i];
+        letterCounter[char] = letterCounter[char] ? letterCounter[char] + 1 : 1;
+    }
+    
+    const odds = Object.values(letterCounter).filter(number => number % 2 !== 0).length;
+    
+    return Math.floor(odds / 2) <= replacements;
+}
+
+// Right now this solution is exceeding run time. Let's analyse it.
+// The map of the queries is a N operations, where N is the size of querries. Let's call it Q. => Q Linear
+// Then I iterate through the string (call it S) and count the ocurrances. => S Linear => Q * S Polynomial
+// The hash counter is a constant with 26 characters. Therefore is irrelevant to our time complexity.
+// We have a final Polynomial Time Complexity of Q * S.
