@@ -145,3 +145,86 @@ function makeItPalindrome(string) {
 }
 
 // Still hitting the execution limit. It needs to be optmized further.
+
+// APROACH 3:
+// This approach comes from the "difference counter" strategy.
+// We are going to map S and, at every position, we'll have a hash Counter of it's letters.
+// Then, when we do a "query", all we need to do is apply that "odd letters counting strategy", but
+// because we have the difference in counts, we do not need to re-count for each string.
+function canMakePaliQueries(s, queries) {
+    const letterHashCounters = makeLetterCounters(s);
+    return queries.map(query => {
+        const leftHash = query[0] - 1 < 0 ? null : letterHashCounters[query[0] - 1];
+        const rightHash = letterHashCounters[query[1]];
+        
+        return canBePalindrome(countDiff(leftHash, rightHash), query[2]);
+    });
+}
+
+function makeLetterCounters(string) {
+    const masterCounter = {
+        "a": 0,
+        "b": 0,
+        "c": 0,
+        "d": 0,
+        "e": 0,
+        "f": 0,
+        "g": 0,
+        "h": 0,
+        "i": 0,
+        "j": 0,
+        "k": 0,
+        "l": 0,
+        "m": 0,
+        "n": 0,
+        "o": 0,
+        "p": 0,
+        "q": 0,
+        "r": 0,
+        "s": 0,
+        "t": 0,
+        "u": 0,
+        "v": 0,
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "z": 0,
+    };
+    const counterArray = [];
+    
+    for (let i = 0; i < string.length; ++i) {
+        ++masterCounter[string[i]];
+        counterArray.push(makeCopy(masterCounter));
+        
+    }
+    
+    return counterArray;
+}
+
+function makeCopy(originalHash) {
+    const copyHash = {};
+    Object.keys(originalHash).forEach(key => {
+        copyHash[key] = originalHash[key];
+    });
+    
+    return copyHash;
+}
+
+function countDiff(smallerHash, biggerHash) {
+    if (!smallerHash) return biggerHash;
+    
+    const resultHash = {};
+    Object.keys(smallerHash).forEach(key => {
+        resultHash[key] = biggerHash[key] - smallerHash[key];
+    });
+    
+    return resultHash;
+}
+
+function canBePalindrome(hash, replacements) {
+    const odds = Object.values(hash).filter(num => num % 2).length;
+    // console.log(hash, odds);
+    return Math.floor(odds / 2) <= replacements;
+}
+
+// This is almost working, but is running out of memory witht he multiple hashes.
