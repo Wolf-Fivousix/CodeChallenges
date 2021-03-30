@@ -87,6 +87,13 @@ function isPossible(nums, maxOperations, penalty) {
 //     return nums.reduce((acc, num) => acc + Math.floor((num -1) / penalty), 0) <= maxOperations;
 // }
 
+// Runtime: 320 ms, faster than 8.04% of JavaScript online submissions for Minimum Limit of Balls in a Bag.
+// Memory Usage: 50.1 MB, less than 48.21% of JavaScript online submissions for Minimum Limit of Balls in a Bag.
+// Runtime: 292 ms, faster than 18.75% of JavaScript online submissions for Minimum Limit of Balls in a Bag.
+// Memory Usage: 49.7 MB, less than 55.36% of JavaScript online submissions for Minimum Limit of Balls in a Bag.
+// Runtime: 296 ms, faster than 18.75% of JavaScript online submissions for Minimum Limit of Balls in a Bag.
+// Memory Usage: 49.2 MB, less than 70.54% of JavaScript online submissions for Minimum Limit of Balls in a Bag.
+
 // Input [9], 2
 // Expected 3
 
