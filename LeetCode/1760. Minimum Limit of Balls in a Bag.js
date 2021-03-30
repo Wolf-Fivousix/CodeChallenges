@@ -47,7 +47,62 @@
  * @return {number}
  */
 
+// Thx to utkarsh915 code I was able to translate this into the Binary Search solution:
+// https://leetcode.com/problems/minimum-limit-of-balls-in-a-bag/discuss/1064793/Binary-Search-or-with-Intuition-and-explanation
+
+// Log Linear Time Complexity O (N * Log N)
+// Constat Space Complexity
+function minimumSize(nums, maxOperations) {
+    let start = 1;
+    let end = 1000000000; // Given by the problem constraints. If we couldn't figure this out, we could do a linear pass and grab the biggest value currently in the NUMS input.
+    let minPenalty = end;
+    while (start <= end) {
+        const penalty = Math.floor(start + (end - start) / 2);  // Avoid integer overflow, penalty is the mid point for Binary Search.
+        if (isPossible(nums, maxOperations, penalty)) {
+            minPenalty = penalty;
+            end = penalty - 1;
+        }
+        else start = penalty + 1;
+    }
+    
+    return minPenalty;
+}
+
+function isPossible(nums, maxOperations, penalty) {
+    let operationsUsed = 0;
+    
+    nums.forEach(num => {
+        let operations = Math.floor(num / penalty);
+        if (num % penalty === 0) --operations;
+        operationsUsed += operations;
+    });
+    // Another way to write this (that is not as clear unless you know the math behind it):
+    // nums.forEach(num => { operationsUsed += Math.floor((num - 1) / penalty)});
+    
+    return operationsUsed <= maxOperations;
+}
+
+// Online line method that does the exact same thing, but is a little harderd to read:
+// function isPossible(nums, maxOperations, penalty) {
+//     return nums.reduce((acc, num) => acc + Math.floor((num -1) / penalty), 0) <= maxOperations;
+// }
+
+// Input [9], 2
+// Expected 3
+
+// Input [7, 17], 2
+// Expected 7
+
+// Input [17], 1
+// Expected 8
+
+// Input [431,922,158,60,192,14,788,146,788,775,772,792,68,143,376,375,877,516,595,82,56,704,160,403,713,504,67,332,26] , 80
+// Output 174
+// Expected 129
+
 /*
+WRONG SOLUTION!!! KEEPING THIS FOR FUTURE REFERENCE.
+
 I can dive the bag however I want (No need to /2 all the time).
 Because I'm operating on the highest values, I can sort the input so that
 it is easy for me to pick the next element to be worked on.
@@ -70,42 +125,23 @@ Linear Space Complexity O(N + O) where N is the nums array and O is the maxOpera
 Another option to save memory would be to keep track of all the keys in a set.
 But that will add to time complexity of finding the biggest key.
 */
-function minimumSize(nums, maxOperations) {
-    if (!nums.length) return null;
-    let sorted = nums.sort((a, b) => a - b);
+// function minimumSize(nums, maxOperations) {
+//     if (!nums.length) return null;
+//     let sorted = nums.sort((a, b) => a - b);
     
-    for (let cycle = maxOperations; 0 < cycle; --cycle) {
-        const max = sorted.pop();
-        const division = divide(max, maxOperations);
-        sorted.push(...division);
-        sorted = sorted.sort((a, b) => a - b);
-    }
+//     for (let cycle = maxOperations; 0 < cycle; --cycle) {
+//         const max = sorted.pop();
+//         const division = divide(max, maxOperations);
+//         sorted.push(...division);
+//         sorted = sorted.sort((a, b) => a - b);
+//     }
     
-    return sorted[sorted.length - 1];
-};
+//     return sorted[sorted.length - 1];
+// };
 
-function divide(value, operations) {
-    if (value % 2 && operations >= 2) return [Math.floor(value / 3), 2 * Math.ceil(value / 3)];
-    if (value % 2) return [Math.floor(value / 2), Math.ceil(value / 2)];
+// function divide(value, operations) {
+//     if (value % 2 && operations >= 2) return [Math.floor(value / 3), 2 * Math.ceil(value / 3)];
+//     if (value % 2) return [Math.floor(value / 2), Math.ceil(value / 2)];
     
-    return [value / 2, value / 2];
-}
-
-
-// Input [9], 2
-// Expected 3
-
-// Input [7, 17], 2
-// Expected 7
-
-// Input [17], 1
-// Expected 8
-
-// Input [431,922,158,60,192,14,788,146,788,775,772,792,68,143,376,375,877,516,595,82,56,704,160,403,713,504,67,332,26] , 80
-// Output 174
-// Expected 129
-
-// Notes on how to use binary search for this problem:
-// https://leetcode.com/discuss/general-discussion/786126/python-powerful-ultimate-binary-search-template-solved-many-problems
-// https://leetcode.com/problems/minimum-limit-of-balls-in-a-bag/discuss/1064497/Unravel-it-Layer-by-Layer
-// https://leetcode.com/problems/minimum-limit-of-balls-in-a-bag/
+//     return [value / 2, value / 2];
+// }
