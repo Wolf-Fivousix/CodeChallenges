@@ -195,7 +195,6 @@ function makeLetterCounters(string) {
     for (let i = 0; i < string.length; ++i) {
         ++masterCounter[string[i]];
         counterArray.push(makeCopy(masterCounter));
-        
     }
     
     return counterArray;
@@ -227,4 +226,105 @@ function canBePalindrome(hash, replacements) {
     return Math.floor(odds / 2) <= replacements;
 }
 
-// This is almost working, but is running out of memory witht he multiple hashes.
+// This is almost working, but is running out of memory with he multiple hashes.
+// Some of the solutions I see are using a 2D array in order to fit in memmory.
+
+// Updated to use a 2D Matrix instead:
+function canMakePaliQueries(s, queries) {
+    const letterCounter = makeMatrixAndCountLetters(s);
+    return queries.map(query => canBecomePalindrome(letterCounter, query));
+}
+
+function makeMatrixAndCountLetters(string) {
+    // Create an empty Matrix of appropriate size.
+    // Detail that it is "off by 1", because we want an "empty" state.
+    const matrix = [];
+    for (let i = 0; i < 27; ++i) {
+        matrix.push(new Array(string.length + 1).fill(0));
+    }
+    
+    // Count every letter.
+    for (let i = 0; i < string.length; ++i) {
+        // Update the matrix with current count:
+        for (let j = 0; j < matrix.length; ++j) {
+            matrix[j][i + 1] = matrix[j][i];
+        }
+        
+        const letterIndex = string.charCodeAt(i) - 97;
+        ++matrix[letterIndex][i + 1];
+    }
+    
+    return matrix;
+}
+
+function canBecomePalindrome(matrix, query) {
+    const [start, end, replacements] = query;
+    const odds = countOddLetterOccurances(matrix, start, end);
+    
+    return Math.floor(odds / 2) <= replacements;
+}
+
+function countOddLetterOccurances(matrix, start, end) {
+    let odds = 0;
+    for (let i = 0; i < matrix.length; ++i) {
+        if ((matrix[i][end + 1] - matrix[i][start]) % 2) ++odds;
+    }
+    
+    return odds;
+}
+
+// Runtime: 408 ms, faster than 60.53% of JavaScript online submissions for Can Make Palindrome from Substring.
+// Memory Usage: 90.8 MB, less than 52.63% of JavaScript online submissions for Can Make Palindrome from Substring.
+// The performance is exactly the same as the Hash version, Linear for S + Q.
+// But in this case, we use a little bit less memory, since we don't have to pay for the objects and key pairs.
+// That said, it becomes so unredable that unless this would be a very low level behavior, it is not worth the optimization.
+// Bellow there are some more optimizations from the community, using bit operations.
+
+// Solution by poppinlp
+// Solution 1
+// const canMakePaliQueries = (s, queries) => {
+//     const freq = [];
+  
+//     for (let i = 0; i < 26; ++i) {
+//       freq[i] = new Int16Array(s.length + 1);
+//     }
+//     for (let i = 1; i <= s.length; ++i) {
+//       const code = s.charCodeAt(i - 1) - 97;
+//       ++freq[code][i - 1];
+//       for (let j = 0; j < 26; ++j) {
+//         freq[j][i] = freq[j][i - 1];
+//       }
+//       --freq[code][i - 1];
+//     }
+  
+//     return queries.map(([start, end, count]) => {
+//       let sum = 0;
+//       for (let i = 0; i < 26; ++i) {
+//         sum += (freq[i][end + 1] - freq[i][start]) & 1;
+//       }
+//       return Math.floor(sum / 2) <= count;
+//     });
+// };
+
+// Solution 2
+// const canMakePaliQueries = (s, queries) => {
+//     const freq = new Int32Array(s.length + 1);
+  
+//     for (let i = 1; i <= s.length; ++i) {
+//       const code = s.charCodeAt(i - 1) - 97;
+//       freq[i] = freq[i - 1] ^ (1 << code);
+//     }
+  
+//     return queries.map(([start, end, count]) => {
+//       if (count >= 13) return true;
+  
+//       let data = freq[end + 1] ^ freq[start];
+//       let sum = 0;
+//       while (data > 0) {
+//         sum += data & 1;
+//         data >>= 1;
+//       }
+  
+//       return Math.floor(sum / 2) <= count;
+//     });
+// };
