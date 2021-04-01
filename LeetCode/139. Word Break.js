@@ -53,3 +53,26 @@ function wordBreak(s, wordDict) {
 
 // This doesn't work, because of some corner cases, like:
 // "cars", [car, ca, rs].
+
+// Working solution by ALVING! Yes, that Alvin! (a/A)
+// Uses tabulation
+// There are some ineficiencies with the slicing and "includes", but that's minor optimizations.
+
+function wordBreak(s, wordDict) {
+    const table = new Array(s.length + 1).fill(false);
+    table[0] = true; // starting state
+    
+    for (let i = 0; i < table.length; ++i) {
+        if (!table[i]) continue;
+        
+        for (let j = i + 1; j < table.length; ++j) {
+            const word = s.slice(i, j);
+            if (wordDict.includes(word)) table[j] = true;
+        }
+    }
+    
+    return table[table.length - 1];
+};
+
+// Runtime: 80 ms, faster than 90.83% of JavaScript online submissions for Word Break.
+// Memory Usage: 40.3 MB, less than 68.72% of JavaScript online submissions for Word Break.
