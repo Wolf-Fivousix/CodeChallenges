@@ -49,3 +49,64 @@
     
     return divider;
 };
+
+// Solution by LeetCode - Using Binary Search
+/**
+ * @param {number[]} nums
+ * @param {number} threshold
+ * @return {number}
+ */
+ function smallestDivisor(nums, threshold) {
+    let left = 1;
+    let right = maxValue(nums);
+    
+    while (left <= right) {
+        const mid = left + Math.floor((right - left) / 2);
+        const sum = computeSum(nums, mid);
+        
+        if (sum > threshold) left = mid + 1;
+        else right = mid - 1;
+    }
+    
+    return left;
+};
+
+function computeSum(array, divider) {
+    return array.reduce((accumulator, value) => accumulator + Math.ceil(value / divider), 0);
+}
+
+function maxValue(array) {
+    return array.reduce((acc, value) => acc > value ? acc : value);
+}
+
+// Runtime: 144 ms, faster than 37.35% of JavaScript online submissions for Find the Smallest Divisor Given a Threshold.
+// Memory Usage: 43.4 MB, less than 35.02% of JavaScript online submissions for Find the Smallest Divisor Given a Threshold.
+// Runtime: 120 ms, faster than 54.09% of JavaScript online submissions for Find the Smallest Divisor Given a Threshold.
+// Memory Usage: 42.5 MB, less than 68.48% of JavaScript online submissions for Find the Smallest Divisor Given a Threshold.
+
+// Explanation:
+// Approach 2: Math + Binary Search
+// The idea is to perform binary search in limits 1, max(nums). This approach uses the idea that the maximum divisor to consider is max(nums). For this divisor and all greater numbers, the requested sum is equal to 2N2N, and hence there is no sense to consider greater divisors.
+
+// Algorithm
+
+// Implement function computeSum(x) which divides nums elements by x and then returns their sum.
+
+// Initialize search limits: left = 1, right = max(nums) = nums[nums.length - 1].
+
+// Perform binary search in boundaries from 1 to max(nums):
+
+// While left <= right:
+
+// Pick a pivot divisor in the middle: pivot = (left + right) / 2. To avoid overflow in Java, use the form pivot = left + ((right - left) >> 1) instead of straightforward expression above. Note, that there is no overflow in Python.
+
+// Compute the requested sum for that pivot divisor: num = compute_sum(pivot).
+
+// Compare num and the threshold:
+
+// If num > threshold, continue to search on the right left = pivot + 1.
+
+// Else continue to search on the left right = pivot - 1.
+
+// At the end of loop, left > right, computeSum(right) > threshold and computeSum(left) <= threshold. Hence left is the smallest divisor for which the requested sum is less or equal to threshold. Return left.
+
