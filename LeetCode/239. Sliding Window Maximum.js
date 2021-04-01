@@ -63,3 +63,27 @@ function findMaxValueInSequence(array, start, windowSize) {
     
     return maxValue;
 }
+
+// Solution by wanga2659
+// https://leetcode.com/problems/sliding-window-maximum/discuss/871317/Clear-thinking-process-with-PICTURE-brute-force-to-mono-deque-pythonjavajavascript
+var maxSlidingWindow = function(nums, k) {
+    const q = [];  // stores *indices*
+    const res = [];
+    for (let i = 0; i < nums.length; i++) {
+        while (q && nums[q[q.length - 1]] <= nums[i]) {
+            q.pop();
+        }
+        q.push(i);
+        // remove first element if it's outside the window
+        if (q[0] === i - k) {
+            q.shift();
+        }
+        // if window has k elements add to results (first k-1 windows have < k elements because we start from empty window and add 1 element each iteration)
+        if (i >= k - 1) {
+            res.push(nums[q[0]]);
+        }
+    }
+    return res;    
+}
+// Runtime: 348 ms, faster than 76.59% of JavaScript online submissions for Sliding Window Maximum.
+// Memory Usage: 67.9 MB, less than 85.33% of JavaScript online submissions for Sliding Window Maximum.
