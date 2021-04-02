@@ -63,4 +63,3 @@
 
 // Runtime: 80 ms, faster than 71.41% of JavaScript online submissions for Minimum Size Subarray Sum.
 // Memory Usage: 39.6 MB, less than 32.94% of JavaScript online submissions for Minimum Size Subarray Sum.
-
