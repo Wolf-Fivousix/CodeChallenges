@@ -42,7 +42,24 @@
  * @return {boolean}
  */
 
- function isBalanced(root) {
+/*
+This is not the most optimal, but it is easy to understand:
+The root is balanced if the height of left and right subtree are not greater than one.
+AND if both left and right substree's are also balanced.
+So that's exactly what we do. Count the height, and then repeat the process for every node.
+
+Checking the height is a Linear process, we have to traverse the whole tree.
+We do that for EVERY node, meaning we will traverse the right and left subtree multiple times.
+
+And then, we will also check for balancing, which will repeat ALL of these processes again.
+
+This gives us
+Polynomial Time Complexity O (N ^ 2)
+Constant Space Complexity
+
+There is a way to make this iteractive rather than recursive, but the addded complexity and multiple variables is not worth the gains.
+*/
+function isBalanced(root) {
     if (!root) return true;
     
     const left = depth(root.left);
