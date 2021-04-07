@@ -77,3 +77,42 @@ function pathToLeafSum(root, targetSum, result, path = []) {
 }
 // Runtime: 92 ms, faster than 86.71% of JavaScript online submissions for Path Sum II.
 // Memory Usage: 49 MB, less than 48.25% of JavaScript online submissions for Path Sum II.
+
+// Solution (iteractive) by jeantimex
+// https://leetcode.com/problems/path-sum-ii/discuss/36681/Another-JavaScript-solution
+
+/**
+ * @param {TreeNode} root
+ * @param {number} sum
+ * @return {number[][]}
+ */
+ var pathSum = function(root, sum) {
+    return helper(root, sum, [], []);
+};
+
+/**
+ * A helper function that does the search
+ * @param {TreeNode} root
+ * @param {number} sum
+ * @param {number[]} solution - one path from root to a leaf
+ * @param {number[]} result - the final result
+ * @return {number[]} result
+ */
+function helper(root, sum, solution, result) {
+    if (!root) { // sanity check
+        return result;
+    }
+
+    solution.push(root.val); // add current node's value to the solution
+
+    if (!root.left && !root.right && root.val === sum) {
+        result.push(solution.slice()); // found a solution
+    }
+
+    helper(root.left, sum - root.val, solution, result); // try left subtree
+    helper(root.right, sum - root.val, solution, result); // try right subtree
+
+    solution.pop(); // backtracking
+
+    return result;
+}
