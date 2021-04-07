@@ -68,3 +68,13 @@ function hasPathSum(root, sum) {
 
 // Runtime: 72 ms, faster than 41.07% of JavaScript online submissions for Path Sum.
 // Memory Usage: 38.4 MB, less than 11.11% of JavaScript online submissions for Path Sum.
+
+function hasPathSum(root, targetSum) {
+    if (!root) return false;
+    targetSum -= root.val;
+    if (!root.left && !root.right && targetSum === 0) return true;
+    
+    return hasPathSum(root.left, targetSum) || hasPathSum(root.right, targetSum);
+};
+// Runtime: 96 ms, faster than 29.73% of JavaScript online submissions for Path Sum.
+// Memory Usage: 41.7 MB, less than 95.04% of JavaScript online submissions for Path Sum.
