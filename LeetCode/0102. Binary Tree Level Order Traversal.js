@@ -55,4 +55,30 @@ while the queue length is greater than 1, iterate
         if right exists, queue pushes right node
 return levelTraversal
 
+Linear Time Complexity O(N) where N is the size of the tree.
+Linear Space Complexity O(N) where N is the size of the tree (we are basically making a copy of all the values in the tree).
 */
+function levelOrder(root) {
+    if (!root) return [];
+    const FLAG = "endOfLevel";
+    const queue = [FLAG, root];
+    const levelTraversal = [];
+    
+    while (queue.length > 1) {
+        const currentNode = queue.shift();
+        
+        if (currentNode === FLAG) {
+            levelTraversal.push([]);
+            queue.push(FLAG);
+        }
+        else {
+            levelTraversal[levelTraversal.length - 1].push(currentNode.val);
+            if (currentNode.left) queue.push(currentNode.left);
+            if (currentNode.right) queue.push(currentNode.right);
+        }
+    }
+    
+    return levelTraversal;
+};
+// Runtime: 84 ms, faster than 65.29% of JavaScript online submissions for Binary Tree Level Order Traversal.
+// Memory Usage: 40.3 MB, less than 32.46% of JavaScript online submissions for Binary Tree Level Order Traversal.
