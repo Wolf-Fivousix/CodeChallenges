@@ -84,4 +84,27 @@ add node.VALUE to SUM
 
 return Sum result array (reduce method)
 
+Linear Time Complexity
+Linear Space Complexity (as a Binary Tree, we might have a bad configuration that provide almost linear leaves)
 */
+
+function sumNumbers(root) {
+    const result = [];
+    
+    depthFirstSearch(root, result);
+    
+    return result.reduce((acc, value) => acc + value, 0);
+};
+
+function depthFirstSearch(node, result, sum = 0) {
+    sum *= 10;
+    sum += node.val;
+    
+    if (node.left) depthFirstSearch(node.left, result, sum);
+    if (node.right) depthFirstSearch(node.right, result, sum);
+    
+    if (!node.left && !node.right) result.push(sum);
+}
+
+// Runtime: 80 ms, faster than 69.61% of JavaScript online submissions for Sum Root to Leaf Numbers.
+// Memory Usage: 39.3 MB, less than 42.34% of JavaScript online submissions for Sum Root to Leaf Numbers.
