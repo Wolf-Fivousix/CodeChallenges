@@ -129,3 +129,47 @@ function spiralOrder(matrix) {
 // Because for this to work I need every "if" check to be off by 1, but after the initial loop, they won't be.
 // And if they all match, that means whenever one "end" of the matrix is reached, that counterStart/End will update
 // Until it run out of bounds.
+
+function spiralOrder(matrix) {
+    let rowStart = 0;
+    let rowEnd = matrix.length - 1;
+    let columnStart = 0;
+    let columnEnd = matrix[0].length - 1;
+    
+    const result = [];
+    let rowIndex = 0;
+    let columnIndex = 0;
+    
+    // One spiral loop
+    while (rowStart <= rowEnd || columnStart <= columnEnd) {      
+        while (columnIndex < columnEnd) {
+            result.push(matrix[rowIndex][columnIndex]);
+            ++columnIndex;
+        }
+        ++rowStart;
+        
+        while (rowIndex < rowEnd) {
+            result.push(matrix[rowIndex][columnIndex]);
+            ++rowIndex;
+        }
+        --columnEnd;
+        
+        while (columnStart < columnIndex) {
+            result.push(matrix[rowIndex][columnIndex]);
+            --columnIndex;
+        }
+        --rowEnd;
+        
+        while (rowStart < rowIndex) {
+            result.push(matrix[rowIndex][columnIndex]);
+            --rowIndex;
+        }
+        ++columnStart;
+    }
+    // If it is 2D Matrix, we need the "middle" element.
+    if(matrix.length === matrix[0].length) result.push(matrix[rowIndex][columnIndex]);
+    
+    return result;
+};
+// This get's ALMOST there, except that it will fail for a 1x2 matrix like [[3], [2]].
+
