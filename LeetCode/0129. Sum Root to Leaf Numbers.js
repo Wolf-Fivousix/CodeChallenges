@@ -70,9 +70,13 @@ While stack is NOT empty, iterate
         convert to number
         push it to values array.
         (backtrack) pop the current value out of VALUES array.
-        
 
 return sum of values.
+
+There are a couple ways to do this iteractively.
+    One is making each node a pair of Node and Sum.
+    The other is modifying the tree as we iterate through it. (Which, if we don't want to do, requires more memory to copy the tree)
+Both are added in the end notes of this file
 
 
 Recursion DFS (result starts as empty array, sum starts as 0)
@@ -108,3 +112,55 @@ function depthFirstSearch(node, result, sum = 0) {
 
 // Runtime: 80 ms, faster than 69.61% of JavaScript online submissions for Sum Root to Leaf Numbers.
 // Memory Usage: 39.3 MB, less than 42.34% of JavaScript online submissions for Sum Root to Leaf Numbers.
+
+// Community solutions
+// Approach 1, iteractively by adding Node and Sum to stack.
+// Solution by Rahul-2020
+
+var sumNumbers = function(root) {
+    if (!root) {
+        return root;
+    }
+    
+    let stack = [];
+    let ans = 0;
+
+    stack.push([root, root.val]);
+    
+    while(stack.length) {
+        const [node, sum] = stack.pop();
+
+        if (!node.left && !node.right) {
+            ans += sum;
+        } 
+        
+        if(node.right) {
+            stack.push([node.right, sum * 10 + node.right.val])
+        }
+        
+        if(node.left) {
+            stack.push([node.left, sum * 10 + node.left.val])
+        }
+     }
+    
+    return ans;
+};
+
+// Approach 2, iteractively modifying the tree as we go.
+// Solution by OldCodingFarmer (Python)
+
+// def sumNumbers(self, root): # DFS with stack
+//         stack, res = [], 0
+//         if root:
+//             stack.append(root)
+//         while stack:
+//             node = stack.pop()
+//             if not node.left and not node.right:
+//                 res += node.val
+//             if node.right:
+//                 node.right.val += node.val*10
+//                 stack.append(node.right)
+//             if node.left:
+//                 node.left.val += node.val*10
+//                 stack.append(node.left)
+//         return res
