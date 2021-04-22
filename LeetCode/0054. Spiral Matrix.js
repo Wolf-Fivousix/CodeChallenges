@@ -223,3 +223,55 @@ function spiralOrder(matrix) {
 //         return res;
 //     }
 // }
+
+// Solution created during 30min Amazon interview.
+function spiralOrder(matrix) {
+    const result = [];
+    
+    const directions = {
+        "UP": [-1, 0],
+        "RIGHT": [0, 1],
+        "DOWN": [1, 0],
+        "LEFT": [0, -1],
+    }
+    
+    let topRow = 0;
+    let bottomRow = matrix.length - 1;
+    let leftColumn = 0;
+    let rightColumn = matrix[0].length - 1;
+    
+    // Starting position
+    let currentRow = topRow;
+    let currentColumn = leftColumn;
+    let step = "RIGHT"
+    
+    while (topRow <= bottomRow && leftColumn <= rightColumn) {
+        result.push(matrix[currentRow][currentColumn]);
+        
+        if (currentRow === topRow && currentColumn === rightColumn && step === "RIGHT") {
+            step = "DOWN";
+            ++topRow;
+        }
+        else if (currentRow === bottomRow && currentColumn === rightColumn && step === "DOWN") {
+            step = "LEFT";
+            --rightColumn;
+        }
+        else if (currentRow === bottomRow && currentColumn === leftColumn && step === "LEFT") {
+            step = "UP";
+            --bottomRow;
+        }
+        else if (currentRow === topRow && currentColumn === leftColumn && step === "UP") {
+            step = "RIGHT";
+            ++leftColumn;
+        }
+        
+        
+        currentRow += directions[step][0];
+        currentColumn += directions[step][1];
+    }
+    
+    return result;
+}
+
+// Runtime: 68 ms, faster than 97.25% of JavaScript online submissions for Spiral Matrix.
+// Memory Usage: 38.5 MB, less than 33.69% of JavaScript online submissions for Spiral Matrix.
