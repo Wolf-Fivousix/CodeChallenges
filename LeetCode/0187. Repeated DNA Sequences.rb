@@ -31,6 +31,7 @@ def find_repeated_dna_sequences(s)
     
     i = 0
     result = Set.new
+    variations = Set.new
     
     while i + 10 <= s.length
         sequence = s.slice(i, 10)
@@ -44,3 +45,36 @@ end
 # Time limit exceeded.
 # This solution works, but is not currently eficient enough.
 # Polynomial since we do a nested scan of the input for every sequence fragment
+
+
+# Community solutions will burn memory with a hash table in order to reduce time complexity
+# Solution by acearth
+def find_repeated_dna_sequences(s)
+    count = Hash.new { |hash, key| hash[key] = 0 }
+    (s.size - 9).times { |i| count[s[i..i+9]] += 1 }
+    count.select { |k,v| v > 1}.keys
+end
+
+
+# No reason to use a hash counter, we can simplify with a set
+def find_repeated_dna_sequences(s)
+    return [] if (s.length < 10)
+    
+    result = Set.new
+    variations = Set.new
+    
+    for i in 0..s.length - 9
+        sequence = s.slice(i, 10)
+        
+        if (variations.include?(sequence))
+            result.add(sequence)
+        else
+            variations.add(sequence)
+        end        
+    end
+    
+    result.to_a
+end
+
+# Runtime: 104 ms, faster than 100.00% of Ruby online submissions for Repeated DNA Sequences.
+# Memory Usage: 221.8 MB, less than 85.71% of Ruby online submissions for Repeated DNA Sequences.
