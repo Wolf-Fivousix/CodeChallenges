@@ -1,0 +1,80 @@
+For simplicity, assume comments are stored in a SQL-like table of the following shape:
+
+commenter_user_id owner_user_id pin_id comment
+1                 10            29     "Great recipe"
+
+
+When a user leaves a comment on a pin, assume that an API with the following (approximate) logic is called:
+
+func add_comment_to_pin(
+  int commenter_user_id,
+  int owner_user_id,
+  int pin_id,
+  string comment,
+) {
+...
+
+// creates a model instance representing a pin comment
+comment = 
+
+// insert the comment as a row and commit
+db.insert(comment)
+
+...
+}
+
+pin owner gets the notification
+notify after we saved to DB.
+
+
+
+Kangyi:
+[webapp, iosApp, androidApp] comment -> API -> DB -> API -> Pin Owner Notification
+API
+  writeCommentToDB(comment); // success
+  .then(comment_id) => Start Notification Workflow  
+      // pin_owner_id -> pin owner's client app  
+      findUserIp(pin_owner_id)
+        // how the user IP is found
+          // Assuming all users live in the same server
+          Server has a living list of all users that are awaiting for a response
+            (hash table in memory)
+            1 - 143.561.
+            2 - 165.650
+            .
+            .
+            If it doesn't find - User is no longer connected.              
+        // what if the owner user is offline (user was present in our server wait list)
+          1 user is offline WHILE waiting for an update.
+            The update will be ignored by Client
+          2 user went offline, before sending a new request (they received the udpate).
+            Server wait list will no longer have that user. (no new update will go to that id)
+      constructNotificationResponse(...);
+      sendNotification(IP, comment) // comment = data about what this notificaiton is about.
+      updateServerWaitList(pin_owner_id);
+          Once update is sent to user, we want remove user ID from our wait list so we don`t send new updates to it.
+          
+      Assume every entry in DB has created_at and / or updated_at value
+          every comment has a time
+      Whenever a user connects, we can check if any comments in PIN's belonging to this user were made
+    between current time (time user is connecting right now) and last time this user was seen (which was updated as part of our Notification System)
+    
+    
+
+
+[webapp, iosApp, androidApp] comment -> API -> DB (error) -> API -> Update optismitic update on initial user (commenter)
+
+API (Receiving comment) = add_comment_to_pin
+sanitize input
+
+
+
+DB -> API -> Pin Owner Notification
+Return information from stored comment (int comment_id, int commenter_user_id, commenter_name, int owner_user_id, int pin_id, string comment)
+Pin Owner (Client)is connecte to our API through a Long Polling -- client <-> server build a web-socket
+  (this is not a Publish / Subscribe)
+  Whenever a specif user ID receives a new comment, send update to that user ID client.
+Information returned to Client (
+    pin_id - which pin is being commented on
+)
+
