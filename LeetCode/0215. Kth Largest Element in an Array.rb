@@ -32,3 +32,5 @@ end
 # Memory Usage: 210.5 MB, less than 44.53% of Ruby online submissions for Kth Largest Element in an Array.
 
 # I know this is "technically" not how a problem is supposed to be solved, but when you understand how things work... well. You've go it.
+# This solution is N Log N Time Complexity, because of the sorting.
+# If we use a min/max heap, we can bring it down to Log N.
