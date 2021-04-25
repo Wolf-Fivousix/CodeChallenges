@@ -34,3 +34,22 @@
     # If the lenght of this new array is exactly H, then we can return it.
     # Otherwise this H value does not satisfy our constrains, keep the loop going.
 # If no value was returned, H index should be 0
+def h_index(citations)
+    max_h_index = citations.length
+    
+    max_h_index.downto(1) do |h_index|
+        print h_index, " - ", citations.filter{ |citation| citation <= h_index }.length == citations.length - h_index
+        print h_index, " - ", citations.filter{ |citation| citation >= h_index }.length >= h_index
+        puts
+        if (
+            # H papers have H+ citations.
+            citations.filter{ |citation| citation >= h_index }.length >= h_index &&
+            # N - H papers have H- citations.
+            citations.filter{ |citation| citation <= h_index }.length == citations.length - h_index
+            )
+            return h_index 
+        end
+    end
+    
+    0
+end
