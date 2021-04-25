@@ -65,3 +65,9 @@ def h_index(citations)
     
     0
 end
+
+# Polynomial Time Complexity O(N^2) we're filtering the input N times.
+# Linear Space Complexity O(N) we create 3 arrays that sum to the size of the original N.
+
+# Runtime: 2036 ms, faster than 10.00% of Ruby online submissions for H-Index.
+# Memory Usage: 264.4 MB, less than 10.00% of Ruby online submissions for H-Index.
