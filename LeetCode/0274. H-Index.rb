@@ -58,3 +58,39 @@ end
 
 # Runtime: 2036 ms, faster than 10.00% of Ruby online submissions for H-Index.
 # Memory Usage: 264.4 MB, less than 10.00% of Ruby online submissions for H-Index.
+
+def h_index(citations)
+    max_h_index = citations.length
+    
+    max_h_index.downto(1) do |h_index|
+        greater = 0
+        equal = 0
+        lesser = 0
+        for citation in citations
+           case 
+               when citation > h_index
+                    greater += 1
+               when citation == h_index
+                    equal +=1
+               else
+                    lesser += 1
+           end
+        end
+        
+        # Greater citations do not fit in our "lesser or equal" pile, so it's game over for this H-index
+        next if greater > h_index
+        # At this point, we either have a LACK or a 0 match of Greater papers. Let's balance out using our Equals.
+        equal -= h_index - greater
+        # If we don't have enough equals to fulfil our "Greater" pile, it's game over.
+        next if equal < 0
+        # Now we only have the last condition left, N - H Papers having no more then H citations.
+        return h_index unless (lesser + equal) != (citations.length - h_index)
+    end
+    
+    0
+end
+
+# This solution moves from Linear Memory to Constant Memory.
+
+# Runtime: 1208 ms, faster than 10.00% of Ruby online submissions for H-Index.
+# Memory Usage: 209.8 MB, less than 90.00% of Ruby online submissions for H-Index.
