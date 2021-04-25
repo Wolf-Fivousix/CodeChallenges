@@ -45,3 +45,6 @@ end
 
 # Runtime: 60 ms, faster than 60.00% of Ruby online submissions for Majority Element II.
 # Memory Usage: 210.6 MB, less than 70.00% of Ruby online submissions for Majority Element II.
+
+# Great discussion and explanation of how to run this in Linear Time with Constant Space:
+# https://leetcode.com/problems/majority-element-ii/discuss/63520/Boyer-Moore-Majority-Vote-algorithm-and-my-elaboration
