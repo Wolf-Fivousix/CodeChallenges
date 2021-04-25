@@ -38,17 +38,29 @@ def h_index(citations)
     max_h_index = citations.length
     
     max_h_index.downto(1) do |h_index|
-        print h_index, " - ", citations.filter{ |citation| citation <= h_index }.length == citations.length - h_index
-        print h_index, " - ", citations.filter{ |citation| citation >= h_index }.length >= h_index
-        puts
-        if (
-            # H papers have H+ citations.
-            citations.filter{ |citation| citation >= h_index }.length >= h_index &&
-            # N - H papers have H- citations.
-            citations.filter{ |citation| citation <= h_index }.length == citations.length - h_index
-            )
-            return h_index 
-        end
+        # print h_index, " - ", citations.filter{ |citation| citation <= h_index }.length == citations.length - h_index
+        # print h_index, " - ", citations.filter{ |citation| citation >= h_index }.length >= h_index
+        # puts
+        # if (
+        #     # H papers have H+ citations.
+        #     citations.filter{ |citation| citation >= h_index }.length >= h_index &&
+        #     # N - H papers have H- citations.
+        #     citations.filter{ |citation| citation <= h_index }.length == citations.length - h_index
+        #     )
+        #     return h_index 
+        # end
+        greater = citations.filter{ |citation| citation > h_index }.length
+        equal = citations.filter{ |citation| citation == h_index }.length
+        lesser = citations.filter{ |citation| citation < h_index }.length
+        
+        # Greater citations do not fit in our "lesser or equal" pile, so it's game over for this H-index
+        next if greater > h_index
+        # At this point, we either have a LACK or a 0 match of Greater papers. Let's balance out using our Equals.
+        equal -= h_index - greater
+        # If we don't have enough equals to fulfil our "Greater" pile, it's game over.
+        next if equal < 0
+        # Now we only have the last condition left, N - H Papers having no more then H citations.
+        return h_index unless (lesser + equal) != (citations.length - h_index)
     end
     
     0
