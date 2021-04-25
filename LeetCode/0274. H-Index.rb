@@ -94,3 +94,6 @@ end
 
 # Runtime: 1208 ms, faster than 10.00% of Ruby online submissions for H-Index.
 # Memory Usage: 209.8 MB, less than 90.00% of Ruby online submissions for H-Index.
+
+# This community solution (JS) shows how to do it in Linear and Log Linear time complexity.
+# https://leetcode.com/problems/h-index/discuss/693946/JavaScript-two-approaches.-1-with-O(n)-time-%2B-O(n)-space-and-another-with-O(n-log-n)-time
