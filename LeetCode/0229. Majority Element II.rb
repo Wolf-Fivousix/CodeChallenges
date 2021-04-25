@@ -25,3 +25,23 @@
 # 1 <= nums.length <= 5 * 104
 # -109 <= nums[i] <= 109
 
+# @param {Integer[]} nums
+# @return {Integer[]}
+def majority_element(nums)
+    frequency = nums.length / 3
+    counter = Hash.new() # or counter = {}
+    
+    nums.each do |value|
+        counter[value] = counter[value] ? counter[value] + 1 : 1 
+    end
+    
+    result = []
+    counter.each do |key, value|
+         result.push(key) if (value > frequency)
+    end
+    
+    result
+end
+
+# Runtime: 60 ms, faster than 60.00% of Ruby online submissions for Majority Element II.
+# Memory Usage: 210.6 MB, less than 70.00% of Ruby online submissions for Majority Element II.
