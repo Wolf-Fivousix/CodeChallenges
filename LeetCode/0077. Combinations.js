@@ -93,3 +93,22 @@ combine(4, 2);
 // Space complexity will be as well, since we'll be making multiple copies of the array and holding it in memory.
 // Runtime: 417 ms, faster than 8.60% of JavaScript online submissions for Combinations.
 // Memory Usage: 69.4 MB, less than 5.04% of JavaScript online submissions for Combinations.
+
+// Iterative version by rostislavmitu
+// https://leetcode.com/problems/combinations/discuss/326176/Javascript-iterative-solution
+var combine2 = function(n, k) {
+    const res = [];
+    const combination = [];
+    const stack = [1];
+	
+    while (stack.length) {        
+		for (let i = stack.pop(); i <=n; i++) {
+			combination.push(i);
+            if (i !== n) stack.push(i + 1);
+            if (combination.length === k) res.push([...combination]);
+		}
+        combination.pop();
+        combination.pop();
+    }
+    return res;
+};
