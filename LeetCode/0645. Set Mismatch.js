@@ -1,5 +1,7 @@
 /*
-Easy:
+Easy
+https://leetcode.com/problems/set-mismatch/
+
 You have a set of integers s, which originally contains all the numbers from 1 to n. Unfortunately, due to some error, one of the numbers in s got duplicated to another number in the set, which results in repetition of one number and loss of another number.
 
 You are given an integer array nums representing the data status of this set after the error.
@@ -86,4 +88,30 @@ function findErrorNums(nums) {
 
     result.push(counter);
     return result;
+}
+
+// Second solution, Added Challenge - You CAN NOT sort the input and it HAS to be done in a single pass.
+// This is Linear (O(N)) time, as we need to iterate at least once through the input.
+// And Linear (O(N)) space, as we need to create a counter for every single value in order to find the repeated value.
+
+function findErrorNums(nums) {
+    let shouldBeTotal = 0;
+    let sumTotal = 0;
+    const valueCounter = {};
+    let duplicateValue;
+
+    for (let i = 0; i < nums.length; ++i) {
+        const currentValue = nums[i];
+
+        valueCounter[currentValue] ? ++valueCounter[currentValue] : valueCounter[currentValue] = 1;
+        if (valueCounter[currentValue] === 2) duplicateValue = currentValue;
+
+        sumTotal += currentValue;
+        shouldBeTotal += i + 1;
+    }
+
+    sumTotal -= duplicateValue;
+    const missingValue = shouldBeTotal - sumTotal;
+
+    return [duplicateValue, missingValue];
 }
