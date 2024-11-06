@@ -151,3 +151,23 @@ function findLowAndHigh(array, startIndex, endIndex) {
 
 // Runtime 28 ms Beats 100.00%
 // Memory 57.24 MB Beats 15.79%
+
+// Community solution:
+// Crazy how they figured out how to do this with so little!
+
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+var canSortArray2 = function (nums) {
+    for (let i = 0; i < nums.length; i++) {
+      for (let j = i + 1; j < nums.length; j++) {
+        if (nums[i] > nums[j]) {
+          const setbits1 = nums[i].toString(2).replaceAll('0', '').length
+          const setbits2 = nums[j].toString(2).replaceAll('0', '').length;
+          if (setbits1 !== setbits2) return false;
+        }
+      }
+    }
+    return true;
+};
