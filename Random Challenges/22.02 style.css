@@ -1,0 +1,41 @@
+body {
+    color: white;
+    background: black;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.container {
+    min-height: 400px;
+    width: 200px;
+    max-width: 300px;
+    float: left;
+    margin-right: 10px;
+    border: 1px solid white;
+}
+
+.title {
+    font-weight: bold;
+    text-decoration: underline;
+    padding: 10px;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+ul,
+li {
+    margin: 0;
+    padding: 0;
+}
+
+.item {
+    list-style-type: none;
+    padding: 10px;
+    border: 1px solid brown;
+}
+
+.item:hover {
+    cursor: pointer;
+}
