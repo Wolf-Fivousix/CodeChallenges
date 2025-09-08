@@ -145,3 +145,32 @@ function merge(intervals) {
 
 // Runtime 14 ms Beats 24.01%
 // Memory 63.89 MB Beats 86.15%
+
+// So this approach is not bad! It is concise and get's the job done. But not very efficient, since we are slicing the
+//array every single time we merge an interval, and this is causing the most wasted eficiency.
+// Let's try to make it an iterative approach, were we construct the answer, instead of slicing the input.
+
+function merge(intervals) {
+    const sortedIntervals = intervals.toSorted((a, b) => a[0] - b[0])
+    const result = []
+    let currentRange = sortedIntervals[0] // There is at least one element in the input, so this is safe to do.
+    for (let i = 1; i < sortedIntervals.length; ++i) {
+        if (currentRange[1] >= sortedIntervals[i][0]) {
+            currentRange[1] = Math.max(currentRange[1], sortedIntervals[i][1])
+        }
+        // This means there is NO overlap between currentRange and the element we're looking at
+        else {
+            result.push(currentRange)
+            currentRange = sortedIntervals[i]
+        }
+    }
+
+    result.push(currentRange)
+
+    return result
+};
+
+// Runtime 7 ms Beats 85.72%
+// Memory 63.85 MB Beats 86.15%
+
+// Nice!! Now we properly did a Log Linear O(n Log n) time complexity and we can see the results.
