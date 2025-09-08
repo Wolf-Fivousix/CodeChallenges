@@ -2,8 +2,6 @@
 
 // Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.
 
- 
-
 // Example 1:
 
 // Input: intervals = [[1,3],[2,6],[8,10],[15,18]]
@@ -87,3 +85,63 @@ function merge(intervals) {
 
 // Runtime: 72 ms, faster than 99.11% of JavaScript online submissions for Merge Intervals.
 // Memory Usage: 41 MB, less than 43.23% of JavaScript online submissions for Merge Intervals.
+
+// ===============================
+// 2025 - Re-do version:
+// Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.
+
+// Example 1:
+// Input: intervals = [[1,3],[2,6],[8,10],[15,18]]
+// Output: [[1,6],[8,10],[15,18]]
+// Explanation: Since intervals [1,3] and [2,6] overlap, merge them into [1,6].
+
+// Example 2:
+// Input: intervals = [[1,4],[4,5]]
+// Output: [[1,5]]
+// Explanation: Intervals [1,4] and [4,5] are considered overlapping.
+
+// Example 3:
+// Input: intervals = [[4,7],[1,4]]
+// Output: [[1,7]]
+// Explanation: Intervals [1,4] and [4,7] are considered overlapping.
+ 
+
+// Constraints:
+
+// 1 <= intervals.length <= 104
+// intervals[i].length == 2
+// 0 <= starti <= endi <= 104
+
+/*
+Very similar to the Scheduling Problem, except in this case the input is NOT SORTED.
+We can solve the same way we did in the 57 Insert Interval problem, just sorting the array before hand.
+
+Let's see how that performs:
+*/
+
+/**
+ * @param {number[][]} intervals
+ * @return {number[][]}
+ */
+function merge(intervals) {
+    const sortedIntervals = intervals.toSorted((a, b) => a[0] - b[0])
+    // We iterate through length - 1 because the LAST element doesn't have a "next" one to check, so we don't need to check it.
+    // This also ensures we always have a "next" element to check with i + 1 and we are not out of bounds when updating the array length.
+    for (let i = 0; i < sortedIntervals.length - 1; ++i) {
+        const currentEnd = sortedIntervals[i][1]
+        const nextStart = sortedIntervals[i+1][0]
+        if (currentEnd >= nextStart) {
+            // Update current ending with next ending.
+            sortedIntervals[i][1] = Math.max(sortedIntervals[i][1], sortedIntervals[i+1][1])
+            // Remove next element inplace
+            sortedIntervals.splice(i + 1, 1)
+            // Retain i to we can check the new next element
+            --i
+        }
+    }
+
+    return sortedIntervals
+};
+
+// Runtime 14 ms Beats 24.01%
+// Memory 63.89 MB Beats 86.15%
