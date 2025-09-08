@@ -233,3 +233,47 @@ function insert(intervals, newInterval) {
 
 // Runtime 14 ms Beats 5.68%
 // Memory 60.26 MB Beats 13.45%
+
+// Let's apply the optimal Merge Interval solution after the insert:
+function insert(intervals, newInterval) {
+    if (!intervals.length) return [newInterval]
+    const originalLength = intervals.length
+
+    for (let i = 0; i < intervals.length; ++i) {
+        const interval = intervals[i]
+        const newStart = newInterval[0]
+
+        // newStart is BEFORE start of current range.
+        if (newStart < interval[0]) {
+            intervals.splice(i, 0, newInterval)
+            break
+        }
+    }
+
+    // newStart is after the last start.
+    if (intervals.length === originalLength) {
+        intervals.push(newInterval)
+    }
+    
+    // 56 Merge Intervals
+    const result = []
+    let currentRange = intervals[0] // There is at least one element in the input, so this is safe to do.
+    for (let i = 1; i < intervals.length; ++i) {
+        if (currentRange[1] >= intervals[i][0]) {
+            currentRange[1] = Math.max(currentRange[1], intervals[i][1])
+        }
+        // This means there is NO overlap between currentRange and the element we're looking at
+        else {
+            result.push(currentRange)
+            currentRange = intervals[i]
+        }
+    }
+
+    result.push(currentRange)
+
+    return result
+};
+
+// Runtime 2 ms Beats 81.92%
+// Memory 58.23 MB Beats 69.75%
+// Now we have a much more performant solution! Slicing the array multiple times was a huge hit to performance!
