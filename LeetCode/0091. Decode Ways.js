@@ -98,7 +98,7 @@ Linear Space Complexity O(N) - We are making an array the size of input.
 
 This approach doesn't work. I'm "solving" the wrong problem.
 */
-function numDecodings(s) {
+function numDecodings_1(s) {
     const input = s.split("");
     let codings = 0;
     let currentLetter = "";
@@ -117,7 +117,7 @@ function numDecodings(s) {
 };
 
 // Solution by linfongi
-function numDecodings(s) {
+function numDecodings_2(s) {
     if (s.length === 0) return 0;
   
     const N = s.length;
@@ -137,3 +137,168 @@ function numDecodings(s) {
   
     return dp[N];
 }
+
+
+// 2025
+
+/*
+11 -> 2 -> AA or K
+10 -> 1 -> J, because 0 is NOT a valid code
+0 -> 0 -> Same reason.
+01 -> 0 -> Same reason
+
+1111111 -> this can be 1,1,1,1,1, or 11,1,1,1,1,1 or, 1,11,1,1,1,1 or 11,11,1,1,1,....
+
+
+0 -> 0
+10 -> 1
+010 -> 1 BUT 0 - EDGE CASE
+110 -> 1 only 1,10
+2110 -> 2 - 2,1,10 or 21,10
+22110 -> 3 - 2,2,1,10 or 2,21,10 or 22,1,10
+122110 -> 5 - 1,2,2,1,10 or 1,2,21,10 or 1,22,1,10 or 12,2,1,10 or 12,21,10
+0122110 -> 5 - 0,1,2,2,1,10 or 0,1,2,21,10 or 0,1,22,1,10 or 0,12,2,1,10 or 0,12,21,10 TECNICALLY there are still 5 possible combinations, inherited from before, but NONE of them are valid!
+30122110 -> 5 - And in this case it is COMPLETELY invalid! Because 30 is not a valid code, and 0 cannot be by itself!
+
+122110 -> 5 - 1,2,2,1,10 or 1,2,21,10 or 1,22,1,10 or 12,2,1,10 or 12,21,10
+1122110 -> 8 - 1,1,2,2,1,10 or 1,1,2,21,10 or 1,1,22,1,10 or 1,12,2,1,10 or 1,12,21,10 or 11,2,2,1,10 or 11,2,21,10 or 11,22,1,10
+
+This is the "validity" edge case. Where we have a 0 that is UNABLE to combine with the number on the left (or there's no number there)
+These cases are closed deals, regardless of what could be combined.
+
+BRUTE FORCE (in a sense, because we do need to compute all the valid combinations)
+"alone 0" validity check
+Define combinations array (THIS MIGHT NOT BE POSSIBLE, since our input might grow to the point of breaking the heap. If that's the case, we'll revisit this decision in how to compute the variations using only the last 2~3 digits)
+From the last element to the first, start computing the combinations and add them to result
+    For each new element, update result
+    For each existing result, check if the first 2 digits can be combined. If they can, add a new entry in the array.
+
+Return the length of the array
+*/
+
+/**
+ * @param {string} s
+ * @return {number}
+ */
+// This one does not work because the "combinations" array will explode the call stack once the input is large enough.
+// And yes, there are test cases that break it.
+function numDecodings_3(s) {
+    if (invalidInput(s)) return 0
+
+    const combinations = [[]]
+    let handleZero = false
+    for (let i = s.length - 1; i >= 0; --i) {
+        const newDigit = s[i]
+        // Special handling for 0, because 0 doesn't combine with numbers on it's right.
+        if (newDigit === "0") {
+            handleZero = true
+            continue
+        }
+
+        // Add the new digit to every existing combination.
+        for (let i = 0; i < combinations.length; ++i) {
+            if (handleZero) {
+                combinations[i].unshift(`${newDigit}0`)
+            }
+            else {
+                combinations[i].unshift(newDigit)
+            }
+        }
+        handleZero = false
+
+        // See if we can combine the first 2 digits.
+        const newCombinations = []
+        for (let i = 0; i < combinations.length; ++i) {
+            const currentCombination = [...combinations[i]]
+            const possibleDigit = Number(`${currentCombination[0]}${currentCombination[1]}`)
+            if (possibleDigit > 0 && possibleDigit < 27) {
+                currentCombination.splice(0,2,String(possibleDigit))
+                newCombinations.push(currentCombination)
+            }
+        }
+        if (newCombinations.length) {
+            combinations.push(...newCombinations)
+        }
+    }
+
+    return combinations.length
+};
+
+function invalidInput(input) {
+    for (let i = 0; i < input.length; ++i) {
+        if (input[i] === "0") {
+            if (i - 1 < 0 || (input[i - 1] !== "1" && input[i - 1] !== "2")) return true
+        }
+    }
+
+    return false
+}
+
+
+/**
+ * @param {string} s
+ * @return {number}
+ */
+
+// Found a pattern.
+// We have "singles" and "doubles"
+// Whenever a digit CAN be combined with the previous one, we will get as many doubles as we have singles.
+//Because any "double" CANNOT become a double digit anymore. Makes sense, right?
+// In code:
+// temp variable receives doubles
+// doubles receives singles (these are the NEW ADDITIONS)
+// singles receives singles + temp (so all singles are the previous results)
+// Had to add a lot of edge case handling...
+
+function numDecodings(s) {
+    if (invalidInput(s)) return 0
+
+    let combinations = 0
+    let singleDigits = 1
+    let doubleDigits = 0
+    for (let i = s.length - 1; i >= 0; --i) {
+        const newDigit = s[i]
+        // console.log(`${newDigit}(${i}) - singleDigits= ${singleDigits} / doubleDigits= ${doubleDigits} - combinations: ${combinations}`)
+        // Special handling for 0, because 0 doesn't combine with numbers on it's right.
+        if (newDigit === "0") {
+            doubleDigits += singleDigits
+            singleDigits = 0
+            --i
+            combinations = singleDigits + doubleDigits
+            continue
+        }
+
+        // See if we can combine the first 2 digits.
+        const possibleDigit = i < s.length - 1 ? Number(`${newDigit}${s[i + 1]}`) : -1
+        if (possibleDigit > 0 && possibleDigit < 27) {
+            const temp = doubleDigits
+            doubleDigits = singleDigits
+            singleDigits += temp
+        }
+        else {
+            singleDigits += doubleDigits
+            doubleDigits = 0
+        }
+
+        combinations = singleDigits + doubleDigits
+        // console.log(`${newDigit}(${i}) - ${combinations}`)
+    }
+
+    return combinations
+};
+
+function invalidInput(input) {
+    for (let i = 0; i < input.length; ++i) {
+        if (input[i] === "0") {
+            if (i - 1 < 0 || (input[i - 1] !== "1" && input[i - 1] !== "2")) return true
+        }
+    }
+
+    return false
+}
+
+console.log(numDecodings("111111111111111111111111111111111111111111111") === 1836311903)
+console.log(numDecodings("1201234") === 3)
+console.log(numDecodings("1") === 1)
+console.log(numDecodings("10") === 1)
+console.log(numDecodings("123123") === 9)
