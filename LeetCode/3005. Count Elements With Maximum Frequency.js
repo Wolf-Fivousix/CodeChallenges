@@ -64,3 +64,36 @@ function maxFrequencyElements(nums) {
 
 // Runtime 3 ms Beats 34.82%
 // Memory 57.03 MB Beats 50.61%
+
+// Optimizing for a single pass
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+function maxFrequencyElements(nums) {
+    const valueFrequency = {}
+    let highestFrequency = 0
+    let totalFrequencies = 0
+
+    for (const value of nums) {
+        if (valueFrequency[value]) {
+            ++valueFrequency[value]
+        } else {
+            valueFrequency[value] = 1
+        }
+
+        if (valueFrequency[value] > highestFrequency) {
+            highestFrequency = valueFrequency[value]
+            totalFrequencies = valueFrequency[value]
+        } else if (valueFrequency[value] === highestFrequency) {
+            totalFrequencies += highestFrequency
+        }
+        // If valueFrequency[value] is lower than highestFrequency, we just ignore it
+    }
+
+    return totalFrequencies
+};
+
+// Runtime 1 ms Beats 89.47%
+// Memory 57.26 MB Beats 44.94%
+// Although still Linear Time Complexity, doing it in a single pass instead of 3 improved the efficiency by 2 ms.
