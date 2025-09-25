@@ -116,3 +116,20 @@ console.log(minimumTotal([[0],[0,0],[0,0,0],[0,0,0,0],[0,0,0,0,0],[0,0,0,0,0,0],
 
 // Runtime 5 ms Beats 30.80%
 // Memory 55.78 MB Beats 37.68%
+
+// The most voted solution does the same thing, but does the approach bottom-up!
+// This ensures the "out of bounds" checks that I'm doing become irrelevant (because we always have more elements than we're looking at)
+// And also reduces the memory footpring, removing the necessity for the extra pushes.
+// Check this video for explanation: https://www.youtube.com/watch?v=c9C-5CcOiVI
+// var minimumTotal = function(triangle) {
+//     let row = triangle.length;
+//     let memo = [...triangle[row-1]];
+
+//     for (let r = row-2; r >= 0; r--) {
+//         for (let c = 0; c <= r; c++) {
+//             memo[c] = Math.min(memo[c], memo[c+1]) + triangle[r][c];
+//         }
+//     }
+    
+//     return memo[0];
+// };
